@@ -1,118 +1,124 @@
 """
 Обработчик голосовых сообщений.
-Транскрибирует через Groq Whisper (бесплатно, тот же ключ).
-Поддерживает: voice (кружочки), audio (файлы .mp3/.m4a).
+Транскрибирует через Groq Whisper и перенаправляет в нужный обработчик.
+Работает во ВСЕХ текстовых состояниях анкеты (все 9 шагов).
 """
 
-import os
+import io
 import logging
-import tempfile
 from aiogram import Router, F
 from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 from openai import AsyncOpenAI
 
 from config import AI_API_KEY, AI_BASE_URL
-from handlers.states import Survey, Triage
+from handlers.states import Survey
 from handlers.assessment import AssessmentState
 
 logger = logging.getLogger(__name__)
 router = Router()
 
 
-async def transcribe_audio(file_path: str) -> str:
-    """Отправляет аудио в Groq Whisper и возвращает текст."""
-    client = AsyncOpenAI(
-        api_key=AI_API_KEY,
-        base_url=AI_BASE_URL,
+async def transcribe_audio(audio_bytes: bytes) -> str:
+    """Транскрибирует аудио из памяти через Groq Whisper (без записи на диск)."""
+    client = AsyncOpenAI(api_key=AI_API_KEY, base_url=AI_BASE_URL)
+    audio_file = io.BytesIO(audio_bytes)
+    audio_file.name = "voice.ogg"
+    transcription = await client.audio.transcriptions.create(
+        model="whisper-large-v3",
+        file=audio_file,
+        language="ru",
+        response_format="text",
     )
-    with open(file_path, "rb") as f:
-        transcription = await client.audio.transcriptions.create(
-            model="whisper-large-v3",
-            file=f,
-            language="ru",
-            response_format="text",
-        )
     return transcription.strip() if isinstance(transcription, str) else transcription.text.strip()
 
 
 async def handle_voice_message(message: Message, state: FSMContext):
-    """Общий обработчик: скачивает аудио, транскрибирует, обрабатывает как текст."""
+    """Скачивает аудио в память, транскрибирует, перенаправляет в нужный обработчик."""
 
     if not AI_API_KEY or AI_API_KEY in ("вставьте_ключ_groq_сюда", ""):
         await message.answer("⚠️ Голосовые сообщения не поддерживаются — AI ключ не настроен.")
         return
 
-    # Определяем тип файла
     voice = message.voice or message.audio
     if not voice:
         return
 
-    thinking = await message.answer("🎙 Распознаю голосовое сообщение...")
+    # Показываем статус сразу
+    thinking = await message.answer("🎙 Распознаю...")
 
     try:
-        # Скачиваем во временный файл
+        # Скачиваем в память (быстрее чем на диск)
         bot = message.bot
         file_info = await bot.get_file(voice.file_id)
+        buf = io.BytesIO()
+        await bot.download_file(file_info.file_path, destination=buf)
+        buf.seek(0)
+        audio_bytes = buf.read()
 
-        with tempfile.NamedTemporaryFile(suffix=".ogg", delete=False) as tmp:
-            tmp_path = tmp.name
-
-        await bot.download_file(file_info.file_path, destination=tmp_path)
-
-        # Транскрибируем
-        text = await transcribe_audio(tmp_path)
+        text = await transcribe_audio(audio_bytes)
 
     except Exception as e:
         logger.error(f"Voice transcription error: {e}")
         await thinking.delete()
         await message.answer(
-            "⚠️ Не удалось распознать голосовое. "
-            "Попробуйте написать текстом или отправить ещё раз."
+            "⚠️ Не удалось распознать. Попробуйте ещё раз или напишите текстом."
         )
         return
-    finally:
-        # Удаляем временный файл
-        try:
-            os.unlink(tmp_path)
-        except Exception:
-            pass
 
     await thinking.delete()
 
     if not text:
-        await message.answer("⚠️ Не удалось разобрать речь. Попробуйте говорить чётче или напишите текстом.")
+        await message.answer("⚠️ Речь не разобрана. Говорите чётче или напишите текстом.")
         return
 
     # Показываем что услышали
-    await message.answer(
-        f"🎙 <b>Я услышал:</b>\n<i>«{text}»</i>\n\n⏳ Обрабатываю...",
-        parse_mode="HTML"
-    )
+    await message.answer(f"🎙 <b>Услышал:</b> <i>«{text}»</i>", parse_mode="HTML")
 
-    # Создаём фейковое текстовое сообщение и передаём в нужный обработчик
+    # Инжектируем текст в message и вызываем нужный обработчик
+    message.text = text
     current_state = await state.get_state()
 
+    # Все текстовые состояния анкеты + оценка
     if current_state == AssessmentState.waiting_for_situation.state:
-        # Пользователь описывал ситуацию голосом
         from handlers.assessment import process_situation
-        message.text = text
         await process_situation(message, state)
 
-    elif current_state in (Survey.incident_description.state, Survey.witnesses.state):
-        # Пользователь заполнял анкету голосом
-        message.text = text
-        if current_state == Survey.incident_description.state:
-            from handlers.survey import survey_description
-            await survey_description(message, state)
-        else:
-            from handlers.survey import survey_witnesses_text
-            await survey_witnesses_text(message, state)
+    elif current_state == Survey.applicant_name.state:
+        from handlers.survey import survey_applicant_name
+        await survey_applicant_name(message, state)
+
+    elif current_state == Survey.child_name.state:
+        from handlers.survey import survey_child_name
+        await survey_child_name(message, state)
+
+    elif current_state == Survey.child_class.state:
+        from handlers.survey import survey_child_class
+        await survey_child_class(message, state)
+
+    elif current_state == Survey.school_name.state:
+        from handlers.survey import survey_school_name
+        await survey_school_name(message, state)
+
+    elif current_state == Survey.city.state:
+        from handlers.survey import survey_city
+        await survey_city(message, state)
+
+    elif current_state == Survey.incident_dates.state:
+        from handlers.survey import survey_dates
+        await survey_dates(message, state)
+
+    elif current_state == Survey.incident_description.state:
+        from handlers.survey import survey_description
+        await survey_description(message, state)
+
+    elif current_state == Survey.witnesses.state:
+        from handlers.survey import survey_witnesses_text
+        await survey_witnesses_text(message, state)
 
     else:
         # Состояние неизвестно — запускаем правовую оценку по умолчанию
         await state.set_state(AssessmentState.waiting_for_situation)
-        message.text = text
         from handlers.assessment import process_situation
         await process_situation(message, state)
 
