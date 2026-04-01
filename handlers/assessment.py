@@ -100,14 +100,15 @@ async def process_situation(message: Message, state: FSMContext):
 async def go_to_docs(call: CallbackQuery, state: FSMContext):
     await call.answer()
     await call.message.edit_reply_markup()
-    # Переходим к анкете для генерации документов
-    from handlers.triage import ask_q1
+    # Уровень уже определён в триаже — пропускаем его, идём прямо в анкету
+    data = await state.get_data()
+    if not data.get("triage_level"):
+        await state.update_data(triage_level="GREEN")
+    from handlers.triage import start_survey
     await call.message.answer(
-        "📋 Отлично! Теперь заполним анкету для документов.\n"
-        "Часть данных уже понятна из вашего описания — "
-        "я уточню только что нужно."
+        "📋 Отлично! Заполним короткую анкету для документов — всего 4 шага."
     )
-    await ask_q1(call.message, state)
+    await start_survey(call.message, state)
 
 
 @router.callback_query(F.data == "new_assess")

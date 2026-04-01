@@ -8,15 +8,9 @@ class Triage(StatesGroup):
 
 
 class Survey(StatesGroup):
-    applicant_name = State()
-    child_name = State()
-    child_class = State()
-    school_name = State()
-    city = State()
-    bully_age_group = State()
-    incident_dates = State()
-    incident_description = State()
-    witnesses = State()
-    has_evidence = State()
-    prior_actions = State()
-    confirm = State()
+    applicant_name       = State()  # шаг 1 — ФИО заявителя
+    child_and_school     = State()  # шаг 2 — ФИО ребёнка + класс + школа + город одним сообщением
+    incident_description = State()  # шаг 3 — описание ситуации (даты + что случилось)
+    bully_age_group      = State()  # шаг 4а — возраст обидчика (кнопки)
+    prior_actions        = State()  # шаг 4б — что уже делали (кнопки)
+    confirm              = State()  # подтверждение перед генерацией

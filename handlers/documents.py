@@ -2,8 +2,10 @@ import os
 import uuid
 from datetime import date
 from docx import Document
-from docx.shared import Pt, RGBColor
+from docx.shared import Pt, Cm
 from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.oxml.ns import qn
+from docx.oxml import OxmlElement
 from aiogram.types import Message, FSInputFile
 from aiogram.fsm.context import FSMContext
 
@@ -11,6 +13,15 @@ from config import GENERATED_DIR, SUPPORT_CONTACT, AI_API_KEY
 from db import save_case
 
 TODAY = lambda: date.today().strftime("%d.%m.%Y")
+
+
+def _set_doc_margins(doc: Document):
+    """Поля по стандарту РК: лево 3 см, право 1.5 см, верх/низ 2 см."""
+    for section in doc.sections:
+        section.left_margin   = Cm(3.0)
+        section.right_margin  = Cm(1.5)
+        section.top_margin    = Cm(2.0)
+        section.bottom_margin = Cm(2.0)
 
 
 async def _clean_description(raw_text: str) -> str:
@@ -55,23 +66,34 @@ async def _clean_description(raw_text: str) -> str:
 
 # ── Helpers ───────────────────────────────────────────────────────────────
 
-def _set_font(run, bold=False, size=12):
+def _set_font(run, bold=False, italic=False, size=12):
     run.font.name = "Times New Roman"
     run.font.size = Pt(size)
     run.bold = bold
+    run.italic = italic
+
+
+def _set_spacing(paragraph, line_spacing=1.5):
+    """Межстрочный интервал 1.5, выравнивание по ширине."""
+    from docx.shared import Pt as _Pt
+    pf = paragraph.paragraph_format
+    pf.line_spacing = _Pt(18)  # 12pt × 1.5 = 18pt
+    pf.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
 
 
 def _heading(doc: Document, text: str):
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run = p.add_run(text)
+    run = p.add_run(text.upper())
     _set_font(run, bold=True, size=13)
 
 
-def _body(doc: Document, text: str, bold=False):
+def _body(doc: Document, text: str, bold=False, italic=False, justify=True):
     p = doc.add_paragraph()
+    if justify:
+        _set_spacing(p)
     run = p.add_run(text)
-    _set_font(run, bold=bold)
+    _set_font(run, bold=bold, italic=italic)
     return p
 
 
@@ -86,26 +108,33 @@ def _save(doc: Document, filename: str) -> str:
 
 def make_doc1_school_application(data: dict) -> str:
     doc = Document()
+    _set_doc_margins(doc)
+
+    school = data.get('school_name') or '___________'
+    city   = data.get('city') or '___________'
+    child  = data.get('child_name') or '___________'
+    cls    = data.get('child_class') or '___'
+    appl   = data.get('applicant_name') or '___________'
 
     # Шапка (кому/от кого) — правый угол
     header = doc.add_paragraph()
     header.alignment = WD_ALIGN_PARAGRAPH.RIGHT
     r = header.add_run(
-        f"Директору {data['school_name']}\n"
-        f"г. {data['city']}\n\n"
-        f"От: {data['applicant_name']},\n"
+        f"Директору {school}\n"
+        f"г. {city}\n\n"
+        f"От: {appl},\n"
         f"законного представителя обучающегося\n"
-        f"{data['child_name']}, {data['child_class']} класс"
+        f"{child}, {cls} класс"
     )
     _set_font(r)
 
     doc.add_paragraph()
-    _heading(doc, "ЗАЯВЛЕНИЕ\nо регистрации факта травли (буллинга)")
+    _heading(doc, "Заявление\nо регистрации факта травли (буллинга)")
     doc.add_paragraph()
 
     _body(doc,
-        f"Я, {data['applicant_name']}, законный представитель обучающегося "
-        f"{data['child_name']} ({data['child_class']} класс), обращаюсь к Вам "
+        f"Я, {appl}, законный представитель обучающегося "
+        f"{child} ({cls} класс), обращаюсь к Вам "
         f"в соответствии с Правилами профилактики травли (буллинга) ребёнка, "
         f"утверждёнными Приказом Министра просвещения РК от 21.12.2022 № 506 "
         f"(далее — Правила № 506)."
@@ -114,29 +143,16 @@ def make_doc1_school_application(data: dict) -> str:
     doc.add_paragraph()
     _body(doc, "Обстоятельства:", bold=True)
 
-    # Даты — отдельной строкой (пользователь мог ввести текст вместо дат)
-    dates = data.get('incident_dates', '').strip()
-    if dates and len(dates) < 80:  # короткий ответ = настоящие даты
-        _body(doc, f"Период: {dates}.")
-
-    # Описание ситуации (уже очищено LLM перед вызовом)
     desc = data.get('incident_description', '').strip()
-    witnesses = data.get('witnesses', 'не указаны')
-    evidence = data.get('has_evidence', 'не указаны')
-
-    body_text = (
-        f"В отношении моего ребёнка {data['child_name']} имели место "
-        f"следующие действия: {desc}."
+    _body(doc,
+        f"В отношении моего ребёнка {child} имели место следующие действия: {desc}. "
+        f"Приложения: при наличии — скриншоты, фото, медицинские справки, иные документы."
     )
-    if witnesses and witnesses != 'не указаны':
-        body_text += f" Свидетели: {witnesses}."
-    body_text += f" Доказательства: {evidence}."
-    _body(doc, body_text)
 
     doc.add_paragraph()
-    _body(doc, "На основании изложенного прошу:", bold=True)
+    _body(doc, "ПРОШУ:", bold=True)
 
-    requests = [
+    reqs = [
         "Зарегистрировать настоящее обращение в журнале учёта информации о фактах травли (буллинга) "
         "в соответствии с Правилами № 506 и сообщить входящий номер и дату регистрации.",
         "Незамедлительно начать процедуру реагирования: сбор первичной информации, "
@@ -145,20 +161,21 @@ def make_doc1_school_application(data: dict) -> str:
         "Обеспечить письменное информирование о принятых мерах и результатах рассмотрения "
         "в сроки, предусмотренные Правилами № 506 и АППК РК.",
     ]
-    for i, req in enumerate(requests, 1):
+    for i, req in enumerate(reqs, 1):
         _body(doc, f"{i}. {req}")
 
     doc.add_paragraph()
     _body(doc,
-        "Обращаю внимание: в соответствии с АППК РК (ст.64) обращение подлежит обязательному "
-        "приёму и регистрации. Отказ в приёме не допускается."
+        "Обращаю внимание: в соответствии с АППК РК (ст. 64) обращение подлежит обязательному "
+        "приёму и регистрации. Отказ в приёме не допускается.",
+        italic=True
     )
 
     doc.add_paragraph()
     doc.add_paragraph()
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.LEFT
-    r = p.add_run(f"«___» __________ 2026 г.            Подпись: _______________  {data['applicant_name']}")
+    r = p.add_run(f"«___» __________ 2026 г.            Подпись: _______________  / {appl} /")
     _set_font(r)
 
     filename = f"1_zayavlenie_shkola_{uuid.uuid4().hex[:8]}.docx"
@@ -169,25 +186,32 @@ def make_doc1_school_application(data: dict) -> str:
 
 def make_doc2_written_response(data: dict) -> str:
     doc = Document()
+    _set_doc_margins(doc)
+
+    school = data.get('school_name') or '___________'
+    city   = data.get('city') or '___________'
+    child  = data.get('child_name') or '___________'
+    cls    = data.get('child_class') or '___'
+    appl   = data.get('applicant_name') or '___________'
 
     header = doc.add_paragraph()
     header.alignment = WD_ALIGN_PARAGRAPH.RIGHT
     r = header.add_run(
-        f"Директору {data['school_name']}\n"
-        f"г. {data['city']}\n\n"
-        f"От: {data['applicant_name']},\n"
-        f"законного представителя {data['child_name']},\n"
-        f"{data['child_class']} класс"
+        f"Директору {school}\n"
+        f"г. {city}\n\n"
+        f"От: {appl},\n"
+        f"законного представителя {child},\n"
+        f"{cls} класс"
     )
     _set_font(r)
 
     doc.add_paragraph()
-    _heading(doc, "ТРЕБОВАНИЕ\nо предоставлении письменной информации о результатах\nрассмотрения обращения о травле (буллинге)")
+    _heading(doc, "Требование\nо предоставлении письменной информации о результатах\nрассмотрения обращения о травле (буллинге)")
     doc.add_paragraph()
 
     _body(doc,
         f"«___» __________ 2026 г. мной было подано письменное заявление о регистрации "
-        f"факта травли в отношении {data['child_name']} (вх. № _______). "
+        f"факта травли в отношении {child} (вх. № _______). "
         f"На сегодняшний день письменный ответ о принятых мерах мной не получен / "
         f"получен ненадлежащим образом."
     )
@@ -195,7 +219,8 @@ def make_doc2_written_response(data: dict) -> str:
 
     _body(doc,
         "В соответствии с Административным процедурно-процессуальным кодексом РК (АППК РК) "
-        "и Правилами № 506, прошу:"
+        "и Правилами № 506, ТРЕБУЮ:",
+        bold=True
     )
 
     reqs = [
@@ -212,13 +237,14 @@ def make_doc2_written_response(data: dict) -> str:
     doc.add_paragraph()
     _body(doc,
         "Предупреждаю: в случае отсутствия надлежащего ответа буду вынужден(а) обратиться "
-        "в местный исполнительный орган в сфере образования и органы прокуратуры."
+        "в местный исполнительный орган в сфере образования и органы прокуратуры.",
+        italic=True
     )
 
     doc.add_paragraph()
     doc.add_paragraph()
     p = doc.add_paragraph()
-    r = p.add_run(f"«___» __________ 2026 г.            Подпись: _______________  {data['applicant_name']}")
+    r = p.add_run(f"«___» __________ 2026 г.            Подпись: _______________  / {appl} /")
     _set_font(r)
 
     filename = f"2_trebovanie_otvet_{uuid.uuid4().hex[:8]}.docx"
@@ -229,9 +255,13 @@ def make_doc2_written_response(data: dict) -> str:
 
 def make_doc3_cyberbullying_memo(data: dict) -> str:
     doc = Document()
+    _set_doc_margins(doc)
 
-    _heading(doc, "ПАМЯТКА ПО ФИКСАЦИИ КИБЕРБУЛЛИНГА")
-    _body(doc, f"Составлена для: {data['applicant_name']}, законного представителя {data['child_name']}", bold=True)
+    appl  = data.get('applicant_name') or '___________'
+    child = data.get('child_name') or '___________'
+
+    _heading(doc, "Памятка по фиксации кибербуллинга")
+    _body(doc, f"Составлена для: {appl}, законного представителя {child}", bold=True)
     doc.add_paragraph()
 
     _body(doc, "1. ЧТО ФИКСИРОВАТЬ", bold=True)
@@ -285,7 +315,7 @@ def make_doc3_cyberbullying_memo(data: dict) -> str:
     )
 
     doc.add_paragraph()
-    _body(doc, f"Дата составления памятки: {TODAY()}", bold=False)
+    _body(doc, f"Дата составления: {TODAY()}")
 
     filename = f"3_pamyatka_kiberbulling_{uuid.uuid4().hex[:8]}.docx"
     return _save(doc, filename)

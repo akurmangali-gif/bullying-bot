@@ -1,20 +1,25 @@
-from aiogram import Router
+"""
+Анкета для генерации документов — 4 шага вместо 11.
+
+Шаг 1: ФИО заявителя
+Шаг 2: ФИО ребёнка + класс + школа + город (одним сообщением, LLM-парсинг)
+Шаг 3: Описание ситуации (когда и что случилось)
+Шаг 4: Возраст обидчика (кнопки) → что уже делали (кнопки)
+"""
+
+import json
+import logging
+from aiogram import Router, F
 from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.context import FSMContext
 from aiogram.utils.keyboard import InlineKeyboardBuilder
+from openai import AsyncOpenAI
 
 from handlers.states import Survey
-from config import SUPPORT_CONTACT
+from config import SUPPORT_CONTACT, AI_API_KEY, AI_BASE_URL
 
 router = Router()
-
-SKIP = "skip"
-
-
-def skip_kb():
-    kb = InlineKeyboardBuilder()
-    kb.button(text="Пропустить", callback_data=SKIP)
-    return kb.as_markup()
+logger = logging.getLogger(__name__)
 
 
 def age_kb():
@@ -27,86 +32,115 @@ def age_kb():
     return kb.as_markup()
 
 
-def evidence_kb():
-    kb = InlineKeyboardBuilder()
-    kb.button(text="✅ Есть (фото/скриншоты/справки)", callback_data="ev_yes")
-    kb.button(text="❌ Нет пока", callback_data="ev_no")
-    kb.adjust(1)
-    return kb.as_markup()
-
-
 def prior_kb():
     kb = InlineKeyboardBuilder()
-    kb.button(text="Нет, впервые обращаюсь", callback_data="prior_none")
+    kb.button(text="Нет, обращаюсь впервые", callback_data="prior_none")
     kb.button(text="Устно говорил(а) с учителем", callback_data="prior_verbal")
     kb.button(text="Подавал(а) письменное заявление", callback_data="prior_written")
     kb.adjust(1)
     return kb.as_markup()
 
 
-# ── Step 1: ФИО заявителя ──────────────────────────────────────────────────
+async def _parse_child_and_school(text: str) -> dict:
+    """
+    Использует LLM для извлечения полей из свободного текста.
+    Например: «Иванов Денис, 7А класс, СОШ №15, Алматы»
+    Возвращает: {child_name, child_class, school_name, city}
+    """
+    try:
+        client = AsyncOpenAI(api_key=AI_API_KEY, base_url=AI_BASE_URL)
+        response = await client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "Извлеки из текста пользователя 4 поля и верни ТОЛЬКО JSON без пояснений:\n"
+                        '{"child_name": "ФИО ребёнка", "child_class": "класс", '
+                        '"school_name": "название школы", "city": "город"}\n'
+                        "Если поле не указано — пустая строка."
+                    ),
+                },
+                {"role": "user", "content": text},
+            ],
+            temperature=0.0,
+            max_tokens=150,
+        )
+        raw = response.choices[0].message.content.strip()
+        # Извлекаем JSON если есть лишний текст
+        start = raw.find("{")
+        end = raw.rfind("}") + 1
+        if start >= 0 and end > start:
+            return json.loads(raw[start:end])
+    except Exception as e:
+        logger.warning(f"LLM parse error: {e}")
+
+    # Fallback: простой split по запятой
+    parts = [p.strip() for p in text.split(",")]
+    return {
+        "child_name": parts[0] if len(parts) > 0 else text,
+        "child_class": parts[1] if len(parts) > 1 else "",
+        "school_name": parts[2] if len(parts) > 2 else "",
+        "city": parts[3] if len(parts) > 3 else "",
+    }
+
+
+# ── Шаг 1: ФИО заявителя ─────────────────────────────────────────────────
 
 @router.message(Survey.applicant_name)
 async def survey_applicant_name(message: Message, state: FSMContext):
     await state.update_data(applicant_name=message.text.strip())
-    await state.set_state(Survey.child_name)
+    await state.set_state(Survey.child_and_school)
     await message.answer(
-        "📝 <b>Шаг 2 из 11</b>\n\nПолное <b>ФИО ребёнка</b>:",
+        "📝 <b>Шаг 2 из 4</b>\n\n"
+        "Скажите или напишите одним сообщением:\n"
+        "<b>ФИО ребёнка, класс, школа и город</b>\n\n"
+        "<i>Пример: «Иванов Денис, 7А класс, СОШ №15, Алматы»</i>",
         parse_mode="HTML",
     )
 
 
-# ── Step 2: ФИО ребёнка ───────────────────────────────────────────────────
+# ── Шаг 2: ФИО ребёнка + класс + школа + город ───────────────────────────
 
-@router.message(Survey.child_name)
-async def survey_child_name(message: Message, state: FSMContext):
-    await state.update_data(child_name=message.text.strip())
-    await state.set_state(Survey.child_class)
+@router.message(Survey.child_and_school)
+async def survey_child_and_school(message: Message, state: FSMContext):
+    raw = message.text.strip()
+    await state.update_data(child_and_school_raw=raw)
+
+    # Парсим через LLM
+    fields = await _parse_child_and_school(raw)
+    await state.update_data(
+        child_name=fields.get("child_name", raw),
+        child_class=fields.get("child_class", ""),
+        school_name=fields.get("school_name", ""),
+        city=fields.get("city", ""),
+    )
+
+    await state.set_state(Survey.incident_description)
     await message.answer(
-        "📝 <b>Шаг 3 из 11</b>\n\n<b>Класс</b> (например: 5А, 7Б):",
+        "📝 <b>Шаг 3 из 4</b>\n\n"
+        "<b>Опишите ситуацию</b> — когда это началось, что происходило, "
+        "кто участвовал.\n\n"
+        "<i>Можно голосом или текстом. Чем подробнее — тем убедительнее документ.</i>",
         parse_mode="HTML",
     )
 
 
-# ── Step 3: Класс ─────────────────────────────────────────────────────────
+# ── Шаг 3: Описание ситуации ──────────────────────────────────────────────
 
-@router.message(Survey.child_class)
-async def survey_child_class(message: Message, state: FSMContext):
-    await state.update_data(child_class=message.text.strip())
-    await state.set_state(Survey.school_name)
-    await message.answer(
-        "📝 <b>Шаг 4 из 11</b>\n\n<b>Полное название школы</b> "
-        "(например: КГУ «СОШ №15»):",
-        parse_mode="HTML",
-    )
-
-
-# ── Step 4: Школа ─────────────────────────────────────────────────────────
-
-@router.message(Survey.school_name)
-async def survey_school_name(message: Message, state: FSMContext):
-    await state.update_data(school_name=message.text.strip())
-    await state.set_state(Survey.city)
-    await message.answer(
-        "📝 <b>Шаг 5 из 11</b>\n\n<b>Город / населённый пункт</b>:",
-        parse_mode="HTML",
-    )
-
-
-# ── Step 5: Город ─────────────────────────────────────────────────────────
-
-@router.message(Survey.city)
-async def survey_city(message: Message, state: FSMContext):
-    await state.update_data(city=message.text.strip())
+@router.message(Survey.incident_description)
+async def survey_description(message: Message, state: FSMContext):
+    await state.update_data(incident_description=message.text.strip())
     await state.set_state(Survey.bully_age_group)
     await message.answer(
-        "📝 <b>Шаг 6 из 11</b>\n\n<b>Возраст обидчика</b> (это важно для выбора правового трека):",
+        "📝 <b>Шаг 4 из 4</b>\n\n"
+        "<b>Возраст обидчика</b> (важно для выбора правового трека):",
         reply_markup=age_kb(),
         parse_mode="HTML",
     )
 
 
-# ── Step 6: Возраст обидчика ──────────────────────────────────────────────
+# ── Шаг 4а: Возраст обидчика ─────────────────────────────────────────────
 
 @router.callback_query(Survey.bully_age_group)
 async def survey_bully_age(call: CallbackQuery, state: FSMContext):
@@ -114,119 +148,61 @@ async def survey_bully_age(call: CallbackQuery, state: FSMContext):
     await call.message.edit_reply_markup()
     labels = {
         "age_under14": "До 14 лет",
-        "age_14_15": "14–15 лет",
-        "age_16plus": "16+ лет",
+        "age_14_15":   "14–15 лет",
+        "age_16plus":  "16+ лет",
         "age_unknown": "Не известно",
     }
     await state.update_data(bully_age_group=labels.get(call.data, call.data))
-    await state.set_state(Survey.incident_dates)
-    await call.message.answer(
-        "📝 <b>Шаг 7 из 11</b>\n\n<b>Даты эпизодов</b> (когда происходило):\n"
-        "Например: <i>15 марта 2026, 20 марта 2026</i>",
-        parse_mode="HTML",
-    )
-
-
-# ── Step 7: Даты ──────────────────────────────────────────────────────────
-
-@router.message(Survey.incident_dates)
-async def survey_dates(message: Message, state: FSMContext):
-    await state.update_data(incident_dates=message.text.strip())
-    await state.set_state(Survey.incident_description)
-    await message.answer(
-        "📝 <b>Шаг 8 из 11</b>\n\n<b>Опишите ситуацию</b> — что происходило, где, кто участвовал.\n"
-        "<i>Чем точнее описание — тем убедительнее документ.</i>",
-        parse_mode="HTML",
-    )
-
-
-# ── Step 8: Описание ──────────────────────────────────────────────────────
-
-@router.message(Survey.incident_description)
-async def survey_description(message: Message, state: FSMContext):
-    await state.update_data(incident_description=message.text.strip())
-    await state.set_state(Survey.witnesses)
-    await message.answer(
-        "📝 <b>Шаг 9 из 11</b>\n\n<b>Свидетели</b> (ФИО или «одноклассники», «учитель Иванова И.И.»).\n"
-        "Если нет — нажмите «Пропустить».",
-        reply_markup=skip_kb(),
-        parse_mode="HTML",
-    )
-
-
-# ── Step 9: Свидетели ─────────────────────────────────────────────────────
-
-@router.message(Survey.witnesses)
-async def survey_witnesses_text(message: Message, state: FSMContext):
-    await state.update_data(witnesses=message.text.strip())
-    await ask_evidence(message, state)
-
-
-@router.callback_query(Survey.witnesses)
-async def survey_witnesses_skip(call: CallbackQuery, state: FSMContext):
-    await call.answer()
-    await call.message.edit_reply_markup()
-    await state.update_data(witnesses="не указаны")
-    await ask_evidence(call.message, state)
-
-
-async def ask_evidence(message: Message, state: FSMContext):
-    await state.set_state(Survey.has_evidence)
-    await message.answer(
-        "📝 <b>Шаг 10 из 11</b>\n\n<b>Есть ли у вас доказательства?</b>\n"
-        "(скриншоты переписки, фото повреждений, медицинские справки)",
-        reply_markup=evidence_kb(),
-        parse_mode="HTML",
-    )
-
-
-# ── Step 10: Доказательства ───────────────────────────────────────────────
-
-@router.callback_query(Survey.has_evidence)
-async def survey_evidence(call: CallbackQuery, state: FSMContext):
-    await call.answer()
-    await call.message.edit_reply_markup()
-    label = "Есть (фото/скриншоты/справки)" if call.data == "ev_yes" else "Отсутствуют на данный момент"
-    await state.update_data(has_evidence=label)
     await state.set_state(Survey.prior_actions)
     await call.message.answer(
-        "📝 <b>Шаг 11 из 11</b>\n\n<b>Что уже было сделано?</b>",
+        "📝 <b>Последний вопрос</b>\n\n"
+        "<b>Что уже делали?</b>",
         reply_markup=prior_kb(),
         parse_mode="HTML",
     )
 
 
-# ── Step 11: Предыдущие действия ──────────────────────────────────────────
+# ── Шаг 4б: Предыдущие действия ──────────────────────────────────────────
 
 @router.callback_query(Survey.prior_actions)
 async def survey_prior(call: CallbackQuery, state: FSMContext):
     await call.answer()
     await call.message.edit_reply_markup()
     labels = {
-        "prior_none": "Обращаюсь впервые",
-        "prior_verbal": "Устно говорил(а) с учителем/администрацией",
+        "prior_none":    "Обращаюсь впервые",
+        "prior_verbal":  "Устно говорил(а) с учителем/администрацией",
         "prior_written": "Подавал(а) письменное заявление в школу",
     }
     await state.update_data(prior_actions=labels.get(call.data, call.data))
     await show_confirm(call.message, state)
 
 
+# ── Подтверждение ─────────────────────────────────────────────────────────
+
 async def show_confirm(message: Message, state: FSMContext):
     data = await state.get_data()
     await state.set_state(Survey.confirm)
 
+    child_line = data.get("child_name", "")
+    if data.get("child_class"):
+        child_line += f", {data['child_class']} класс"
+
+    school_line = data.get("school_name", "")
+    if data.get("city"):
+        school_line += f", {data['city']}"
+
+    desc = data.get("incident_description", "")
+    desc_preview = desc[:200] + ("…" if len(desc) > 200 else "")
+
     summary = (
-        "✅ <b>Проверьте данные перед генерацией документов:</b>\n\n"
-        f"👤 Заявитель: {data.get('applicant_name')}\n"
-        f"👦 Ребёнок: {data.get('child_name')}, {data.get('child_class')} класс\n"
-        f"🏫 Школа: {data.get('school_name')}, {data.get('city')}\n"
-        f"🎯 Возраст обидчика: {data.get('bully_age_group')}\n"
-        f"📅 Даты: {data.get('incident_dates')}\n"
-        f"📝 Ситуация: {data.get('incident_description')[:200]}{'…' if len(data.get('incident_description',''))>200 else ''}\n"
-        f"👥 Свидетели: {data.get('witnesses')}\n"
-        f"📎 Доказательства: {data.get('has_evidence')}\n"
-        f"📋 Ранее: {data.get('prior_actions')}\n\n"
-        f"⚡ Уровень ситуации: <b>{data.get('triage_level')}</b>"
+        "✅ <b>Проверьте данные:</b>\n\n"
+        f"👤 Заявитель: {data.get('applicant_name', '—')}\n"
+        f"👦 Ребёнок: {child_line or '—'}\n"
+        f"🏫 Школа: {school_line or '—'}\n"
+        f"🎯 Возраст обидчика: {data.get('bully_age_group', '—')}\n"
+        f"📝 Ситуация: {desc_preview or '—'}\n"
+        f"📋 Ранее: {data.get('prior_actions', '—')}\n\n"
+        f"⚡ Уровень: <b>{data.get('triage_level', 'GREEN')}</b>"
     )
 
     kb = InlineKeyboardBuilder()
@@ -247,6 +223,5 @@ async def survey_confirm(call: CallbackQuery, state: FSMContext):
         await call.message.answer("Начинаем заново. Введите /start")
         return
 
-    # Передаём управление генератору документов
     from handlers.documents import generate_and_send
     await generate_and_send(call.message, state)

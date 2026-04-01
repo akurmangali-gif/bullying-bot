@@ -1,7 +1,9 @@
 """
 Обработчик голосовых сообщений.
-Транскрибирует через Groq Whisper и перенаправляет в нужный обработчик.
-Работает во ВСЕХ текстовых состояниях анкеты (все 9 шагов).
+
+После распознавания — автоматически вызывает нужный обработчик.
+Пользователю показывается только короткое подтверждение,
+следующий вопрос появляется сразу без лишних действий.
 """
 
 import io
@@ -34,8 +36,6 @@ async def transcribe_audio(audio_bytes: bytes) -> str:
 
 
 async def handle_voice_message(message: Message, state: FSMContext):
-    """Скачивает аудио в память, транскрибирует, перенаправляет в нужный обработчик."""
-
     if not AI_API_KEY or AI_API_KEY in ("вставьте_ключ_groq_сюда", ""):
         await message.answer("⚠️ Голосовые сообщения не поддерживаются — AI ключ не настроен.")
         return
@@ -44,26 +44,21 @@ async def handle_voice_message(message: Message, state: FSMContext):
     if not voice:
         return
 
-    # Показываем статус сразу
+    # Мгновенный статус — пользователь видит реакцию сразу
     thinking = await message.answer("🎙 Распознаю...")
 
     try:
-        # Скачиваем в память (быстрее чем на диск)
         bot = message.bot
         file_info = await bot.get_file(voice.file_id)
         buf = io.BytesIO()
         await bot.download_file(file_info.file_path, destination=buf)
         buf.seek(0)
         audio_bytes = buf.read()
-
         text = await transcribe_audio(audio_bytes)
-
     except Exception as e:
         logger.error(f"Voice transcription error: {e}")
         await thinking.delete()
-        await message.answer(
-            "⚠️ Не удалось распознать. Попробуйте ещё раз или напишите текстом."
-        )
+        await message.answer("⚠️ Не удалось распознать. Попробуйте ещё раз или напишите текстом.")
         return
 
     await thinking.delete()
@@ -72,14 +67,13 @@ async def handle_voice_message(message: Message, state: FSMContext):
         await message.answer("⚠️ Речь не разобрана. Говорите чётче или напишите текстом.")
         return
 
-    # Показываем что услышали
-    await message.answer(f"🎙 <b>Услышал:</b> <i>«{text}»</i>", parse_mode="HTML")
+    # Показываем что услышали — коротко, без призыва к действию
+    await message.answer(f"✅ <i>«{text}»</i>", parse_mode="HTML")
 
-    # Инжектируем текст в message и вызываем нужный обработчик
+    # Инжектируем текст и вызываем нужный обработчик по текущему состоянию
     message.text = text
     current_state = await state.get_state()
 
-    # Все текстовые состояния анкеты + оценка
     if current_state == AssessmentState.waiting_for_situation.state:
         from handlers.assessment import process_situation
         await process_situation(message, state)
@@ -88,39 +82,17 @@ async def handle_voice_message(message: Message, state: FSMContext):
         from handlers.survey import survey_applicant_name
         await survey_applicant_name(message, state)
 
-    elif current_state == Survey.child_name.state:
-        from handlers.survey import survey_child_name
-        await survey_child_name(message, state)
-
-    elif current_state == Survey.child_class.state:
-        from handlers.survey import survey_child_class
-        await survey_child_class(message, state)
-
-    elif current_state == Survey.school_name.state:
-        from handlers.survey import survey_school_name
-        await survey_school_name(message, state)
-
-    elif current_state == Survey.city.state:
-        from handlers.survey import survey_city
-        await survey_city(message, state)
-
-    elif current_state == Survey.incident_dates.state:
-        from handlers.survey import survey_dates
-        await survey_dates(message, state)
+    elif current_state == Survey.child_and_school.state:
+        from handlers.survey import survey_child_and_school
+        await survey_child_and_school(message, state)
 
     elif current_state == Survey.incident_description.state:
         from handlers.survey import survey_description
         await survey_description(message, state)
 
-    elif current_state == Survey.witnesses.state:
-        from handlers.survey import survey_witnesses_text
-        await survey_witnesses_text(message, state)
-
     else:
-        # Состояние неизвестно — запускаем правовую оценку по умолчанию
-        await state.set_state(AssessmentState.waiting_for_situation)
-        from handlers.assessment import process_situation
-        await process_situation(message, state)
+        # В остальных состояниях (кнопочных) голос не нужен — подсказываем
+        await message.answer("👆 На этом шаге используйте кнопки выше.")
 
 
 # ── Регистрация хендлеров ─────────────────────────────────────────────────
