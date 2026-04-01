@@ -70,25 +70,30 @@ async def handle_voice_message(message: Message, state: FSMContext):
     # Показываем что услышали — коротко, без призыва к действию
     await message.answer(f"✅ <i>«{text}»</i>", parse_mode="HTML")
 
-    # Инжектируем текст и вызываем нужный обработчик по текущему состоянию
-    message.text = text
+    # Создаём копию Message с подставленным текстом
+    # (Message — Pydantic-модель, прямое присвоение не работает)
+    try:
+        msg = message.model_copy(update={"text": text})
+    except AttributeError:
+        msg = message.copy(update={"text": text})
+
     current_state = await state.get_state()
 
     if current_state == AssessmentState.waiting_for_situation.state:
         from handlers.assessment import process_situation
-        await process_situation(message, state)
+        await process_situation(msg, state)
 
     elif current_state == Survey.applicant_name.state:
         from handlers.survey import survey_applicant_name
-        await survey_applicant_name(message, state)
+        await survey_applicant_name(msg, state)
 
     elif current_state == Survey.child_and_school.state:
         from handlers.survey import survey_child_and_school
-        await survey_child_and_school(message, state)
+        await survey_child_and_school(msg, state)
 
     elif current_state == Survey.incident_description.state:
         from handlers.survey import survey_description
-        await survey_description(message, state)
+        await survey_description(msg, state)
 
     else:
         # В остальных состояниях (кнопочных) голос не нужен — подсказываем
