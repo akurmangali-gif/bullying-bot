@@ -164,7 +164,7 @@ async def show_amber_info(message: Message):
 async def start_survey(message: Message, state: FSMContext):
     await state.set_state(Survey.applicant_name)
     await message.answer(
-        "📝 <b>Анкета — шаг 1 из 11</b>\n\n"
+        "📝 <b>Шаг 1 из 4</b>\n\n"
         "Ваше <b>полное ФИО</b> (заявитель — родитель/законный представитель):",
         parse_mode="HTML",
     )

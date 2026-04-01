@@ -132,14 +132,26 @@ async def survey_child_and_school(message: Message, state: FSMContext):
         city=fields.get("city", ""),
     )
 
-    await state.set_state(Survey.incident_description)
-    await message.answer(
-        "📝 <b>Шаг 3 из 4</b>\n\n"
-        "<b>Опишите ситуацию</b> — когда это началось, что происходило, "
-        "кто участвовал.\n\n"
-        "<i>Можно голосом или текстом. Чем подробнее — тем убедительнее документ.</i>",
-        parse_mode="HTML",
-    )
+    # Если ситуация уже описана (пришли из правовой оценки) — пропускаем шаг 3
+    data = await state.get_data()
+    if data.get("incident_description"):
+        await state.set_state(Survey.bully_age_group)
+        await message.answer(
+            "📝 <b>Шаг 3 из 4</b>\n\n"
+            "✅ Описание ситуации уже получено из вашего обращения.\n\n"
+            "<b>Возраст обидчика</b> (важно для выбора правового трека):",
+            reply_markup=age_kb(),
+            parse_mode="HTML",
+        )
+    else:
+        await state.set_state(Survey.incident_description)
+        await message.answer(
+            "📝 <b>Шаг 3 из 4</b>\n\n"
+            "<b>Опишите ситуацию</b> — когда это началось, что происходило, "
+            "кто участвовал.\n\n"
+            "<i>Можно голосом или текстом. Чем подробнее — тем убедительнее документ.</i>",
+            parse_mode="HTML",
+        )
 
 
 # ── Шаг 3: Описание ситуации ──────────────────────────────────────────────

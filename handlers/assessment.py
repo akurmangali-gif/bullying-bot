@@ -110,6 +110,9 @@ async def go_to_docs(call: CallbackQuery, state: FSMContext):
     data = await state.get_data()
     if not data.get("triage_level"):
         await state.update_data(triage_level="GREEN")
+    # Ситуация уже описана — переносим в поле анкеты, чтобы не спрашивать повторно
+    if data.get("situation_text") and not data.get("incident_description"):
+        await state.update_data(incident_description=data["situation_text"])
     from handlers.triage import start_survey
     await call.message.answer(
         "📋 Отлично! Заполним короткую анкету для документов — всего 4 шага."
