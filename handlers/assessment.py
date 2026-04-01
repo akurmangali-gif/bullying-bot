@@ -59,7 +59,13 @@ async def btn_assess(call: CallbackQuery, state: FSMContext):
 
 @router.message(AssessmentState.waiting_for_situation)
 async def process_situation(message: Message, state: FSMContext):
-    text = message.text.strip()
+    if message.text:
+        text = message.text.strip()
+    else:
+        data = await state.get_data()
+        text = data.get("_voice_text", "").strip()
+        if text:
+            await state.update_data(_voice_text=None)
 
     if len(text) < 20:
         await message.answer(

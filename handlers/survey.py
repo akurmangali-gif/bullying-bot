@@ -85,11 +85,25 @@ async def _parse_child_and_school(text: str) -> dict:
     }
 
 
+async def _get_text(message: Message, state: FSMContext) -> str:
+    """Возвращает текст сообщения или голосовой транскрипт из state."""
+    if message.text:
+        return message.text.strip()
+    data = await state.get_data()
+    voice = data.get("_voice_text", "")
+    if voice:
+        await state.update_data(_voice_text=None)
+    return voice.strip()
+
+
 # ── Шаг 1: ФИО заявителя ─────────────────────────────────────────────────
 
 @router.message(Survey.applicant_name)
 async def survey_applicant_name(message: Message, state: FSMContext):
-    await state.update_data(applicant_name=message.text.strip())
+    text = await _get_text(message, state)
+    if not text:
+        return
+    await state.update_data(applicant_name=text)
     await state.set_state(Survey.child_and_school)
     await message.answer(
         "📝 <b>Шаг 2 из 4</b>\n\n"
@@ -104,7 +118,9 @@ async def survey_applicant_name(message: Message, state: FSMContext):
 
 @router.message(Survey.child_and_school)
 async def survey_child_and_school(message: Message, state: FSMContext):
-    raw = message.text.strip()
+    raw = await _get_text(message, state)
+    if not raw:
+        return
     await state.update_data(child_and_school_raw=raw)
 
     # Парсим через LLM
@@ -130,7 +146,10 @@ async def survey_child_and_school(message: Message, state: FSMContext):
 
 @router.message(Survey.incident_description)
 async def survey_description(message: Message, state: FSMContext):
-    await state.update_data(incident_description=message.text.strip())
+    text = await _get_text(message, state)
+    if not text:
+        return
+    await state.update_data(incident_description=text)
     await state.set_state(Survey.bully_age_group)
     await message.answer(
         "📝 <b>Шаг 4 из 4</b>\n\n"
