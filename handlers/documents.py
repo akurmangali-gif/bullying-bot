@@ -16,10 +16,10 @@ TODAY = lambda: date.today().strftime("%d.%m.%Y")
 
 
 def _set_doc_margins(doc: Document):
-    """Поля по стандарту РК: лево 3 см, право 1.5 см, верх/низ 2 см."""
+    """Поля: все стороны 2 см."""
     for section in doc.sections:
-        section.left_margin   = Cm(3.0)
-        section.right_margin  = Cm(1.5)
+        section.left_margin   = Cm(2.0)
+        section.right_margin  = Cm(2.0)
         section.top_margin    = Cm(2.0)
         section.bottom_margin = Cm(2.0)
 
@@ -73,11 +73,11 @@ def _set_font(run, bold=False, italic=False, size=12):
     run.italic = italic
 
 
-def _set_spacing(paragraph, line_spacing=1.5):
-    """Межстрочный интервал 1.5, выравнивание по ширине."""
+def _set_spacing(paragraph):
+    """Одинарный межстрочный интервал, выравнивание по ширине."""
     from docx.shared import Pt as _Pt
     pf = paragraph.paragraph_format
-    pf.line_spacing = _Pt(18)  # 12pt × 1.5 = 18pt
+    pf.line_spacing = _Pt(12)  # 12pt = одинарный для 12pt шрифта
     pf.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
 
 
