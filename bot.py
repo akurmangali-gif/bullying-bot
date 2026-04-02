@@ -30,7 +30,7 @@ def main_menu_kb():
 async def send_welcome(message: Message, state: FSMContext):
     await state.clear()
     await message.answer(
-        "👋 <b>Антибуллинг КЗ</b>\n\n"
+        "👋 <b>Буллинг Стоп КЗ</b>\n\n"
         "Помогу защитить права вашего ребёнка при буллинге в школе "
         "по закону РК (Приказ МП РК № 506).\n\n"
         "🆕 <b>Новое:</b> теперь бот даёт предварительную <b>правовую оценку</b> "

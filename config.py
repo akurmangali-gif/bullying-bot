@@ -6,7 +6,7 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN", "")
 DB_PATH = os.getenv("DB_PATH", "bullying_bot.db")
 GENERATED_DIR = os.getenv("GENERATED_DIR", "generated")
-SUPPORT_CONTACT = os.getenv("SUPPORT_CONTACT", "@your_support_username")
+SUPPORT_CONTACT = os.getenv("SUPPORT_CONTACT", "@bullingstop_kz_bot")
 
 # ── AI / LLM настройки ────────────────────────────────────────────────────
 # Для теста (бесплатно): Groq — https://console.groq.com → API Keys
