@@ -23,7 +23,7 @@ logging.basicConfig(level=logging.INFO)
 
 def main_menu_kb():
     kb = InlineKeyboardBuilder()
-    kb.button(text="⚖️ Правовая оценка ситуации (AI)", callback_data="start_assess")
+    kb.button(text="⚖️ Правовая оценка ситуации", callback_data="start_assess")
     kb.button(text="📄 Сразу сгенерировать документы", callback_data="start_docs")
     kb.adjust(1)
     return kb.as_markup()
