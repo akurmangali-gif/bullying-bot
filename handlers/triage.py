@@ -114,7 +114,7 @@ async def triage_q3(call: CallbackQuery, state: FSMContext):
 
 
 def level_label(level: str) -> str:
-    return {"RED": "🔴 КРАСНЫЙ — экстренный", "AMBER": "🟡 ЖЁЛТЫЙ — серьёзный", "GREEN": "🟢 ЗЕЛЁНЫЙ — школьный трек"}.get(level, level)
+    return {"RED": "🔴 Экстренный", "AMBER": "🟡 Серьёзный", "GREEN": "🟢 Школьный"}.get(level, level)
 
 
 def level_advice(level: str, systematic: bool) -> str:

@@ -9,7 +9,8 @@ from docx.oxml import OxmlElement
 from aiogram.types import Message, FSInputFile
 from aiogram.fsm.context import FSMContext
 
-from config import GENERATED_DIR, SUPPORT_CONTACT, AI_API_KEY
+from aiogram.utils.keyboard import InlineKeyboardBuilder
+from config import GENERATED_DIR, SUPPORT_CONTACT, AI_API_KEY, PAYMENT_ENABLED
 from db import save_case
 
 TODAY = lambda: date.today().strftime("%d.%m.%Y")
@@ -329,14 +330,6 @@ async def generate_and_send(message: Message, state: FSMContext):
 
     await message.answer("⏳ Обрабатываю и генерирую документы...")
 
-    # ──────────────────────────────────────────────────────────────────────
-    # МЕСТО ДЛЯ ОПЛАТЫ (сейчас всё бесплатно — для теста)
-    # Когда будете готовы к монетизации, замените эту строку на
-    # вызов платёжного шлюза (Kaspi Pay / CloudPayments).
-    # Документ 1 можно оставить бесплатным (freemium), 2 и 3 — платными.
-    # ──────────────────────────────────────────────────────────────────────
-    PAYMENT_ENABLED = False  # ← поменяйте на True когда подключите оплату
-
     # Очищаем и переписываем описание через LLM (юридический стиль)
     raw_desc = data.get("incident_description", "")
     if raw_desc:
@@ -345,34 +338,51 @@ async def generate_and_send(message: Message, state: FSMContext):
     # Save to DB
     await save_case(user_id, data)
 
-    # Generate
+    # Generate all paths
     paths = [
         make_doc1_school_application(data),
         make_doc2_written_response(data),
         make_doc3_cyberbullying_memo(data),
     ]
 
-    doc_labels = [
-        "📄 Документ 1: Заявление директору школы",
-        "📄 Документ 2: Требование письменного ответа",
-        "📄 Документ 3: Памятка по фиксации кибербуллинга",
-    ]
+    # ── Документ 1 — всегда бесплатно ────────────────────────────────────
+    await message.answer("📄 <b>Документ 1: Заявление директору школы</b>", parse_mode="HTML")
+    await message.answer_document(FSInputFile(paths[0]))
 
-    for path, label in zip(paths, doc_labels):
-        await message.answer(label)
-        await message.answer_document(FSInputFile(path))
+    # ── Документы 2 и 3 — freemium ───────────────────────────────────────
+    if PAYMENT_ENABLED:
+        kb = InlineKeyboardBuilder()
+        kb.button(text="💳 Оплатить 2 990 тг — написать в поддержку", url=f"https://t.me/{SUPPORT_CONTACT.lstrip('@')}")
+        kb.adjust(1)
+        await message.answer(
+            "📦 <b>Полный пакет документов — 2 990 тг</b>\n\n"
+            "В пакет входят:\n"
+            "📄 Документ 2: Требование письменного ответа\n"
+            "📄 Документ 3: Памятка по фиксации кибербуллинга\n\n"
+            "⚡ Оплата через Kaspi Pay скоро будет доступна напрямую.\n"
+            f"Сейчас — напишите нам: {SUPPORT_CONTACT}",
+            reply_markup=kb.as_markup(),
+            parse_mode="HTML",
+        )
+    else:
+        for path, label in zip(paths[1:], [
+            "📄 <b>Документ 2: Требование письменного ответа</b>",
+            "📄 <b>Документ 3: Памятка по фиксации кибербуллинга</b>",
+        ]):
+            await message.answer(label, parse_mode="HTML")
+            await message.answer_document(FSInputFile(path))
 
-    # Advice by triage level
+    # ── Советы по уровню ситуации ────────────────────────────────────────
     level = data.get("triage_level", "GREEN")
     level_tip = {
         "GREEN": (
-            "🟢 <b>Следующие шаги (зелёный уровень):</b>\n"
+            "🟢 <b>Следующие шаги:</b>\n"
             "1. Распечатайте Документ 1 и подайте директору школы — требуйте входящий номер\n"
             "2. Если в течение 3 рабочих дней нет ответа — используйте Документ 2\n"
             "3. Если школа не реагирует — обращайтесь в отдел/управление образования акимата"
         ),
         "AMBER": (
-            "🟡 <b>Следующие шаги (жёлтый уровень):</b>\n"
+            "🟡 <b>Следующие шаги:</b>\n"
             "1. Подайте Документ 1 в школу — и параллельно обратитесь в полицию (102)\n"
             "2. Сохраните все доказательства (Документ 3 — инструкция)\n"
             "3. При вымогательстве/насилии — медицинская справка обязательна\n"
@@ -390,20 +400,32 @@ async def generate_and_send(message: Message, state: FSMContext):
         age = data.get("bully_age_group", "")
         if "14–15" in age:
             age_tip = "уголовная ответственность возможна по ст.15 УК РК"
-        elif "до 14" in age.lower() or "до 14" in age.lower():
+        elif "до 14" in age.lower():
             age_tip = "уголовная ответственность не наступает — трек через школу и акимат"
         else:
             age_tip = "уточните возраст для выбора правового трека"
         level_tip = level_tip.format(age=age, age_tip=age_tip)
 
-    await message.answer(level_tip, parse_mode="HTML")
+    if level_tip:
+        await message.answer(level_tip, parse_mode="HTML")
 
+    # ── Дисклеймер ───────────────────────────────────────────────────────
     await message.answer(
         "⚠️ <b>Дисклеймер:</b> Документы сформированы на основе Правил № 506 МП РК. "
-        "Бот предоставляет процедурный маршрут, а не юридические услуги. "
-        "Для сложных ситуаций рекомендуется консультация с юристом.\n\n"
-        f"💬 Поддержка и консультация: {SUPPORT_CONTACT}\n\n"
+        "Бот предоставляет процедурный маршрут, а не юридические услуги.\n\n"
         "Введите /start чтобы начать новое обращение.",
+        parse_mode="HTML",
+    )
+
+    # ── ADDASTRA: предложение консультации ───────────────────────────────
+    kb2 = InlineKeyboardBuilder()
+    kb2.button(text="💼 Получить консультацию юриста", callback_data="consult_addastra")
+    kb2.adjust(1)
+    await message.answer(
+        "👨‍⚖️ <b>Нужна помощь юриста ADDASTRA?</b>\n\n"
+        "Если ситуация сложная и вы хотите, чтобы юрист лично сопроводил дело — "
+        "оставьте заявку. Мы свяжемся с вами в течение рабочего дня.",
+        reply_markup=kb2.as_markup(),
         parse_mode="HTML",
     )
 

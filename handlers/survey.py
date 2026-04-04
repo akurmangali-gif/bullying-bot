@@ -233,7 +233,7 @@ async def show_confirm(message: Message, state: FSMContext):
         f"🎯 Возраст обидчика: {data.get('bully_age_group', '—')}\n"
         f"📝 Ситуация: {desc_preview or '—'}\n"
         f"📋 Ранее: {data.get('prior_actions', '—')}\n\n"
-        f"⚡ Уровень: <b>{data.get('triage_level', 'GREEN')}</b>"
+        f"⚡ Уровень: <b>{ {'RED':'🔴 Экстренный','AMBER':'🟡 Серьёзный','GREEN':'🟢 Школьный'}.get(data.get('triage_level','GREEN'),'🟢 Школьный') }</b>"
     )
 
     kb = InlineKeyboardBuilder()

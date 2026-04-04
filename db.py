@@ -5,6 +5,15 @@ from config import DB_PATH
 async def init_db():
     async with aiosqlite.connect(DB_PATH) as db:
         await db.execute("""
+            CREATE TABLE IF NOT EXISTS leads (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                username TEXT,
+                applicant_name TEXT,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+        await db.execute("""
             CREATE TABLE IF NOT EXISTS cases (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id INTEGER NOT NULL,
@@ -50,5 +59,15 @@ async def save_case(user_id: int, data: dict) -> int:
             data.get("has_evidence"),
             data.get("prior_actions"),
         ))
+        await db.commit()
+        return cursor.lastrowid
+
+
+async def save_lead(user_id: int, username: str, applicant_name: str = "") -> int:
+    async with aiosqlite.connect(DB_PATH) as db:
+        cursor = await db.execute(
+            "INSERT INTO leads (user_id, username, applicant_name) VALUES (?, ?, ?)",
+            (user_id, username or "", applicant_name),
+        )
         await db.commit()
         return cursor.lastrowid
