@@ -8,7 +8,8 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.fsm.context import FSMContext
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-from config import BOT_TOKEN
+import aiosqlite
+from config import BOT_TOKEN, DB_PATH, ADMIN_CHAT_ID
 from db import init_db
 from handlers import triage, survey
 from handlers import assessment as assessment_handler
@@ -36,8 +37,7 @@ async def send_welcome(message: Message, state: FSMContext):
         "по закону РК (Приказ МП РК № 506).\n\n"
         "🆕 <b>Новое:</b> теперь бот даёт предварительную <b>правовую оценку</b> "
         "ситуации на основе законодательства РК — просто опишите что произошло.\n\n"
-        "⚠️ <i>Бот предоставляет процедурный маршрут и шаблоны документов. "
-        "Это не юридическая консультация.</i>",
+        "<i>Помогаем родителям защитить детей — разбираемся в законах и готовим документы.</i>",
         reply_markup=main_menu_kb(),
         parse_mode="HTML",
     )
@@ -63,6 +63,44 @@ async def cmd_help(message: Message):
         "/docs — сгенерировать документы\n"
         "/help — эта справка\n\n"
         "По вопросам: @addastra",
+        parse_mode="HTML",
+    )
+
+
+@main_router.message(Command("stats"))
+async def cmd_stats(message: Message):
+    if ADMIN_CHAT_ID and str(message.from_user.id) != str(ADMIN_CHAT_ID):
+        return  # молча игнорируем — чужие не узнают что команда вообще есть
+
+    async with aiosqlite.connect(DB_PATH) as db:
+        (total_cases,)   = await (await db.execute("SELECT COUNT(*) FROM cases")).fetchone()
+        (today_cases,)   = await (await db.execute(
+            "SELECT COUNT(*) FROM cases WHERE DATE(created_at)=DATE('now')"
+        )).fetchone()
+        (week_cases,)    = await (await db.execute(
+            "SELECT COUNT(*) FROM cases WHERE created_at >= DATE('now','-7 days')"
+        )).fetchone()
+        (total_leads,)   = await (await db.execute("SELECT COUNT(*) FROM leads")).fetchone()
+        (today_leads,)   = await (await db.execute(
+            "SELECT COUNT(*) FROM leads WHERE DATE(created_at)=DATE('now')"
+        )).fetchone()
+        level_rows = await (await db.execute(
+            "SELECT triage_level, COUNT(*) FROM cases GROUP BY triage_level"
+        )).fetchall()
+
+    level_map = {"GREEN": "🟢 Школьный", "AMBER": "🟡 Серьёзный", "RED": "🔴 Экстренный"}
+    level_text = "\n".join(
+        f"  {level_map.get(lvl, lvl)}: {cnt}" for lvl, cnt in level_rows
+    ) or "  нет данных"
+
+    await message.answer(
+        "📊 <b>Статистика бота</b>\n\n"
+        f"📋 Обращений всего: <b>{total_cases}</b>\n"
+        f"  — сегодня: {today_cases}\n"
+        f"  — за 7 дней: {week_cases}\n\n"
+        f"По уровням:\n{level_text}\n\n"
+        f"💼 Заявок на консультацию ADDASTRA:\n"
+        f"  всего: <b>{total_leads}</b>, сегодня: {today_leads}",
         parse_mode="HTML",
     )
 
