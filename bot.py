@@ -59,6 +59,7 @@ async def cmd_help(message: Message):
         "/start — главное меню\n"
         "/assess — правовая оценка ситуации\n"
         "/docs — сгенерировать документы\n"
+        "/feedback — оставить отзыв\n"
         "/privacy — политика конфиденциальности\n"
         "/terms — условия использования\n"
         "/help — эта справка\n\n"
@@ -160,6 +161,53 @@ async def cmd_stats(message: Message):
         f"💼 Заявок на консультацию ADDASTRA:\n"
         f"  всего: <b>{total_leads}</b>, сегодня: {today_leads}",
         parse_mode="HTML",
+    )
+
+
+@main_router.message(Command("feedback"))
+async def cmd_feedback(message: Message, state: FSMContext):
+    from aiogram.fsm.state import State, StatesGroup
+    await message.answer(
+        "💬 <b>Оставьте отзыв или сообщите об ошибке</b>\n\n"
+        "Напишите следующим сообщением — что понравилось, что можно улучшить, "
+        "или опишите ошибку если что-то пошло не так.\n\n"
+        "<i>Мы читаем каждый отзыв.</i>",
+        parse_mode="HTML",
+    )
+    await state.set_state(FeedbackState.waiting)
+
+
+from aiogram.fsm.state import State, StatesGroup as _SG
+
+class FeedbackState(_SG):
+    waiting = State()
+
+
+@main_router.message(FeedbackState.waiting)
+async def receive_feedback(message: Message, state: FSMContext):
+    text = message.text or message.caption or ""
+    user = message.from_user
+    username = f"@{user.username}" if user.username else f"id:{user.id}"
+
+    # Уведомляем администратора
+    if ADMIN_CHAT_ID:
+        try:
+            await message.bot.send_message(
+                chat_id=int(ADMIN_CHAT_ID),
+                text=(
+                    "📬 <b>Новый отзыв!</b>\n\n"
+                    f"👤 {username} | {user.full_name}\n\n"
+                    f"💬 {text}"
+                ),
+                parse_mode="HTML",
+            )
+        except Exception:
+            pass
+
+    await state.clear()
+    await message.answer(
+        "✅ Спасибо! Ваш отзыв получен.\n\n"
+        "Введите /start чтобы вернуться в главное меню.",
     )
 
 
