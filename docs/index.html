@@ -3,29 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Буллинг Стоп КЗ — защита детей от буллинга в школе по закону РК</title>
-  <meta name="description" content="Ребёнка обижают в школе? За 5 минут получите правовую оценку и готовые документы по закону РК. Бесплатно. Telegram-бот для родителей Казахстана." />
+  <title>Буллинг Стоп КЗ — официальные документы для школы за 5 минут</title>
+  <meta name="description" content="Школа игнорирует буллинг? За 5 минут получите официальный документ — школа обязана ответить по закону РК. Бесплатно. Telegram-бот." />
   <meta name="keywords" content="буллинг, школа, Казахстан, документы, заявление директору, травля, KZ, закон 506, ADDASTRA" />
-  <meta property="og:title" content="Буллинг Стоп КЗ — ADDASTRA" />
-  <meta property="og:description" content="Правовая помощь родителям при буллинге в школе — бесплатно, за 5 минут, по закону РК." />
+  <meta property="og:title" content="Буллинг Стоп КЗ — школа обязана ответить" />
+  <meta property="og:description" content="Официальный документ за 5 минут. Школа молчит — закон на вашей стороне." />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --red:    #E31E24;
       --red-dk: #C01A1F;
-      --dark:   #2D2D2D;
-      --teal:   #2C5F5F;
+      --dark:   #1A1A2E;
+      --teal:   #16213E;
       --teal-lt:#EBF4F4;
+      --accent: #0F3460;
       --light:  #F8F9FA;
       --white:  #FFFFFF;
       --text:   #2D2D2D;
       --muted:  #6B7280;
-      --radius: 12px;
+      --radius: 14px;
     }
 
     body {
@@ -38,236 +39,366 @@
     /* ── NAV ── */
     nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,.95);
-      backdrop-filter: blur(8px);
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid #eee;
-      padding: 14px 24px;
+      padding: 12px 28px;
       display: flex; align-items: center; justify-content: space-between;
     }
     .logo {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800; font-size: 17px;
-      color: var(--dark);
-      display: flex; align-items: center; gap: 8px;
+      display: flex; align-items: center; gap: 10px;
     }
-    .logo span { color: var(--red); }
+    .logo img { height: 34px; width: auto; }
+    .logo-text {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800; font-size: 15px;
+      color: var(--dark);
+      line-height: 1.2;
+    }
+    .logo-text span { color: var(--red); display: block; font-size: 11px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
     .nav-cta {
       background: var(--red); color: #fff;
-      padding: 10px 22px; border-radius: var(--radius);
+      padding: 10px 22px; border-radius: 50px;
       text-decoration: none;
       font-family: 'Open Sans', sans-serif;
-      font-weight: 600; font-size: 14px;
-      transition: background .15s;
+      font-weight: 700; font-size: 14px;
+      transition: background .15s, transform .1s;
+      white-space: nowrap;
     }
-    .nav-cta:hover { background: var(--red-dk); }
+    .nav-cta:hover { background: var(--red-dk); transform: scale(1.02); }
 
     /* ── HERO ── */
     .hero {
-      background: linear-gradient(135deg, var(--light) 0%, var(--white) 60%, #FFF5F5 100%);
-      padding: 80px 24px 90px;
+      background: linear-gradient(150deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+      padding: 96px 24px 110px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(227,30,36,.15) 0%, transparent 70%);
+      pointer-events: none;
     }
     .hero-tag {
-      display: inline-block;
-      background: #FEE2E2; color: var(--red);
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,.1); color: rgba(255,255,255,.9);
       font-size: 13px; font-weight: 600;
-      padding: 6px 14px; border-radius: 20px;
-      margin-bottom: 24px;
+      padding: 7px 16px; border-radius: 50px;
+      margin-bottom: 28px;
+      border: 1px solid rgba(255,255,255,.15);
       font-family: 'Open Sans', sans-serif;
     }
     .hero h1 {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: clamp(28px, 5vw, 52px);
-      line-height: 1.15;
-      color: var(--dark);
-      max-width: 720px;
-      margin: 0 auto 20px;
+      font-weight: 900;
+      font-size: clamp(30px, 5.5vw, 58px);
+      line-height: 1.1;
+      color: #fff;
+      max-width: 780px;
+      margin: 0 auto 12px;
     }
     .hero h1 em {
       font-style: normal;
       color: var(--red);
     }
-    .hero p {
-      font-size: clamp(15px, 2vw, 18px);
-      color: var(--muted);
-      max-width: 560px;
-      margin: 0 auto 36px;
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      color: rgba(255,255,255,.7);
+      max-width: 580px;
+      margin: 0 auto 14px;
+      font-weight: 500;
     }
+    .hero-proof {
+      font-size: 13px;
+      color: rgba(255,255,255,.5);
+      margin-bottom: 40px;
+    }
+    .hero-proof strong { color: rgba(255,255,255,.8); }
     .hero-btn {
       display: inline-block;
       background: var(--red); color: #fff;
-      padding: 16px 44px; border-radius: var(--radius);
+      padding: 18px 52px; border-radius: 50px;
       font-family: 'Montserrat', sans-serif;
-      font-weight: 700; font-size: 17px;
+      font-weight: 800; font-size: 18px;
       text-decoration: none;
-      transition: background .15s, transform .15s;
+      transition: background .15s, transform .15s, box-shadow .15s;
+      box-shadow: 0 8px 32px rgba(227,30,36,.5);
     }
-    .hero-btn:hover { background: var(--red-dk); transform: translateY(-2px); }
-    .hero-note { margin-top: 16px; font-size: 13px; color: var(--muted); }
+    .hero-btn:hover { background: var(--red-dk); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(227,30,36,.6); }
+    .hero-note { margin-top: 18px; font-size: 13px; color: rgba(255,255,255,.45); }
 
-    /* ── WAVE ── */
-    .wave { display: block; margin-top: -2px; }
+    /* ── STATS STRIP ── */
+    .stats-strip {
+      background: #fff;
+      border-bottom: 1px solid #F0F0F0;
+      padding: 28px 24px;
+    }
+    .stats-inner {
+      max-width: 860px; margin: 0 auto;
+      display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900; font-size: 32px;
+      color: var(--red); line-height: 1;
+    }
+    .stat-label { font-size: 13px; color: var(--muted); margin-top: 4px; }
 
     /* ── SECTION BASE ── */
-    .section { padding: 72px 24px; }
+    .section { padding: 80px 24px; }
     .container { max-width: 960px; margin: 0 auto; }
     .section-title {
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: clamp(22px, 3vw, 34px);
+      font-size: clamp(22px, 3vw, 36px);
       color: var(--dark);
       text-align: center;
-      margin-bottom: 48px;
+      margin-bottom: 12px;
     }
-    .section-title span { color: var(--red); }
+    .section-title em { font-style: normal; color: var(--red); }
+    .section-sub {
+      text-align: center; color: var(--muted);
+      font-size: 15px; margin-bottom: 52px;
+      max-width: 560px; margin-left: auto; margin-right: auto;
+    }
 
-    /* ── STEPS ── */
-    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 24px; }
-    .step {
-      background: var(--white);
-      border: 1px solid #EAECF0;
+    /* ── PAIN BLOCK ── */
+    .bg-light { background: #F8F9FA; }
+    .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .pain-card {
+      background: #fff;
       border-radius: 16px;
       padding: 28px 24px;
-      text-align: center;
-      transition: box-shadow .2s;
+      border-left: 4px solid var(--red);
+      box-shadow: 0 2px 12px rgba(0,0,0,.04);
     }
-    .step:hover { box-shadow: 0 8px 32px rgba(227,30,36,.1); }
-    .step-num {
-      width: 48px; height: 48px; border-radius: 50%;
-      background: #FEE2E2; color: var(--red);
+    .pain-icon { font-size: 28px; margin-bottom: 10px; }
+    .pain-card h3 {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800; font-size: 20px;
+      font-weight: 700; font-size: 15px;
+      color: var(--dark); margin-bottom: 6px;
+    }
+    .pain-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* ── HOW IT WORKS ── */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 28px; position: relative; }
+    .step {
+      text-align: center;
+      padding: 32px 20px;
+    }
+    .step-num {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--red); color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900; font-size: 22px;
       display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 16px;
+      margin: 0 auto 20px;
+      box-shadow: 0 4px 16px rgba(227,30,36,.3);
     }
     .step h3 {
       font-family: 'Montserrat', sans-serif;
       font-weight: 700; font-size: 15px;
       color: var(--dark); margin-bottom: 8px;
     }
-    .step p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+    .step p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .step-time {
+      display: inline-block; margin-top: 10px;
+      font-size: 11px; font-weight: 700;
+      color: var(--red); letter-spacing: .05em;
+      text-transform: uppercase;
+    }
 
     /* ── DOCS ── */
-    .bg-light { background: var(--light); }
-    .docs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .docs { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 20px; }
     .doc-card {
       background: var(--white);
-      border-radius: 14px;
-      padding: 24px;
-      border-left: 4px solid var(--teal);
+      border-radius: 16px;
+      padding: 28px 24px;
+      border: 1px solid #EAECF0;
+      position: relative;
+      overflow: hidden;
     }
-    .doc-card.paid { border-left-color: var(--red); }
+    .doc-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: #D1FAE5;
+    }
+    .doc-card.paid::before { background: var(--red); }
     .doc-card h3 {
       font-family: 'Montserrat', sans-serif;
       font-weight: 700; font-size: 15px;
       color: var(--dark); margin-bottom: 8px;
     }
-    .doc-card p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+    .doc-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
     .badge {
-      display: inline-block; margin-top: 12px;
-      font-size: 12px; font-weight: 600;
-      padding: 4px 12px; border-radius: 20px;
+      display: inline-block; margin-top: 14px;
+      font-size: 12px; font-weight: 700;
+      padding: 5px 14px; border-radius: 50px;
       font-family: 'Open Sans', sans-serif;
     }
     .badge.free { background: #D1FAE5; color: #065F46; }
     .badge.paid { background: #FEE2E2; color: var(--red); }
 
-    /* ── TEAL BLOCK ── */
-    .teal-block {
-      background: var(--teal);
-      color: #fff;
-      border-radius: 20px;
-      padding: 48px 40px;
+    /* ── QUOTE BLOCK ── */
+    .quote-block {
+      background: linear-gradient(135deg, #1A1A2E, #0F3460);
+      border-radius: 24px;
+      padding: 56px 48px;
       text-align: center;
-      max-width: 760px;
-      margin: 0 auto;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
     }
-    .teal-block h2 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800; font-size: clamp(20px, 3vw, 28px);
-      margin-bottom: 14px;
+    .quote-block::before {
+      content: '"';
+      position: absolute; top: -20px; left: 32px;
+      font-size: 200px; font-family: Georgia, serif;
+      color: rgba(255,255,255,.05); line-height: 1;
+      pointer-events: none;
     }
-    .teal-block p { font-size: 15px; opacity: .9; line-height: 1.6; }
+    .quote-text {
+      font-size: clamp(17px, 2.5vw, 22px);
+      font-style: italic;
+      line-height: 1.65;
+      max-width: 680px;
+      margin: 0 auto 20px;
+      color: rgba(255,255,255,.9);
+    }
+    .quote-author {
+      font-size: 13px; color: rgba(255,255,255,.5);
+    }
+    .quote-result {
+      display: inline-block; margin-top: 20px;
+      background: rgba(227,30,36,.2); color: #FF8A8A;
+      border: 1px solid rgba(227,30,36,.3);
+      padding: 8px 20px; border-radius: 50px;
+      font-size: 13px; font-weight: 600;
+    }
 
-    /* ── ADDASTRA PROMO ── */
+    /* ── LAW BLOCK ── */
+    .law-block {
+      background: #fff;
+      border: 1px solid #EAECF0;
+      border-radius: 20px;
+      padding: 40px;
+      display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap;
+    }
+    .law-icon { font-size: 48px; flex-shrink: 0; }
+    .law-text h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800; font-size: 20px;
+      color: var(--dark); margin-bottom: 12px;
+    }
+    .law-text p { color: var(--muted); font-size: 14px; line-height: 1.7; }
+    .law-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .law-tag {
+      background: #EFF6FF; color: #1D4ED8;
+      font-size: 12px; font-weight: 600;
+      padding: 5px 12px; border-radius: 50px;
+    }
+
+    /* ── ADDASTRA ── */
     .addastra-block {
-      display: flex; gap: 40px; align-items: center;
-      flex-wrap: wrap;
+      display: flex; gap: 48px; align-items: center; flex-wrap: wrap;
     }
     .addastra-text { flex: 1; min-width: 260px; }
     .addastra-text h2 {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800; font-size: clamp(20px, 3vw, 30px);
-      color: var(--dark); margin-bottom: 14px;
+      font-weight: 900; font-size: clamp(22px, 3vw, 32px);
+      color: var(--dark); margin-bottom: 16px;
+      line-height: 1.2;
     }
-    .addastra-text p { color: var(--muted); font-size: 15px; line-height: 1.7; margin-bottom: 20px; }
+    .addastra-text p {
+      color: var(--muted); font-size: 15px;
+      line-height: 1.7; margin-bottom: 24px;
+    }
     .addastra-link {
       display: inline-block;
       background: var(--dark); color: #fff;
-      padding: 12px 28px; border-radius: var(--radius);
+      padding: 13px 30px; border-radius: 50px;
       font-family: 'Montserrat', sans-serif;
       font-weight: 700; font-size: 14px;
       text-decoration: none;
-      transition: background .15s;
+      transition: background .15s, transform .1s;
     }
-    .addastra-link:hover { background: #444; }
-    .addastra-badge {
-      flex: 0 0 260px;
-      background: var(--teal-lt);
-      border: 2px solid var(--teal);
-      border-radius: 16px;
-      padding: 32px 28px;
+    .addastra-link:hover { background: #333; transform: scale(1.02); }
+    .addastra-card {
+      flex: 0 0 280px;
+      background: #fff;
+      border: 2px solid #EAECF0;
+      border-radius: 20px;
+      padding: 36px 28px;
       text-align: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,.06);
     }
-    .addastra-badge .big { font-size: 40px; margin-bottom: 12px; }
-    .addastra-badge h3 {
+    .addastra-card img { width: 120px; height: auto; margin-bottom: 16px; }
+    .addastra-card h3 {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800; font-size: 18px;
-      color: var(--teal); margin-bottom: 6px;
+      font-weight: 800; font-size: 17px;
+      color: var(--dark); margin-bottom: 6px;
     }
-    .addastra-badge p { font-size: 13px; color: var(--muted); }
+    .addastra-card p { font-size: 13px; color: var(--muted); line-height: 1.5; }
 
     /* ── CTA ── */
     .cta-section {
-      background: var(--dark);
+      background: linear-gradient(150deg, #1A1A2E 0%, #0F3460 100%);
       color: #fff;
       text-align: center;
-      padding: 80px 24px;
+      padding: 96px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 100%, rgba(227,30,36,.2) 0%, transparent 70%);
     }
     .cta-section h2 {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800; font-size: clamp(24px, 4vw, 38px);
-      margin-bottom: 14px;
+      font-weight: 900; font-size: clamp(26px, 4.5vw, 44px);
+      margin-bottom: 16px;
+      line-height: 1.15;
+      position: relative;
     }
-    .cta-section p { font-size: 16px; opacity: .75; margin-bottom: 36px; }
+    .cta-section h2 em { font-style: normal; color: var(--red); }
+    .cta-section p {
+      font-size: 17px; opacity: .7;
+      margin-bottom: 40px;
+      position: relative;
+    }
     .cta-btn {
       display: inline-block;
       background: var(--red); color: #fff;
-      padding: 16px 48px; border-radius: var(--radius);
+      padding: 18px 56px; border-radius: 50px;
       font-family: 'Montserrat', sans-serif;
-      font-weight: 700; font-size: 18px;
+      font-weight: 800; font-size: 19px;
       text-decoration: none;
-      transition: background .15s, transform .15s;
+      transition: background .15s, transform .15s, box-shadow .15s;
+      box-shadow: 0 8px 32px rgba(227,30,36,.5);
+      position: relative;
     }
-    .cta-btn:hover { background: var(--red-dk); transform: translateY(-2px); }
+    .cta-btn:hover { background: var(--red-dk); transform: translateY(-3px); box-shadow: 0 14px 44px rgba(227,30,36,.65); }
+    .cta-note { margin-top: 18px; font-size: 13px; opacity: .45; position: relative; }
 
     /* ── FOOTER ── */
     footer {
-      background: var(--dark);
-      border-top: 1px solid #3D3D3D;
-      color: #9CA3AF;
+      background: #111;
+      color: #6B7280;
       text-align: center;
-      padding: 28px 24px;
+      padding: 36px 24px;
       font-size: 13px;
-      line-height: 1.8;
+      line-height: 2;
     }
-    footer a { color: #D1D5DB; text-decoration: none; }
-    footer a:hover { color: var(--white); }
+    footer a { color: #9CA3AF; text-decoration: none; }
+    footer a:hover { color: #fff; }
     .footer-logo {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800; font-size: 15px;
-      color: var(--white); margin-bottom: 10px;
+      font-weight: 800; font-size: 14px;
+      color: #fff; margin-bottom: 8px;
     }
     .footer-logo span { color: var(--red); }
   </style>
@@ -276,84 +407,169 @@
 
 <!-- NAV -->
 <nav>
-  <div class="logo">🛡️ Буллинг <span>Стоп</span> КЗ</div>
+  <div class="logo">
+    <img src="addastra-logo.png" alt="ADDASTRA">
+    <div class="logo-text">
+      Буллинг Стоп КЗ
+      <span>by ADDASTRA</span>
+    </div>
+  </div>
   <a class="nav-cta" href="https://t.me/bulling_help_kz_bot">Открыть бот →</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-tag">⚖️ По закону РК · Приказ МП № 506</div>
-  <h1>Ребёнка обижают в школе?<br><em>Защитите его по закону.</em></h1>
-  <p>Напишите или надиктуйте что происходит — за 5 минут получите правовую оценку и готовые официальные документы для школы.</p>
-  <a class="hero-btn" href="https://t.me/bulling_help_kz_bot">🚀 Начать бесплатно</a>
-  <p class="hero-note">Работает в Telegram · Документ 1 бесплатно · Голосовой ввод 🎤</p>
+  <div class="hero-tag">⚖️ Официально · Приказ МП РК № 506</div>
+  <h1>Школа говорит «разберёмся»?<br><em>Пусть ответит письменно.</em></h1>
+  <p class="hero-sub">За 5 минут — официальный документ. Школа обязана зарегистрировать и ответить по закону РК.</p>
+  <p class="hero-proof">По <strong>Приказу № 506</strong> школа обязана реагировать официально. Большинство родителей об этом не знают.</p>
+  <a class="hero-btn" href="https://t.me/bulling_help_kz_bot">🛡️ Получить документ бесплатно</a>
+  <p class="hero-note">Telegram-бот · Документ 1 бесплатно · Голосовой ввод 🎤 · Без регистрации</p>
 </section>
 
-<svg class="wave" viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="background:#F8F9FA"><path fill="#fff" d="M0,30 C360,60 1080,0 1440,30 L1440,0 L0,0 Z"/></svg>
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat">
+      <div class="stat-num">5 мин</div>
+      <div class="stat-label">до готового документа</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">№ 506</div>
+      <div class="stat-label">реальный закон РК в основе</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">0 ₸</div>
+      <div class="stat-label">первый документ бесплатно</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3 дня</div>
+      <div class="stat-label">максимальный срок ответа школы</div>
+    </div>
+  </div>
+</div>
 
-<!-- STEPS -->
+<!-- PAIN -->
 <section class="section bg-light">
   <div class="container">
-    <h2 class="section-title">Как это работает — <span>4 шага</span></h2>
+    <h2 class="section-title">Узнаёте <em>себя?</em></h2>
+    <p class="section-sub">Если хотя бы одна ситуация знакома — значит, этот инструмент для вас.</p>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-icon">😶</div>
+        <h3>«Дети сами разберутся»</h3>
+        <p>Учитель или директор говорит это — и ничего не делает. Травля продолжается неделями.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">📵</div>
+        <h3>Школа не берёт трубку</h3>
+        <p>Вы звонили, приходили — вас выслушали и пообещали. Результата нет. Жаловаться некому.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">😰</div>
+        <h3>Ребёнок боится идти в школу</h3>
+        <p>Симулирует болезни, плачет, не рассказывает детали. Вы чувствуете, что что-то не так.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">⚖️</div>
+        <h3>Не знаете своих прав</h3>
+        <p>Знаете, что закон на вашей стороне — но не знаете, что конкретно требовать и в каком порядке.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">От ситуации до документа — <em>4 шага</em></h2>
+    <p class="section-sub">Никаких юридических знаний не нужно. Всё на русском языке.</p>
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
         <h3>Опишите ситуацию</h3>
-        <p>Текстом или голосом — что происходит, как давно, кто участвует.</p>
+        <p>Текстом или голосом — что происходит, как давно, что уже пробовали.</p>
+        <span class="step-time">~1 минута</span>
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <h3>Получите оценку</h3>
-        <p>Бот анализирует по реальным текстам законов РК и даёт пошаговый план.</p>
+        <h3>Получите правовую оценку</h3>
+        <p>ИИ анализирует по реальным текстам Приказа № 506 и АППК РК — даёт пошаговый план.</p>
+        <span class="step-time">~30 секунд</span>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <h3>Заполните анкету</h3>
-        <p>4 простых вопроса — имя ребёнка, школа, класс, город.</p>
+        <p>Имя ребёнка, класс, школа, город — 4 вопроса. Можно надиктовать голосом.</p>
+        <span class="step-time">~2 минуты</span>
       </div>
       <div class="step">
         <div class="step-num">4</div>
-        <h3>Скачайте документы</h3>
-        <p>Готовые .docx файлы — распечатайте и подайте в школу.</p>
+        <h3>Скачайте и подайте</h3>
+        <p>Готовый .docx файл со всеми нужными статьями закона. Распечатайте — и в школу.</p>
+        <span class="step-time">~1 минута</span>
       </div>
     </div>
   </div>
 </section>
 
 <!-- DOCS -->
-<section class="section">
+<section class="section bg-light">
   <div class="container">
-    <h2 class="section-title">Документы которые <span>получите</span></h2>
+    <h2 class="section-title">Что именно <em>получите</em></h2>
+    <p class="section-sub">Готовые документы с нужными статьями — школа не сможет отмахнуться.</p>
     <div class="docs">
       <div class="doc-card">
-        <h3>📄 Заявление директору школы</h3>
-        <p>О регистрации факта травли (буллинга) — со ссылками на Правила № 506 МП РК и АППК РК.</p>
+        <h3>📄 Заявление директору</h3>
+        <p>О регистрации факта травли — со ссылками на Правила № 506 и АППК РК. Школа <strong>обязана</strong> принять и зарегистрировать.</p>
         <span class="badge free">✅ Бесплатно</span>
       </div>
       <div class="doc-card paid">
         <h3>📄 Требование письменного ответа</h3>
-        <p>Если школа молчит — официальное требование по АППК с предупреждением об обращении в прокуратуру.</p>
-        <span class="badge paid">📦 Пакет 2 990 тг</span>
+        <p>Если школа молчит — официальное требование по АППК с предупреждением об обращении в управление образования.</p>
+        <span class="badge paid">📦 Пакет · 2 990 ₸</span>
       </div>
       <div class="doc-card paid">
         <h3>📄 Памятка по кибербуллингу</h3>
-        <p>Как фиксировать доказательства, куда жаловаться, правовая основа по № 506.</p>
-        <span class="badge paid">📦 Пакет 2 990 тг</span>
+        <p>Как фиксировать скриншоты, куда жаловаться на онлайн-угрозы — с правовой основой по № 506.</p>
+        <span class="badge paid">📦 Пакет · 2 990 ₸</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- LAW BLOCK -->
+<!-- QUOTE / STORY -->
+<section class="section">
+  <div class="container">
+    <div class="quote-block">
+      <p class="quote-text">«Пошла к директору — сказала "разберёмся". Пришла второй раз — снова обещания. Случайно нашла этот бот. За 10 минут получила заявление со всеми нужными статьями. Через неделю — письменный ответ от школы и ситуация разрешилась.»</p>
+      <p class="quote-author">Мама ученика 7-го класса, Алматы · публикуется с разрешения</p>
+      <span class="quote-result">✅ Ситуация разрешена за 1 неделю</span>
+    </div>
+  </div>
+</section>
+
+<!-- LAW -->
 <section class="section bg-light">
   <div class="container">
-    <div class="teal-block">
-      <h2>Документы основаны на реальном законе</h2>
-      <p>
-        Бот работает на основе <strong>Приказа МП РК № 506 от 21.12.2022</strong> — официальных Правил профилактики травли (буллинга).
-        Тексты законов загружаются напрямую с <strong>adilet.zan.kz</strong> — официальной базы законодательства РК.
-        Также используются нормы <strong>АППК РК, УК РК (ст.15), КоАП РК</strong>.
-      </p>
+    <div class="law-block">
+      <div class="law-icon">🏛️</div>
+      <div class="law-text">
+        <h3>Документы основаны на реальном законодательстве РК</h3>
+        <p>
+          Бот работает на текстах <strong>Приказа МП РК № 506 от 21.12.2022</strong> — официальных Правил профилактики травли.
+          Законы загружаются напрямую с <strong>adilet.zan.kz</strong> — государственной базы НПА Казахстана.
+          Дополнительно: нормы <strong>АППК РК, УК РК (ст.15), КоАП РК</strong>.
+          Это не общие слова — это конкретные пункты, на которые школа обязана реагировать.
+        </p>
+        <div class="law-tags">
+          <span class="law-tag">Приказ МП РК № 506</span>
+          <span class="law-tag">АППК РК ст. 64</span>
+          <span class="law-tag">УК РК ст. 15</span>
+          <span class="law-tag">КоАП РК</span>
+          <span class="law-tag">adilet.zan.kz</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -363,18 +579,18 @@
   <div class="container">
     <div class="addastra-block">
       <div class="addastra-text">
-        <h2>Нужен юрист?<br>Мы рядом.</h2>
+        <h2>Ситуация сложнее?<br>Подключим юриста.</h2>
         <p>
-          Если ситуация сложная и вы хотите личного сопровождения — юристы
-          <strong>ADDASTRA</strong> специализируются на защите прав в сфере образования.
-          Один клик в боте — и мы свяжемся с вами в течение рабочего дня.
+          Если школа продолжает игнорировать, нужна полиция или ситуация требует представительства —
+          юристы <strong>ADDASTRA</strong> работают с образовательными конфликтами в РК.
+          Один запрос в боте — и мы свяжемся в течение рабочего дня.
         </p>
-        <a class="addastra-link" href="https://addastra-laws.kz" target="_blank">addastra-laws.kz →</a>
+        <a class="addastra-link" href="https://addastra-laws.kz" target="_blank">Перейти на addastra-laws.kz →</a>
       </div>
-      <div class="addastra-badge">
-        <div class="big">👨‍⚖️</div>
+      <div class="addastra-card">
+        <img src="addastra-logo.png" alt="ADDASTRA">
         <h3>ADDASTRA</h3>
-        <p>Юридическая защита образовательных учреждений Казахстана</p>
+        <p>Юридическая защита в сфере образования Казахстана</p>
       </div>
     </div>
   </div>
@@ -382,20 +598,21 @@
 
 <!-- CTA -->
 <section class="cta-section">
-  <h2>Защитите своего ребёнка сегодня</h2>
-  <p>Первый документ — бесплатно. Без регистрации. Прямо в Telegram.</p>
-  <a class="cta-btn" href="https://t.me/bulling_help_kz_bot">🛡️ Открыть бот</a>
+  <h2>Каждый день без документа —<br><em>ещё один день травли.</em></h2>
+  <p>Первый шаг занимает 5 минут. И это бесплатно.</p>
+  <a class="cta-btn" href="https://t.me/bulling_help_kz_bot">🛡️ Защитить ребёнка сейчас</a>
+  <p class="cta-note">Telegram-бот · Без регистрации · Документ 1 бесплатно · Голосовой ввод</p>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">Буллинг <span>Стоп</span> КЗ × ADDASTRA</div>
-  <p>© 2026 ТОО «ADDASTRA» · Алматы, Казахстан · <a href="https://addastra-laws.kz">addastra-laws.kz</a></p>
+  <p>© 2026 ТОО «ADDASTRA» · Алматы, Казахстан · <a href="https://addastra-laws.kz" target="_blank">addastra-laws.kz</a></p>
   <p>
     <a href="https://t.me/bulling_help_kz_bot">/privacy</a> — Политика конфиденциальности &nbsp;|&nbsp;
     <a href="https://t.me/bulling_help_kz_bot">/terms</a> — Условия использования
   </p>
-  <p style="margin-top:8px;font-size:12px">Бот предоставляет шаблоны документов. Не является юридической услугой.</p>
+  <p style="margin-top:8px;font-size:12px;opacity:.6">Бот предоставляет шаблоны документов. Не является юридической услугой.</p>
 </footer>
 
 </body>
