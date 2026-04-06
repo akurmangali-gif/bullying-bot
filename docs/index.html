@@ -5,249 +5,345 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Буллинг Стоп КЗ — официальный документ для школы за 5 минут | ADDASTRA</title>
   <meta name="description" content="Школа игнорирует буллинг? Получите официальное заявление директору со ссылками на Приказ МП РК № 506 — за 5 минут, бесплатно, прямо в Telegram. Продукт юридической фирмы ADDASTRA." />
-  <meta name="keywords" content="буллинг, школа, Казахстан, документы, заявление директору, травля, KZ, закон 506, ADDASTRA" />
   <meta property="og:title" content="Буллинг Стоп КЗ — школа обязана ответить письменно" />
   <meta property="og:description" content="Официальный документ за 5 минут. Без регистрации. Прямо в Telegram. Продукт ADDASTRA." />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
+    /* ── RESET & BASE ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --red:    #E31E24;
-      --red-dk: #C01A1F;
-      --dark:   #1A1A2E;
-      --mid:    #16213E;
-      --accent: #0F3460;
-      --light:  #F8F9FA;
-      --white:  #FFFFFF;
-      --text:   #1A1A2E;
-      --muted:  #6B7280;
-      --border: #EAECF0;
-      --radius: 14px;
+      --red:      #E31E24;
+      --red-dk:   #B91218;
+      --teal:     #2C5F5F;
+      --teal-dk:  #1E4242;
+      --dark:     #2D2D2D;
+      --light:    #F8F9FA;
+      --white:    #FFFFFF;
+      --muted:    #6B7280;
+      --border:   #E5E7EB;
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Open Sans', sans-serif;
-      color: var(--text);
+      font-size: 16px;
+      color: var(--dark);
       background: var(--white);
-      line-height: 1.6;
+      line-height: 1.65;
+      overflow-x: hidden;
     }
 
-    /* ─────────── NAV ─────────── */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,.97);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 12px 32px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .logo { display: flex; align-items: center; gap: 10px; }
-    .logo img { height: 32px; width: auto; }
-    .logo-text {
+    h1, h2, h3, h4 {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800; font-size: 14px;
-      color: var(--dark); line-height: 1.25;
+      line-height: 1.2;
     }
-    .logo-text span {
-      display: block; font-size: 10px; font-weight: 600;
-      color: var(--muted); letter-spacing: .06em; text-transform: uppercase;
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ── NAV ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 1px 0 rgba(0,0,0,.06);
+      transition: all .3s;
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px;
+      max-width: 1120px; margin: 0 auto;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      background: var(--dark);
+      border-radius: 8px;
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-icon img { width: 24px; height: auto; filter: brightness(10); }
+    .logo-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+      color: var(--dark);
+      letter-spacing: -.02em;
+      line-height: 1;
+    }
+    .logo-name span { color: var(--red); }
+    .logo-sub {
+      display: block;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 10px; font-weight: 600;
+      color: var(--muted);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-top: 2px;
     }
     .nav-cta {
-      background: var(--red); color: #fff;
-      padding: 10px 22px; border-radius: 50px;
+      background: var(--teal); color: #fff;
+      padding: 10px 24px; border-radius: 50px;
       text-decoration: none;
       font-family: 'Montserrat', sans-serif;
-      font-weight: 700; font-size: 13px;
-      transition: background .15s, transform .1s;
+      font-weight: 700; font-size: 14px;
+      transition: background .2s, transform .15s;
       white-space: nowrap;
     }
-    .nav-cta:hover { background: var(--red-dk); transform: scale(1.02); }
+    .nav-cta:hover { background: var(--teal-dk); transform: scale(1.02); }
 
-    /* ─────────── HERO ─────────── */
+    /* ── HERO ── */
     .hero {
-      background: linear-gradient(150deg, #1A1A2E 0%, #16213E 55%, #0F3460 100%);
-      padding: 100px 24px 116px;
-      text-align: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 60%, #f0f4f4 100%);
+      display: flex; align-items: center;
+      padding: 120px 20px 80px;
       position: relative; overflow: hidden;
     }
     .hero::before {
       content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 65% 35%, rgba(227,30,36,.18) 0%, transparent 65%);
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(44,95,95,.06) 0%, transparent 70%);
       pointer-events: none;
     }
-    .hero-tag {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(255,255,255,.08); color: rgba(255,255,255,.85);
-      font-size: 12px; font-weight: 600;
-      padding: 7px 18px; border-radius: 50px;
-      margin-bottom: 32px;
-      border: 1px solid rgba(255,255,255,.14);
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; left: -100px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(227,30,36,.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      display: flex; gap: 60px; align-items: center; flex-wrap: wrap;
+      max-width: 1120px; margin: 0 auto; width: 100%;
+    }
+    .hero-text { flex: 1; min-width: 300px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(44,95,95,.08);
+      color: var(--teal);
+      border: 1px solid rgba(44,95,95,.2);
+      border-radius: 50px;
+      padding: 7px 16px;
+      font-size: 13px; font-weight: 600;
+      margin-bottom: 28px;
     }
     .hero h1 {
-      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(30px, 4.5vw, 52px);
       font-weight: 900;
-      font-size: clamp(30px, 5.5vw, 58px);
-      line-height: 1.1;
-      color: #fff;
-      max-width: 780px;
-      margin: 0 auto 8px;
+      color: var(--dark);
+      margin-bottom: 20px;
+      letter-spacing: -.02em;
     }
-    .hero h1 em { font-style: normal; color: var(--red); }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--red);
+    }
     .hero-sub {
-      font-size: clamp(15px, 2vw, 19px);
-      color: rgba(255,255,255,.65);
-      max-width: 580px;
-      margin: 16px auto 10px;
-      font-weight: 500;
-      line-height: 1.6;
+      font-size: clamp(16px, 2vw, 19px);
+      color: var(--muted);
+      margin-bottom: 14px;
+      max-width: 520px;
+      line-height: 1.7;
     }
     .hero-proof {
-      font-size: 13px;
-      color: rgba(255,255,255,.45);
-      max-width: 540px;
-      margin: 0 auto 40px;
-      line-height: 1.55;
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 36px;
+      max-width: 500px;
+      line-height: 1.65;
+      padding-left: 14px;
+      border-left: 3px solid var(--red);
     }
-    .hero-proof strong { color: rgba(255,255,255,.7); }
-    .hero-btn {
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 32px; }
+    .btn-primary {
       display: inline-block;
       background: var(--red); color: #fff;
-      padding: 18px 52px; border-radius: 50px;
+      padding: 15px 36px; border-radius: 50px;
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800; font-size: 17px;
+      font-weight: 800; font-size: 16px;
       text-decoration: none;
-      transition: background .15s, transform .15s, box-shadow .15s;
-      box-shadow: 0 8px 32px rgba(227,30,36,.5);
-      position: relative;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 20px rgba(227,30,36,.3);
+      animation: pulse-red 2.5s infinite;
     }
-    .hero-btn:hover { background: var(--red-dk); transform: translateY(-3px); box-shadow: 0 14px 44px rgba(227,30,36,.65); }
-    .hero-note { margin-top: 18px; font-size: 12px; color: rgba(255,255,255,.38); letter-spacing: .02em; }
-
-    /* sticky mobile CTA */
-    .sticky-cta {
-      display: none;
-      position: fixed; bottom: 0; left: 0; right: 0; z-index: 99;
-      padding: 14px 20px;
-      background: rgba(26,26,46,.97);
-      border-top: 1px solid rgba(255,255,255,.08);
+    .btn-primary:hover { background: var(--red-dk); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(227,30,36,.45); }
+    @keyframes pulse-red {
+      0%   { box-shadow: 0 0 0 0 rgba(227,30,36,.5), 0 4px 20px rgba(227,30,36,.3); }
+      70%  { box-shadow: 0 0 0 10px rgba(227,30,36,.0), 0 4px 20px rgba(227,30,36,.3); }
+      100% { box-shadow: 0 0 0 0 rgba(227,30,36,.0), 0 4px 20px rgba(227,30,36,.3); }
     }
-    .sticky-cta a {
-      display: block; text-align: center;
-      background: var(--red); color: #fff;
-      padding: 15px; border-radius: 50px;
+    .btn-secondary {
+      display: inline-block;
+      background: transparent; color: var(--dark);
+      padding: 14px 28px; border-radius: 50px;
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800; font-size: 15px;
+      font-weight: 700; font-size: 15px;
       text-decoration: none;
+      border: 2px solid var(--border);
+      transition: border-color .2s, color .2s;
     }
-    @media(max-width:640px){ .sticky-cta { display: block; } body { padding-bottom: 80px; } }
+    .btn-secondary:hover { border-color: var(--teal); color: var(--teal); }
+    .hero-microcopy {
+      font-size: 13px; color: var(--muted);
+      display: flex; gap: 16px; flex-wrap: wrap;
+    }
+    .hero-microcopy span { display: flex; align-items: center; gap: 6px; }
+    .hero-microcopy i { color: var(--teal); font-size: 12px; }
 
-    /* ─────────── STATS ─────────── */
-    .stats-strip {
+    /* hero card */
+    .hero-card {
+      flex: 0 0 340px;
       background: var(--white);
-      border-bottom: 1px solid var(--border);
-      padding: 30px 24px;
+      border-radius: 20px;
+      padding: 36px 32px;
+      box-shadow: 0 8px 40px rgba(0,0,0,.08);
+      border: 1px solid var(--border);
     }
+    .hero-card-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800; font-size: 16px;
+      color: var(--dark); margin-bottom: 20px;
+    }
+    .hero-steps { display: flex; flex-direction: column; gap: 14px; }
+    .hero-step { display: flex; gap: 12px; align-items: flex-start; }
+    .hero-step-num {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--red); color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800; font-size: 13px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .hero-step-text { font-size: 14px; color: var(--dark); padding-top: 5px; line-height: 1.45; }
+    .hero-step-time { font-size: 11px; color: var(--muted); }
+    .hero-card-cta {
+      margin-top: 24px;
+      display: block; text-align: center;
+      background: var(--teal); color: #fff;
+      padding: 13px; border-radius: 12px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700; font-size: 15px;
+      text-decoration: none;
+      transition: background .2s;
+    }
+    .hero-card-cta:hover { background: var(--teal-dk); }
+    .hero-card-free { text-align: center; margin-top: 10px; font-size: 12px; color: var(--muted); }
+
+    /* ── STATS ── */
+    .stats { background: var(--dark); padding: 28px 20px; }
     .stats-inner {
-      max-width: 880px; margin: 0 auto;
-      display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
+      max-width: 900px; margin: 0 auto;
+      display: flex; justify-content: center; gap: 56px; flex-wrap: wrap;
     }
     .stat { text-align: center; }
     .stat-num {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 900; font-size: 30px;
-      color: var(--red); line-height: 1;
+      font-weight: 900; font-size: 28px;
+      color: var(--white); line-height: 1;
     }
-    .stat-label { font-size: 12px; color: var(--muted); margin-top: 5px; max-width: 110px; }
+    .stat-num span { color: var(--red); }
+    .stat-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 5px; }
 
-    /* ─────────── SECTION BASE ─────────── */
-    .section { padding: 80px 24px; }
-    .section.tight { padding: 64px 24px; }
-    .container { max-width: 960px; margin: 0 auto; }
+    /* ── SECTIONS ── */
+    .section { padding: 80px 20px; }
+    .section-label {
+      display: inline-block;
+      font-size: 12px; font-weight: 700;
+      color: var(--teal);
+      letter-spacing: .1em; text-transform: uppercase;
+      margin-bottom: 12px;
+    }
     .section-title {
-      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(24px, 3vw, 36px);
       font-weight: 800;
-      font-size: clamp(22px, 3vw, 36px);
       color: var(--dark);
-      text-align: center;
-      margin-bottom: 10px;
-      line-height: 1.2;
+      margin-bottom: 14px;
     }
     .section-title em { font-style: normal; color: var(--red); }
     .section-sub {
-      text-align: center; color: var(--muted);
-      font-size: 15px; line-height: 1.65;
-      margin: 0 auto 52px;
-      max-width: 560px;
+      font-size: 16px; color: var(--muted);
+      max-width: 580px; line-height: 1.7;
+      margin-bottom: 52px;
     }
+    .text-center { text-align: center; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
     .bg-light { background: var(--light); }
+    .bg-dark { background: var(--dark); color: #fff; }
+    .bg-teal { background: var(--teal); color: #fff; }
 
-    /* ─────────── WHY BLOCK ─────────── */
-    .why-block {
-      display: flex; gap: 48px; align-items: flex-start; flex-wrap: wrap;
-    }
-    .why-text { flex: 1; min-width: 280px; }
-    .why-text h2 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900; font-size: clamp(22px, 3vw, 34px);
-      color: var(--dark); margin-bottom: 20px; line-height: 1.2;
-    }
-    .why-text h2 em { font-style: normal; color: var(--red); }
-    .why-text p { color: var(--muted); font-size: 15px; line-height: 1.75; margin-bottom: 16px; }
+    /* ── WHY BLOCK ── */
+    .why-cols { display: flex; gap: 48px; align-items: flex-start; flex-wrap: wrap; }
+    .why-left { flex: 1; min-width: 280px; }
+    .why-left p { color: var(--muted); font-size: 16px; line-height: 1.75; margin-bottom: 18px; }
     .why-quote {
-      background: var(--dark);
-      border-radius: 14px;
-      padding: 24px 28px;
+      background: var(--dark); color: rgba(255,255,255,.85);
+      border-radius: 16px; padding: 24px 28px;
+      font-style: italic; font-size: 15px; line-height: 1.7;
       margin-top: 28px;
+      border-left: 4px solid var(--red);
     }
-    .why-quote p {
-      color: rgba(255,255,255,.85); font-size: 15px;
-      font-style: italic; line-height: 1.65;
-      margin: 0;
-    }
-    .why-side {
-      flex: 0 0 280px;
-      display: flex; flex-direction: column; gap: 14px;
-    }
-    .why-pill {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 18px 20px;
+    .why-right { flex: 0 0 300px; display: flex; flex-direction: column; gap: 12px; }
+    .why-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 14px; padding: 20px;
       display: flex; gap: 14px; align-items: flex-start;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
     }
-    .why-pill-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
-    .why-pill h4 {
+    .why-card-icon { font-size: 22px; flex-shrink: 0; }
+    .why-card h4 {
       font-family: 'Montserrat', sans-serif;
       font-weight: 700; font-size: 13px;
-      color: var(--dark); margin-bottom: 3px;
+      color: var(--dark); margin-bottom: 4px;
     }
-    .why-pill p { font-size: 12px; color: var(--muted); line-height: 1.5; margin: 0; }
+    .why-card p { font-size: 13px; color: var(--muted); line-height: 1.5; margin: 0; }
 
-    /* ─────────── PAIN ─────────── */
-    .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; }
+    /* ── PAIN GRID ── */
+    .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
     .pain-card {
-      background: var(--white);
-      border-radius: 16px;
+      background: var(--white); border-radius: 16px;
       padding: 26px 22px;
-      border-left: 4px solid var(--red);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--red);
       box-shadow: 0 2px 12px rgba(0,0,0,.04);
+      transition: box-shadow .2s, transform .2s;
     }
-    .pain-icon { font-size: 26px; margin-bottom: 10px; }
+    .pain-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,.08); transform: translateY(-2px); }
+    .pain-icon { font-size: 28px; margin-bottom: 12px; }
     .pain-card h3 {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 700; font-size: 14px;
-      color: var(--dark); margin-bottom: 6px;
+      font-weight: 700; font-size: 15px;
+      color: var(--dark); margin-bottom: 8px;
     }
-    .pain-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .pain-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
 
-    /* ─────────── STEPS ─────────── */
-    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; }
-    .step { text-align: center; padding: 32px 18px; }
+    /* ── STEPS ── */
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .step-card {
+      text-align: center; padding: 36px 20px;
+      background: var(--white); border-radius: 16px;
+      border: 1px solid var(--border);
+      transition: box-shadow .2s;
+    }
+    .step-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,.08); }
     .step-num {
       width: 56px; height: 56px; border-radius: 50%;
       background: var(--red); color: #fff;
@@ -255,308 +351,418 @@
       font-weight: 900; font-size: 22px;
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 20px;
-      box-shadow: 0 4px 16px rgba(227,30,36,.35);
     }
-    .step h3 {
+    .step-card h3 {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 700; font-size: 15px;
-      color: var(--dark); margin-bottom: 8px;
-    }
-    .step p { font-size: 13px; color: var(--muted); line-height: 1.6; }
-    .step-time {
-      display: inline-block; margin-top: 12px;
-      font-size: 11px; font-weight: 700;
-      color: var(--red); letter-spacing: .06em; text-transform: uppercase;
-    }
-
-    /* ─────────── DOCS ─────────── */
-    .docs { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 20px; }
-    .doc-card {
-      background: var(--white);
-      border-radius: 16px;
-      padding: 28px 24px;
-      border: 1px solid var(--border);
-      position: relative; overflow: hidden;
-    }
-    .doc-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0;
-      width: 4px; height: 100%;
-      background: #D1FAE5;
-    }
-    .doc-card.paid::before { background: var(--red); }
-    .doc-card h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700; font-size: 15px;
+      font-weight: 700; font-size: 16px;
       color: var(--dark); margin-bottom: 10px;
     }
-    .doc-card p { font-size: 13px; color: var(--muted); line-height: 1.65; }
-    .badge {
-      display: inline-block; margin-top: 16px;
-      font-size: 12px; font-weight: 700;
-      padding: 5px 14px; border-radius: 50px;
+    .step-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+    .step-time {
+      display: inline-block; margin-top: 14px;
+      font-size: 11px; font-weight: 700;
+      color: var(--teal); letter-spacing: .06em;
+      text-transform: uppercase;
     }
-    .badge.free { background: #D1FAE5; color: #065F46; }
-    .badge.paid-b { background: #FEE2E2; color: var(--red); }
+
+    /* ── DOCS ── */
+    .docs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .doc-card {
+      background: var(--white); border-radius: 16px;
+      padding: 30px 26px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 12px rgba(0,0,0,.04);
+      position: relative; overflow: hidden;
+      transition: box-shadow .2s;
+    }
+    .doc-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.1); }
+    .doc-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .doc-card.free-card::after { background: var(--teal); }
+    .doc-card.paid-card::after { background: var(--red); }
+    .doc-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700; font-size: 16px;
+      color: var(--dark); margin-bottom: 10px;
+    }
+    .doc-card p { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 18px; }
+    .badge {
+      display: inline-block;
+      font-size: 12px; font-weight: 700;
+      padding: 5px 16px; border-radius: 50px;
+    }
+    .badge-free { background: #D1FAE5; color: #065F46; }
+    .badge-paid { background: #FEE2E2; color: var(--red); }
     .docs-note {
-      margin-top: 24px;
-      background: #F0F9FF;
-      border: 1px solid #BAE6FD;
+      margin-top: 28px;
+      background: rgba(44,95,95,.06);
+      border: 1px solid rgba(44,95,95,.15);
       border-radius: 12px;
-      padding: 16px 20px;
-      font-size: 13px; color: #0369A1;
+      padding: 16px 22px;
+      font-size: 14px; color: var(--teal);
       text-align: center;
     }
 
-    /* ─────────── LAW ─────────── */
-    .law-block {
-      background: var(--white);
-      border: 1px solid var(--border);
+    /* ── GLASS CARD ── */
+    .glass-card {
+      background: rgba(255,255,255,.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,.4);
+      box-shadow: 0 8px 32px rgba(31,38,135,.07);
       border-radius: 20px;
-      padding: 44px 40px;
-      display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap;
     }
-    .law-icon { font-size: 48px; flex-shrink: 0; }
-    .law-text h3 {
+
+    /* ── LAW BLOCK ── */
+    .law-block {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 20px; padding: 44px 40px;
+      display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap;
+      box-shadow: 0 4px 20px rgba(0,0,0,.05);
+    }
+    .law-icon { font-size: 52px; flex-shrink: 0; }
+    .law-content h3 {
       font-family: 'Montserrat', sans-serif;
       font-weight: 800; font-size: 20px;
       color: var(--dark); margin-bottom: 14px;
     }
-    .law-text p { color: var(--muted); font-size: 14px; line-height: 1.75; }
+    .law-content p { color: var(--muted); font-size: 15px; line-height: 1.75; }
     .law-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
     .law-tag {
       background: #EFF6FF; color: #1D4ED8;
       font-size: 12px; font-weight: 600;
-      padding: 5px 13px; border-radius: 50px;
+      padding: 5px 14px; border-radius: 50px;
     }
 
-    /* ─────────── ADDASTRA ─────────── */
-    .addastra-block { display: flex; gap: 48px; align-items: center; flex-wrap: wrap; }
-    .addastra-text { flex: 1; min-width: 260px; }
+    /* ── ADDASTRA ── */
+    .addastra-cols { display: flex; gap: 56px; align-items: center; flex-wrap: wrap; }
+    .addastra-text { flex: 1; min-width: 280px; }
     .addastra-text h2 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900; font-size: clamp(22px, 3vw, 32px);
-      color: var(--dark); margin-bottom: 16px; line-height: 1.2;
+      font-size: clamp(24px, 3vw, 34px);
+      font-weight: 900; color: var(--dark);
+      margin-bottom: 18px;
     }
-    .addastra-text p { color: var(--muted); font-size: 15px; line-height: 1.75; margin-bottom: 24px; }
-    .addastra-link {
+    .addastra-text p { color: var(--muted); font-size: 16px; line-height: 1.75; margin-bottom: 28px; }
+    .btn-teal {
       display: inline-block;
-      background: var(--dark); color: #fff;
-      padding: 13px 30px; border-radius: 50px;
+      background: var(--teal); color: #fff;
+      padding: 13px 32px; border-radius: 50px;
       font-family: 'Montserrat', sans-serif;
-      font-weight: 700; font-size: 14px;
+      font-weight: 700; font-size: 15px;
       text-decoration: none;
-      transition: background .15s, transform .1s;
+      transition: background .2s, transform .15s;
     }
-    .addastra-link:hover { background: #333; transform: scale(1.02); }
+    .btn-teal:hover { background: var(--teal-dk); transform: scale(1.02); }
     .addastra-card {
-      flex: 0 0 270px;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 36px 28px;
+      flex: 0 0 280px;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 20px; padding: 36px 28px;
       text-align: center;
-      box-shadow: 0 4px 24px rgba(0,0,0,.06);
+      box-shadow: 0 4px 24px rgba(0,0,0,.07);
     }
-    .addastra-card img { width: 110px; height: auto; margin-bottom: 16px; }
+    .addastra-card-logo {
+      background: var(--dark);
+      border-radius: 14px;
+      width: 80px; height: 80px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .addastra-card-logo img { width: 52px; height: auto; }
     .addastra-card h3 {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800; font-size: 16px;
+      font-weight: 900; font-size: 20px;
       color: var(--dark); margin-bottom: 6px;
+      letter-spacing: -.01em;
     }
-    .addastra-card p { font-size: 12px; color: var(--muted); line-height: 1.55; }
+    .addastra-card h3 span { color: var(--red); }
+    .addastra-card p { font-size: 13px; color: var(--muted); line-height: 1.55; }
 
-    /* ─────────── LAWYER ─────────── */
-    .lawyer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 36px; }
+    /* ── LAWYER BLOCK ── */
+    .lawyer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; margin-bottom: 36px; }
     .lawyer-item {
-      background: var(--white);
-      border-radius: 12px;
-      padding: 20px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 14px; padding: 22px;
       border-left: 3px solid var(--red);
-      font-size: 13px; color: var(--muted); line-height: 1.6;
     }
-    .lawyer-item strong { display: block; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 13px; color: var(--dark); margin-bottom: 4px; }
-    .lawyer-cta-wrap { text-align: center; }
-    .lawyer-btn {
-      display: inline-block;
-      background: var(--dark); color: #fff;
-      padding: 14px 36px; border-radius: 50px;
+    .lawyer-item strong {
+      display: block;
       font-family: 'Montserrat', sans-serif;
       font-weight: 700; font-size: 14px;
-      text-decoration: none;
-      transition: background .15s;
+      color: #fff; margin-bottom: 6px;
     }
-    .lawyer-btn:hover { background: #333; }
-    .lawyer-note { margin-top: 10px; font-size: 12px; color: var(--muted); }
+    .lawyer-item p { font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.6; }
+    .lawyer-cta { text-align: center; }
+    .btn-white {
+      display: inline-block;
+      background: #fff; color: var(--dark);
+      padding: 14px 36px; border-radius: 50px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700; font-size: 15px;
+      text-decoration: none;
+      transition: background .2s, transform .15s;
+    }
+    .btn-white:hover { background: #f0f0f0; transform: scale(1.02); }
+    .lawyer-note { margin-top: 12px; font-size: 12px; color: rgba(255,255,255,.4); }
 
-    /* ─────────── FAQ ─────────── */
-    .faq { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 2px; }
+    /* ── FAQ ── */
+    .faq { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
     details {
       background: var(--white);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 14px;
       overflow: hidden;
+      transition: box-shadow .2s;
     }
-    details + details { margin-top: 8px; }
+    details[open] { box-shadow: 0 4px 20px rgba(0,0,0,.07); }
     summary {
       padding: 20px 24px;
       cursor: pointer;
       font-family: 'Montserrat', sans-serif;
-      font-weight: 700; font-size: 14px;
+      font-weight: 700; font-size: 15px;
       color: var(--dark);
       list-style: none;
-      display: flex; justify-content: space-between; align-items: center;
-      gap: 16px;
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      user-select: none;
     }
-    summary::after { content: '+'; font-size: 20px; font-weight: 400; color: var(--red); flex-shrink: 0; }
-    details[open] summary::after { content: '−'; }
-    .faq-body { padding: 0 24px 20px; font-size: 14px; color: var(--muted); line-height: 1.7; }
+    summary::-webkit-details-marker { display: none; }
+    .faq-icon {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--light);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: 18px; color: var(--red); font-weight: 400;
+      transition: background .2s;
+    }
+    details[open] .faq-icon { background: var(--red); color: #fff; }
+    .faq-icon::after { content: '+'; }
+    details[open] .faq-icon::after { content: '−'; }
+    .faq-body {
+      padding: 0 24px 22px;
+      font-size: 15px; color: var(--muted);
+      line-height: 1.75;
+      border-top: 1px solid var(--border);
+      margin-top: -4px;
+      padding-top: 18px;
+    }
 
-    /* ─────────── CTA SECTION ─────────── */
+    /* ── CTA CLOSING ── */
     .cta-section {
-      background: linear-gradient(150deg, #1A1A2E 0%, #0F3460 100%);
-      color: #fff;
-      text-align: center;
-      padding: 100px 24px;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dk) 100%);
+      color: #fff; text-align: center;
+      padding: 100px 20px;
       position: relative; overflow: hidden;
     }
     .cta-section::before {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 50% 110%, rgba(227,30,36,.22) 0%, transparent 65%);
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+      pointer-events: none;
     }
     .cta-section h2 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900; font-size: clamp(26px, 4.5vw, 46px);
-      margin-bottom: 18px; line-height: 1.12;
-      position: relative;
+      font-size: clamp(28px, 4.5vw, 46px);
+      font-weight: 900; margin-bottom: 16px;
+      line-height: 1.15; position: relative;
     }
-    .cta-section h2 em { font-style: normal; color: var(--red); }
-    .cta-section p { font-size: 17px; opacity: .65; margin-bottom: 44px; position: relative; }
-    .cta-btn {
+    .cta-section h2 em { font-style: normal; color: #FFD0D0; }
+    .cta-section .cta-sub {
+      font-size: 18px; opacity: .8;
+      margin-bottom: 44px; position: relative;
+    }
+    .btn-cta {
       display: inline-block;
       background: var(--red); color: #fff;
-      padding: 20px 60px; border-radius: 50px;
+      padding: 18px 56px; border-radius: 50px;
       font-family: 'Montserrat', sans-serif;
       font-weight: 800; font-size: 18px;
       text-decoration: none;
-      transition: background .15s, transform .15s, box-shadow .15s;
-      box-shadow: 0 8px 32px rgba(227,30,36,.55);
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 6px 28px rgba(227,30,36,.5);
       position: relative;
+      animation: pulse-red 2.5s infinite;
     }
-    .cta-btn:hover { background: var(--red-dk); transform: translateY(-3px); box-shadow: 0 16px 48px rgba(227,30,36,.7); }
-    .cta-note { margin-top: 20px; font-size: 12px; opacity: .38; position: relative; }
+    .btn-cta:hover { background: var(--red-dk); transform: translateY(-3px); }
+    .cta-note { margin-top: 20px; font-size: 13px; opacity: .45; position: relative; }
 
-    /* ─────────── FOOTER ─────────── */
+    /* ── FOOTER ── */
     footer {
-      background: #111;
-      color: #6B7280;
-      text-align: center;
-      padding: 40px 24px;
-      font-size: 13px;
-      line-height: 2;
+      background: #1a1a1a; color: #9CA3AF;
+      text-align: center; padding: 48px 20px;
+      font-size: 14px; line-height: 2;
     }
-    footer a { color: #9CA3AF; text-decoration: none; }
-    footer a:hover { color: #fff; }
     .footer-logo {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800; font-size: 14px;
-      color: #fff; margin-bottom: 10px;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      margin-bottom: 16px;
     }
-    .footer-logo span { color: var(--red); }
+    .footer-logo-icon {
+      background: #333; border-radius: 8px;
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .footer-logo-icon img { width: 22px; height: auto; }
+    .footer-logo-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900; font-size: 16px;
+      color: #fff; letter-spacing: -.01em;
+    }
+    .footer-logo-name span { color: var(--red); }
+    footer a { color: #9CA3AF; text-decoration: none; transition: color .2s; }
+    footer a:hover { color: #fff; }
+    .footer-links { margin: 8px 0; }
     .disclaimer {
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1px solid #222;
-      font-size: 11px;
-      color: #4B5563;
-      max-width: 620px;
-      margin-left: auto; margin-right: auto;
+      margin-top: 24px; padding-top: 24px;
+      border-top: 1px solid #2a2a2a;
+      font-size: 12px; color: #4B5563;
+      max-width: 600px; margin-left: auto; margin-right: auto;
       line-height: 1.7;
+    }
+
+    /* ── STICKY MOBILE CTA ── */
+    .sticky-mobile {
+      display: none;
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 99;
+      padding: 12px 16px;
+      background: rgba(255,255,255,.97);
+      border-top: 1px solid var(--border);
+      box-shadow: 0 -4px 20px rgba(0,0,0,.1);
+    }
+    .sticky-mobile a {
+      display: block; text-align: center;
+      background: var(--red); color: #fff;
+      padding: 14px; border-radius: 50px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800; font-size: 15px;
+      text-decoration: none;
+    }
+    @media (max-width: 640px) {
+      .sticky-mobile { display: block; }
+      body { padding-bottom: 76px; }
+      .hero-card { display: none; }
+      .why-right, .addastra-card { display: none; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="logo">
-    <img src="addastra-logo.png" alt="ADDASTRA">
-    <div class="logo-text">
-      Буллинг Стоп КЗ
-      <span>by ADDASTRA</span>
-    </div>
+<!-- HEADER -->
+<header>
+  <div class="nav-inner">
+    <a class="logo" href="#">
+      <div class="logo-icon">
+        <img src="addastra-logo.png" alt="ADDASTRA" />
+      </div>
+      <div>
+        <div class="logo-name">Буллинг<span>Стоп</span>КЗ</div>
+        <span class="logo-sub">by ADDASTRA</span>
+      </div>
+    </a>
+    <a class="nav-cta" href="https://t.me/bulling_help_kz_bot">Открыть бот →</a>
   </div>
-  <a class="nav-cta" href="https://t.me/bulling_help_kz_bot">Открыть бот →</a>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-tag">⚖️ Приказ МП РК № 506 · Официально · Казахстан</div>
-  <h1>Школа обещает разобраться.<br><em>Уже несколько недель.</em></h1>
-  <p class="hero-sub">Переведите ситуацию в официальный режим — за 5 минут, прямо в Telegram. Первый документ бесплатно.</p>
-  <p class="hero-proof">Telegram-бот формирует официальное заявление директору со ссылками на <strong>Приказ МП РК № 506</strong>.<br>Школа обязана его принять, зарегистрировать и рассмотреть в установленном законом порядке.</p>
-  <a class="hero-btn" href="https://t.me/bulling_help_kz_bot">🛡️ Получить первый документ бесплатно</a>
-  <p class="hero-note">Прямо в Telegram · Без регистрации · Голосовой ввод · Первый документ бесплатно</p>
-</section>
+</header>
 
 <!-- STICKY MOBILE CTA -->
-<div class="sticky-cta">
+<div class="sticky-mobile">
   <a href="https://t.me/bulling_help_kz_bot">🛡️ Получить документ бесплатно →</a>
 </div>
 
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <i class="fas fa-scale-balanced"></i> Приказ МП РК № 506 · Официально
+      </div>
+      <h1>Школа обещает<br>разобраться.<br><em>Уже несколько недель.</em></h1>
+      <p class="hero-sub">Переведите ситуацию в официальный режим — за 5 минут, прямо в Telegram.</p>
+      <p class="hero-proof">Telegram-бот формирует официальное заявление директору со ссылками на Приказ МП РК № 506. Школа обязана принять, зарегистрировать и рассмотреть его в установленном законом порядке.</p>
+      <div class="hero-btns">
+        <a class="btn-primary" href="https://t.me/bulling_help_kz_bot">🛡️ Получить документ бесплатно</a>
+        <a class="btn-secondary" href="#how">Как это работает</a>
+      </div>
+      <div class="hero-microcopy">
+        <span><i class="fas fa-check"></i> Без регистрации</span>
+        <span><i class="fas fa-check"></i> Первый документ бесплатно</span>
+        <span><i class="fas fa-microphone"></i> Голосовой ввод</span>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-title">От ситуации до документа</div>
+      <div class="hero-steps">
+        <div class="hero-step">
+          <div class="hero-step-num">1</div>
+          <div class="hero-step-text">Опишите ситуацию текстом или голосом <span class="hero-step-time">· 1 мин</span></div>
+        </div>
+        <div class="hero-step">
+          <div class="hero-step-num">2</div>
+          <div class="hero-step-text">Получите правовую оценку по нормам РК <span class="hero-step-time">· 30 сек</span></div>
+        </div>
+        <div class="hero-step">
+          <div class="hero-step-num">3</div>
+          <div class="hero-step-text">Заполните анкету — имя, школа, класс <span class="hero-step-time">· 2 мин</span></div>
+        </div>
+        <div class="hero-step">
+          <div class="hero-step-num">4</div>
+          <div class="hero-step-text">Скачайте готовый .docx и подайте в школу <span class="hero-step-time">· 1 мин</span></div>
+        </div>
+      </div>
+      <a class="hero-card-cta" href="https://t.me/bulling_help_kz_bot">Начать бесплатно →</a>
+      <p class="hero-card-free">✅ Первый документ бесплатно · Без регистрации</p>
+    </div>
+  </div>
+</section>
+
 <!-- STATS -->
-<div class="stats-strip">
+<div class="stats">
   <div class="stats-inner">
     <div class="stat">
-      <div class="stat-num">5 мин</div>
+      <div class="stat-num">5 <span>мин</span></div>
       <div class="stat-label">до готового документа</div>
     </div>
     <div class="stat">
-      <div class="stat-num">№ 506</div>
+      <div class="stat-num">№ <span>506</span></div>
       <div class="stat-label">реальный Приказ МП РК в основе</div>
     </div>
     <div class="stat">
-      <div class="stat-num">0 ₸</div>
+      <div class="stat-num">0 <span>₸</span></div>
       <div class="stat-label">первый документ бесплатно</div>
     </div>
     <div class="stat">
-      <div class="stat-num">4 шага</div>
+      <div class="stat-num">4 <span>шага</span></div>
       <div class="stat-label">от ситуации до документа</div>
     </div>
   </div>
 </div>
 
-<!-- WHY BLOCK -->
+<!-- WHY -->
 <section class="section">
   <div class="container">
-    <div class="why-block">
-      <div class="why-text">
-        <h2>Устный разговор со школой —<br><em>не инструмент.</em></h2>
+    <div class="why-cols">
+      <div class="why-left">
+        <div class="section-label">Почему разговоры не работают</div>
+        <h2 class="section-title">Устный разговор со школой —<br><em>не инструмент.</em></h2>
         <p>Не потому что школа плохая. А потому что у неё нет обязанности реагировать на слова. Разговор с учителем можно забыть, переформулировать, не зафиксировать.</p>
-        <p>Письменное заявление — это официальный документ. Его нужно зарегистрировать, рассмотреть и ответить на него в установленном порядке. Приказ МП РК № 506 прямо устанавливает обязанности школы при факте буллинга.</p>
-        <p>Большинство родителей об этом просто не знают.</p>
-        <div class="why-quote">
-          <p>«Когда у вас на руках официальный документ — разговор со школой становится совсем другим.»</p>
-        </div>
+        <p>Письменное заявление — это официальный документ. Его нужно зарегистрировать, рассмотреть и ответить в установленном порядке. Приказ МП РК № 506 прямо устанавливает обязанности школы при факте буллинга. Большинство родителей об этом просто не знают.</p>
+        <div class="why-quote">«Когда у вас на руках официальный документ — разговор со школой становится совсем другим.»</div>
       </div>
-      <div class="why-side">
-        <div class="why-pill">
-          <div class="why-pill-icon">🗣</div>
+      <div class="why-right">
+        <div class="why-card">
+          <div class="why-card-icon">🗣</div>
           <div>
             <h4>Устный разговор</h4>
-            <p>Можно забыть, переформулировать, сослаться на «недопонимание». Никаких обязательств.</p>
+            <p>Можно забыть, переформулировать, не зафиксировать. Никаких обязательств.</p>
           </div>
         </div>
-        <div class="why-pill">
-          <div class="why-pill-icon">📄</div>
+        <div class="why-card">
+          <div class="why-card-icon">📄</div>
           <div>
             <h4>Письменное заявление</h4>
-            <p>Обязаны принять, зарегистрировать и рассмотреть. По закону — в установленные сроки.</p>
+            <p>Обязаны принять, зарегистрировать и рассмотреть в установленные сроки.</p>
           </div>
         </div>
-        <div class="why-pill">
-          <div class="why-pill-icon">⚖️</div>
+        <div class="why-card">
+          <div class="why-card-icon">⚖️</div>
           <div>
             <h4>Приказ МП РК № 506</h4>
             <p>Устанавливает прямые обязанности школы. Большинство родителей об этом не знают.</p>
@@ -570,8 +776,11 @@
 <!-- PAIN -->
 <section class="section bg-light">
   <div class="container">
-    <h2 class="section-title">Узнаёте <em>себя?</em></h2>
-    <p class="section-sub">Если хотя бы одна ситуация знакома — этот инструмент для вас.</p>
+    <div class="text-center">
+      <div class="section-label">Узнаёте себя?</div>
+      <h2 class="section-title">Если хотя бы одно знакомо —<br>этот инструмент для вас.</h2>
+      <p class="section-sub mx-auto">Каждая из этих ситуаций решается через официальный письменный процесс. Бот поможет его начать за 5 минут.</p>
+    </div>
     <div class="pain-grid">
       <div class="pain-card">
         <div class="pain-icon">🗣</div>
@@ -581,7 +790,7 @@
       <div class="pain-card">
         <div class="pain-icon">📵</div>
         <h3>Вы звонили. Приходили. Обещали.</h3>
-        <p>Прошло несколько недель. Ничего не изменилось. Жаловаться, кажется, некому.</p>
+        <p>Прошло несколько недель. Ничего не изменилось. Жаловаться кажется некому.</p>
       </div>
       <div class="pain-card">
         <div class="pain-icon">😶</div>
@@ -590,17 +799,17 @@
       </div>
       <div class="pain-card">
         <div class="pain-icon">⚖️</div>
-        <h3>Вы знаете что закон на вашей стороне</h3>
-        <p>Но не знаете как им воспользоваться. Гуглили, читали — всё расплывчато, без конкретных шагов.</p>
+        <h3>Знаете что закон на вашей стороне</h3>
+        <p>Но не знаете как им воспользоваться. Гуглили — всё расплывчато, без конкретных шагов.</p>
       </div>
       <div class="pain-card">
         <div class="pain-icon">📱</div>
         <h3>Буллинг вышел в интернет</h3>
-        <p>Оскорбления в мессенджерах и соцсетях. Непонятно куда жаловаться и как это зафиксировать.</p>
+        <p>Оскорбления в мессенджерах и соцсетях. Непонятно куда жаловаться и как фиксировать.</p>
       </div>
       <div class="pain-card">
         <div class="pain-icon">😰</div>
-        <h3>Не хотите скандала — хотите закона</h3>
+        <h3>Не хотите скандала — хотите закон</h3>
         <p>Скандал не решит проблему. Вы хотите действовать официально — но не знаете как именно.</p>
       </div>
     </div>
@@ -608,33 +817,36 @@
 </section>
 
 <!-- STEPS -->
-<section class="section">
+<section class="section" id="how">
   <div class="container">
-    <h2 class="section-title">От ситуации до документа —<br><em>4 шага</em></h2>
-    <p class="section-sub">Никаких юридических знаний не нужно. Просто своими словами.</p>
-    <div class="steps">
-      <div class="step">
+    <div class="text-center">
+      <div class="section-label">Как это работает</div>
+      <h2 class="section-title">От ситуации до документа — <em>4 шага</em></h2>
+      <p class="section-sub mx-auto">Никаких юридических знаний не нужно. Просто своими словами. Около 5 минут.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
         <div class="step-num">1</div>
         <h3>Опишите ситуацию</h3>
         <p>Напишите текстом или надиктуйте голосом — что происходит, как давно, что уже пробовали.</p>
         <span class="step-time">~ 1 минута</span>
       </div>
-      <div class="step">
+      <div class="step-card">
         <div class="step-num">2</div>
         <h3>Получите правовую оценку</h3>
-        <p>Бот анализирует ситуацию по Приказу № 506 и АППК РК — выдаёт оценку и пошаговый план действий.</p>
+        <p>Бот анализирует по Приказу № 506 и АППК РК — выдаёт оценку и пошаговый план действий.</p>
         <span class="step-time">~ 30 секунд</span>
       </div>
-      <div class="step">
+      <div class="step-card">
         <div class="step-num">3</div>
         <h3>Заполните анкету</h3>
         <p>4 вопроса: имя ребёнка, класс, школа, город. Можно надиктовать голосом.</p>
         <span class="step-time">~ 2 минуты</span>
       </div>
-      <div class="step">
+      <div class="step-card">
         <div class="step-num">4</div>
         <h3>Скачайте и подайте</h3>
-        <p>Готовый .docx файл с нужными формулировками и ссылками на закон. Распечатайте — и в школу.</p>
+        <p>Готовый .docx с нужными формулировками и ссылками на закон. Распечатайте — и в школу.</p>
         <span class="step-time">~ 1 минута</span>
       </div>
     </div>
@@ -644,26 +856,29 @@
 <!-- DOCS -->
 <section class="section bg-light">
   <div class="container">
-    <h2 class="section-title">Что именно <em>получите</em></h2>
-    <p class="section-sub">Не советы «как написать заявление» — а уже готовое заявление с вашими данными и нужными статьями закона.</p>
-    <div class="docs">
-      <div class="doc-card">
+    <div class="text-center">
+      <div class="section-label">Что именно получите</div>
+      <h2 class="section-title">Готовые документы —<br><em>не советы как написать.</em></h2>
+      <p class="section-sub mx-auto">Уже написанное заявление с вашими данными и нужными статьями закона. Школа не сможет отмахнуться.</p>
+    </div>
+    <div class="docs-grid">
+      <div class="doc-card free-card">
         <h3>📄 Заявление директору школы</h3>
-        <p>О регистрации факта травли (буллинга). Со ссылками на Приказ № 506 и АППК РК. Школа обязана принять, зарегистрировать и рассмотреть официальное письменное обращение.</p>
-        <span class="badge free">✅ Бесплатно</span>
+        <p>О регистрации факта травли со ссылками на Приказ № 506 и АППК РК. Школа обязана принять, зарегистрировать и рассмотреть официальное письменное обращение.</p>
+        <span class="badge badge-free">✅ Бесплатно</span>
       </div>
-      <div class="doc-card paid">
+      <div class="doc-card paid-card">
         <h3>📄 Требование письменного ответа</h3>
-        <p>Если школа не реагирует — официальное требование в установленном законом порядке. С уведомлением о праве обратиться в управление образования.</p>
-        <span class="badge paid-b">📦 Пакет · 2 990 ₸</span>
+        <p>Если школа не реагирует — официальное требование в установленном порядке. С уведомлением о праве обратиться в управление образования.</p>
+        <span class="badge badge-paid">📦 Пакет · 2 990 ₸</span>
       </div>
-      <div class="doc-card paid">
+      <div class="doc-card paid-card">
         <h3>📄 Памятка по кибербуллингу</h3>
-        <p>Как фиксировать доказательства, куда обращаться при онлайн-угрозах и оскорблениях в мессенджерах. Правовая основа по Приказу № 506.</p>
-        <span class="badge paid-b">📦 Пакет · 2 990 ₸</span>
+        <p>Как фиксировать доказательства, куда обращаться при онлайн-угрозах. Правовая основа по Приказу № 506.</p>
+        <span class="badge badge-paid">📦 Пакет · 2 990 ₸</span>
       </div>
     </div>
-    <div class="docs-note">Пакет включает оба платных документа + приоритетный запрос на консультацию с юристом ADDASTRA.</div>
+    <div class="docs-note">📦 Пакет включает оба платных документа + приоритетный запрос на консультацию с юристом ADDASTRA</div>
   </div>
 </section>
 
@@ -672,13 +887,9 @@
   <div class="container">
     <div class="law-block">
       <div class="law-icon">🏛️</div>
-      <div class="law-text">
+      <div class="law-content">
         <h3>Документы основаны на реальном законодательстве РК — не на шаблонах из интернета</h3>
-        <p>
-          Бот работает на актуальных текстах нормативных правовых актов Казахстана.
-          Тексты законов загружаются с <strong>adilet.zan.kz</strong> — официального государственного ресурса НПА РК.
-          Это не пересказ и не общие слова — это конкретные нормы, на которые школа обязана реагировать официально.
-        </p>
+        <p>Бот работает на актуальных текстах нормативных правовых актов Казахстана. Тексты законов загружаются с <strong>adilet.zan.kz</strong> — официального государственного ресурса НПА РК. Это не пересказ и не общие слова — это конкретные нормы, на которые школа обязана реагировать официально.</p>
         <div class="law-tags">
           <span class="law-tag">Приказ МП РК № 506</span>
           <span class="law-tag">АППК РК</span>
@@ -694,20 +905,18 @@
 <!-- ADDASTRA -->
 <section class="section bg-light">
   <div class="container">
-    <div class="addastra-block">
+    <div class="addastra-cols">
       <div class="addastra-text">
-        <h2>За ботом стоят<br>живые юристы.</h2>
-        <p>
-          Буллинг Стоп КЗ — продукт юридической фирмы <strong>ADDASTRA</strong> (Алматы).
-          Мы специализируемся на защите прав в сфере образования Казахстана.
-          Бот — это быстрый первый шаг, доступный каждому родителю прямо сейчас.
-          Сложные случаи — когда нужно представительство или обращение в надзорные органы — ведём лично.
-        </p>
-        <a class="addastra-link" href="https://addastra-laws.kz" target="_blank">addastra-laws.kz →</a>
+        <div class="section-label">Кто стоит за продуктом</div>
+        <h2 class="section-title">За ботом стоят<br><em>живые юристы.</em></h2>
+        <p>Буллинг Стоп КЗ — продукт юридической фирмы <strong>ADDASTRA</strong> (Алматы). Мы специализируемся на защите прав в сфере образования Казахстана. Бот — это быстрый первый шаг, доступный каждому родителю прямо сейчас. Сложные случаи, когда нужно представительство или обращение в надзорные органы, мы ведём лично.</p>
+        <a class="btn-teal" href="https://addastra-laws.kz" target="_blank">addastra-laws.kz →</a>
       </div>
       <div class="addastra-card">
-        <img src="addastra-logo.png" alt="ADDASTRA">
-        <h3>ADDASTRA</h3>
+        <div class="addastra-card-logo">
+          <img src="addastra-logo.png" alt="ADDASTRA" />
+        </div>
+        <h3>ADD<span>ASTRA</span></h3>
         <p>Юридическая защита в сфере образования Казахстана</p>
       </div>
     </div>
@@ -715,30 +924,33 @@
 </section>
 
 <!-- LAWYER -->
-<section class="section">
+<section class="section bg-dark">
   <div class="container">
-    <h2 class="section-title">Когда нужен <em>живой юрист</em></h2>
-    <p class="section-sub">Бот справляется с большинством ситуаций. Но если случай выходит за рамки — юристы ADDASTRA готовы подключиться.</p>
+    <div class="text-center" style="margin-bottom: 48px;">
+      <div class="section-label" style="color: rgba(255,255,255,.5);">Когда нужен живой юрист</div>
+      <h2 class="section-title" style="color: #fff;">Некоторые ситуации<br>требуют большего.</h2>
+      <p class="section-sub mx-auto" style="color: rgba(255,255,255,.6); margin-bottom: 0;">Бот справляется с большинством ситуаций. Если случай выходит за рамки — юристы ADDASTRA готовы подключиться.</p>
+    </div>
     <div class="lawyer-grid">
       <div class="lawyer-item">
         <strong>Школа официально отказала</strong>
-        Письменное обращение подано, но в ответе — отказ или игнорирование.
+        <p>Письменное обращение подано, но в ответе — отказ или молчание.</p>
       </div>
       <div class="lawyer-item">
         <strong>Физическое насилие или угрозы</strong>
-        Ситуация требует обращения в полицию или прокуратуру.
+        <p>Ситуация требует обращения в полицию или прокуратуру.</p>
       </div>
       <div class="lawyer-item">
         <strong>Нужно представительство</strong>
-        Переговоры с администрацией, управлением образования или в суде.
+        <p>Переговоры с администрацией, управлением образования или в суде.</p>
       </div>
       <div class="lawyer-item">
         <strong>Случай нестандартный</strong>
-        Вы чувствуете, что ситуация сложнее обычного и требует индивидуального подхода.
+        <p>Вы чувствуете, что ситуация сложнее и требует индивидуального подхода.</p>
       </div>
     </div>
-    <div class="lawyer-cta-wrap">
-      <a class="lawyer-btn" href="https://t.me/bulling_help_kz_bot">Связаться с юристом ADDASTRA →</a>
+    <div class="lawyer-cta">
+      <a class="btn-white" href="https://t.me/bulling_help_kz_bot">Связаться с юристом ADDASTRA →</a>
       <p class="lawyer-note">Через бот · В рабочее время · Алматы</p>
     </div>
   </div>
@@ -747,39 +959,42 @@
 <!-- FAQ -->
 <section class="section bg-light">
   <div class="container">
-    <h2 class="section-title">Частые <em>вопросы</em></h2>
-    <p class="section-sub">Отвечаем честно и по существу.</p>
+    <div class="text-center">
+      <div class="section-label">Вопросы и ответы</div>
+      <h2 class="section-title">Частые <em>вопросы</em></h2>
+      <p class="section-sub mx-auto">Отвечаем честно и по существу.</p>
+    </div>
     <div class="faq">
       <details>
-        <summary>Это законно — использовать такие документы?</summary>
+        <summary>Это законно — использовать такие документы? <div class="faq-icon"></div></summary>
         <div class="faq-body">Да. Бот формирует шаблон официального письменного обращения — это законное право любого гражданина. Подать заявление в любую организацию вправе каждый. Закон обязывает организацию рассмотреть обращение в установленном порядке.</div>
       </details>
       <details>
-        <summary>Нужны ли мне юридические знания?</summary>
+        <summary>Нужны ли мне юридические знания? <div class="faq-icon"></div></summary>
         <div class="faq-body">Нет. Просто опишите ситуацию своими словами — бот сам переведёт это в нужные формулировки со ссылками на закон. Никакой специальной подготовки не требуется.</div>
       </details>
       <details>
-        <summary>Нужно регистрироваться или создавать аккаунт?</summary>
-        <div class="faq-body">Нет регистрации, нет аккаунтов. Вы просто открываете бот в Telegram и начинаете. Персональные данные (имя ребёнка, школа, класс, город) нужны только для заполнения документа.</div>
+        <summary>Нужно регистрироваться или создавать аккаунт? <div class="faq-icon"></div></summary>
+        <div class="faq-body">Нет регистрации, нет аккаунтов. Вы просто открываете бот в Telegram и начинаете. Персональные данные — имя ребёнка, школа, класс, город — нужны только для заполнения документа.</div>
       </details>
       <details>
-        <summary>Можно ли описать ситуацию голосом?</summary>
+        <summary>Можно ли описать ситуацию голосом? <div class="faq-icon"></div></summary>
         <div class="faq-body">Да. Бот принимает голосовые сообщения — расшифровывает и анализирует их так же, как текст. Это удобно, если сложно подобрать слова или нет времени печатать.</div>
       </details>
       <details>
-        <summary>Что если буллинг происходит в интернете или мессенджерах?</summary>
+        <summary>Что если буллинг происходит в интернете или мессенджерах? <div class="faq-icon"></div></summary>
         <div class="faq-body">Для этого есть отдельный документ в пакете — памятка по кибербуллингу. В ней: как правильно фиксировать доказательства, куда обращаться при онлайн-угрозах, правовая основа по нормам РК.</div>
       </details>
       <details>
-        <summary>Что если школа уже молчит или устно отказала?</summary>
-        <div class="faq-body">Именно для этого нужен письменный документ. Устное обращение школа может не фиксировать. Письменное — обязана зарегистрировать и рассмотреть в установленном законом порядке. Если и после этого нет реакции — в пакете есть документ «требование письменного ответа».</div>
+        <summary>Что если школа уже молчит или устно отказала? <div class="faq-icon"></div></summary>
+        <div class="faq-body">Именно для этого нужен письменный документ. Устное обращение школа может не фиксировать. Письменное — обязана зарегистрировать и рассмотреть в установленном порядке. Если и после этого нет реакции — в пакете есть «требование письменного ответа».</div>
       </details>
       <details>
-        <summary>Гарантирует ли это результат?</summary>
-        <div class="faq-body">Бот помогает правильно начать официальный процесс. Реакция школы зависит от конкретной ситуации. Если школа продолжает игнорировать — следующие шаги: обращение в управление образования или прокуратуру. В этих случаях подключаются юристы ADDASTRA.</div>
+        <summary>Гарантирует ли это результат? <div class="faq-icon"></div></summary>
+        <div class="faq-body">Бот помогает правильно начать официальный процесс. Реакция школы зависит от конкретной ситуации. Если школа продолжает игнорировать — следующие шаги: управление образования, прокуратура. В этих случаях подключаются юристы ADDASTRA.</div>
       </details>
       <details>
-        <summary>Это безопасно для меня и ребёнка?</summary>
+        <summary>Это безопасно для меня и ребёнка? <div class="faq-icon"></div></summary>
         <div class="faq-body">Документ подаётся от имени родителя как официальное письменное обращение — это стандартный законный инструмент. Никаких публичных обвинений, никакого скандала. Только официальный процесс в рамках закона.</div>
       </details>
     </div>
@@ -789,19 +1004,24 @@
 <!-- CTA CLOSING -->
 <section class="cta-section">
   <h2>Ваш ребёнок заслуживает<br><em>официальной защиты.</em></h2>
-  <p>Не устных обещаний. Первый шаг — 5 минут и бесплатно.</p>
-  <a class="cta-btn" href="https://t.me/bulling_help_kz_bot">🛡️ Получить первый документ бесплатно</a>
+  <p class="cta-sub">Не устных обещаний. Первый шаг — 5 минут и бесплатно.</p>
+  <a class="btn-cta" href="https://t.me/bulling_help_kz_bot">🛡️ Получить первый документ бесплатно</a>
   <p class="cta-note">Telegram-бот · Без регистрации · Голосовой ввод · Первый документ бесплатно</p>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Буллинг <span>Стоп</span> КЗ × ADDASTRA</div>
+  <div class="footer-logo">
+    <div class="footer-logo-icon">
+      <img src="addastra-logo.png" alt="ADDASTRA" />
+    </div>
+    <div class="footer-logo-name">Буллинг<span>Стоп</span>КЗ × ADD<span>ASTRA</span></div>
+  </div>
   <p>© 2026 ТОО «ADDASTRA» · Алматы, Казахстан · <a href="https://addastra-laws.kz" target="_blank">addastra-laws.kz</a></p>
-  <p>
+  <div class="footer-links">
     <a href="https://t.me/bulling_help_kz_bot">/privacy</a> — Политика конфиденциальности &nbsp;|&nbsp;
     <a href="https://t.me/bulling_help_kz_bot">/terms</a> — Условия использования
-  </p>
+  </div>
   <div class="disclaimer">
     Буллинг Стоп КЗ формирует шаблоны официальных документов на основе норм права РК и не является юридической консультацией. Бот не заменяет индивидуальную правовую помощь. В сложных случаях обратитесь к юристу ADDASTRA или иному квалифицированному специалисту.
   </div>
