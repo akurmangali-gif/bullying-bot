@@ -5,116 +5,329 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Буллинг Стоп КЗ — защита детей от буллинга в школе по закону РК</title>
   <meta name="description" content="Ребёнка обижают в школе? За 5 минут получите правовую оценку и готовые документы по закону РК. Бесплатно. Telegram-бот для родителей Казахстана." />
-  <meta name="keywords" content="буллинг, школа, Казахстан, документы, заявление директору, травля, KZ, закон 506" />
-  <meta property="og:title" content="Буллинг Стоп КЗ" />
+  <meta name="keywords" content="буллинг, школа, Казахстан, документы, заявление директору, травля, KZ, закон 506, ADDASTRA" />
+  <meta property="og:title" content="Буллинг Стоп КЗ — ADDASTRA" />
   <meta property="og:description" content="Правовая помощь родителям при буллинге в школе — бесплатно, за 5 минут, по закону РК." />
   <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1a1a2e; background: #f8f9ff; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* NAV */
-    nav { background: #fff; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 1px 8px rgba(0,0,0,.06); position: sticky; top: 0; z-index: 10; }
-    .logo { font-weight: 700; font-size: 18px; color: #2563eb; }
-    .nav-btn { background: #2563eb; color: #fff; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; }
+    :root {
+      --red:    #E31E24;
+      --red-dk: #C01A1F;
+      --dark:   #2D2D2D;
+      --teal:   #2C5F5F;
+      --teal-lt:#EBF4F4;
+      --light:  #F8F9FA;
+      --white:  #FFFFFF;
+      --text:   #2D2D2D;
+      --muted:  #6B7280;
+      --radius: 12px;
+    }
 
-    /* HERO */
-    .hero { background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color: #fff; text-align: center; padding: 80px 24px 100px; }
-    .hero h1 { font-size: clamp(28px, 5vw, 48px); font-weight: 800; line-height: 1.2; margin-bottom: 20px; }
-    .hero h1 span { color: #fbbf24; }
-    .hero p { font-size: clamp(16px, 2vw, 20px); opacity: .9; max-width: 600px; margin: 0 auto 36px; line-height: 1.6; }
-    .hero-btn { display: inline-block; background: #fbbf24; color: #1a1a2e; padding: 16px 40px; border-radius: 12px; font-weight: 800; font-size: 18px; text-decoration: none; transition: transform .15s; }
-    .hero-btn:hover { transform: scale(1.04); }
-    .hero-note { margin-top: 16px; font-size: 14px; opacity: .75; }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+    }
 
-    /* WAVE */
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #eee;
+      padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800; font-size: 17px;
+      color: var(--dark);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .logo span { color: var(--red); }
+    .nav-cta {
+      background: var(--red); color: #fff;
+      padding: 10px 22px; border-radius: var(--radius);
+      text-decoration: none;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 600; font-size: 14px;
+      transition: background .15s;
+    }
+    .nav-cta:hover { background: var(--red-dk); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--light) 0%, var(--white) 60%, #FFF5F5 100%);
+      padding: 80px 24px 90px;
+      text-align: center;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: #FEE2E2; color: var(--red);
+      font-size: 13px; font-weight: 600;
+      padding: 6px 14px; border-radius: 20px;
+      margin-bottom: 24px;
+      font-family: 'Open Sans', sans-serif;
+    }
+    .hero h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: clamp(28px, 5vw, 52px);
+      line-height: 1.15;
+      color: var(--dark);
+      max-width: 720px;
+      margin: 0 auto 20px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--red);
+    }
+    .hero p {
+      font-size: clamp(15px, 2vw, 18px);
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 36px;
+    }
+    .hero-btn {
+      display: inline-block;
+      background: var(--red); color: #fff;
+      padding: 16px 44px; border-radius: var(--radius);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700; font-size: 17px;
+      text-decoration: none;
+      transition: background .15s, transform .15s;
+    }
+    .hero-btn:hover { background: var(--red-dk); transform: translateY(-2px); }
+    .hero-note { margin-top: 16px; font-size: 13px; color: var(--muted); }
+
+    /* ── WAVE ── */
     .wave { display: block; margin-top: -2px; }
 
-    /* STEPS */
-    .section { padding: 64px 24px; max-width: 900px; margin: 0 auto; }
-    .section h2 { text-align: center; font-size: clamp(22px, 3vw, 32px); font-weight: 800; margin-bottom: 48px; }
-    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
-    .step { background: #fff; border-radius: 16px; padding: 28px; box-shadow: 0 2px 16px rgba(0,0,0,.06); text-align: center; }
-    .step-num { width: 48px; height: 48px; border-radius: 50%; background: #eff6ff; color: #2563eb; font-weight: 800; font-size: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
-    .step h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
-    .step p { font-size: 14px; color: #64748b; line-height: 1.5; }
+    /* ── SECTION BASE ── */
+    .section { padding: 72px 24px; }
+    .container { max-width: 960px; margin: 0 auto; }
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: clamp(22px, 3vw, 34px);
+      color: var(--dark);
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .section-title span { color: var(--red); }
 
-    /* DOCS */
-    .docs-bg { background: #eff6ff; }
-    .docs { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
-    .doc-card { background: #fff; border-radius: 14px; padding: 24px; border-left: 4px solid #2563eb; }
-    .doc-card.paid { border-left-color: #f59e0b; }
-    .doc-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
-    .doc-card p { font-size: 13px; color: #64748b; line-height: 1.5; }
-    .badge { display: inline-block; margin-top: 12px; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px; }
-    .badge.free { background: #d1fae5; color: #065f46; }
-    .badge.paid { background: #fef3c7; color: #92400e; }
+    /* ── STEPS ── */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 24px; }
+    .step {
+      background: var(--white);
+      border: 1px solid #EAECF0;
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-align: center;
+      transition: box-shadow .2s;
+    }
+    .step:hover { box-shadow: 0 8px 32px rgba(227,30,36,.1); }
+    .step-num {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: #FEE2E2; color: var(--red);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800; font-size: 20px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .step h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700; font-size: 15px;
+      color: var(--dark); margin-bottom: 8px;
+    }
+    .step p { font-size: 13px; color: var(--muted); line-height: 1.55; }
 
-    /* LAW */
-    .law-box { background: #fff; border-radius: 16px; padding: 32px; box-shadow: 0 2px 16px rgba(0,0,0,.06); max-width: 700px; margin: 0 auto; text-align: center; }
-    .law-box p { color: #475569; line-height: 1.7; font-size: 15px; }
-    .law-box strong { color: #1e3a8a; }
+    /* ── DOCS ── */
+    .bg-light { background: var(--light); }
+    .docs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .doc-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 24px;
+      border-left: 4px solid var(--teal);
+    }
+    .doc-card.paid { border-left-color: var(--red); }
+    .doc-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700; font-size: 15px;
+      color: var(--dark); margin-bottom: 8px;
+    }
+    .doc-card p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+    .badge {
+      display: inline-block; margin-top: 12px;
+      font-size: 12px; font-weight: 600;
+      padding: 4px 12px; border-radius: 20px;
+      font-family: 'Open Sans', sans-serif;
+    }
+    .badge.free { background: #D1FAE5; color: #065F46; }
+    .badge.paid { background: #FEE2E2; color: var(--red); }
 
-    /* CTA */
-    .cta { background: linear-gradient(135deg, #1e3a8a, #2563eb); color: #fff; text-align: center; padding: 80px 24px; }
-    .cta h2 { font-size: clamp(24px, 4vw, 36px); font-weight: 800; margin-bottom: 16px; }
-    .cta p { font-size: 16px; opacity: .85; margin-bottom: 36px; }
-    .cta-btn { display: inline-block; background: #fbbf24; color: #1a1a2e; padding: 16px 44px; border-radius: 12px; font-weight: 800; font-size: 18px; text-decoration: none; }
+    /* ── TEAL BLOCK ── */
+    .teal-block {
+      background: var(--teal);
+      color: #fff;
+      border-radius: 20px;
+      padding: 48px 40px;
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .teal-block h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800; font-size: clamp(20px, 3vw, 28px);
+      margin-bottom: 14px;
+    }
+    .teal-block p { font-size: 15px; opacity: .9; line-height: 1.6; }
 
-    /* FOOTER */
-    footer { background: #1a1a2e; color: #94a3b8; text-align: center; padding: 32px 24px; font-size: 13px; line-height: 1.8; }
-    footer a { color: #60a5fa; text-decoration: none; }
+    /* ── ADDASTRA PROMO ── */
+    .addastra-block {
+      display: flex; gap: 40px; align-items: center;
+      flex-wrap: wrap;
+    }
+    .addastra-text { flex: 1; min-width: 260px; }
+    .addastra-text h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800; font-size: clamp(20px, 3vw, 30px);
+      color: var(--dark); margin-bottom: 14px;
+    }
+    .addastra-text p { color: var(--muted); font-size: 15px; line-height: 1.7; margin-bottom: 20px; }
+    .addastra-link {
+      display: inline-block;
+      background: var(--dark); color: #fff;
+      padding: 12px 28px; border-radius: var(--radius);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700; font-size: 14px;
+      text-decoration: none;
+      transition: background .15s;
+    }
+    .addastra-link:hover { background: #444; }
+    .addastra-badge {
+      flex: 0 0 260px;
+      background: var(--teal-lt);
+      border: 2px solid var(--teal);
+      border-radius: 16px;
+      padding: 32px 28px;
+      text-align: center;
+    }
+    .addastra-badge .big { font-size: 40px; margin-bottom: 12px; }
+    .addastra-badge h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800; font-size: 18px;
+      color: var(--teal); margin-bottom: 6px;
+    }
+    .addastra-badge p { font-size: 13px; color: var(--muted); }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: var(--dark);
+      color: #fff;
+      text-align: center;
+      padding: 80px 24px;
+    }
+    .cta-section h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800; font-size: clamp(24px, 4vw, 38px);
+      margin-bottom: 14px;
+    }
+    .cta-section p { font-size: 16px; opacity: .75; margin-bottom: 36px; }
+    .cta-btn {
+      display: inline-block;
+      background: var(--red); color: #fff;
+      padding: 16px 48px; border-radius: var(--radius);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700; font-size: 18px;
+      text-decoration: none;
+      transition: background .15s, transform .15s;
+    }
+    .cta-btn:hover { background: var(--red-dk); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid #3D3D3D;
+      color: #9CA3AF;
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    footer a { color: #D1D5DB; text-decoration: none; }
+    footer a:hover { color: var(--white); }
+    .footer-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800; font-size: 15px;
+      color: var(--white); margin-bottom: 10px;
+    }
+    .footer-logo span { color: var(--red); }
   </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <span class="logo">🛡️ Буллинг Стоп КЗ</span>
-  <a class="nav-btn" href="https://t.me/bulling_help_kz_bot">Открыть бот</a>
+  <div class="logo">🛡️ Буллинг <span>Стоп</span> КЗ</div>
+  <a class="nav-cta" href="https://t.me/bulling_help_kz_bot">Открыть бот →</a>
 </nav>
 
-<div class="hero">
-  <h1>Ребёнка обижают в школе?<br><span>Мы поможем по закону.</span></h1>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">⚖️ По закону РК · Приказ МП № 506</div>
+  <h1>Ребёнка обижают в школе?<br><em>Защитите его по закону.</em></h1>
   <p>Напишите или надиктуйте что происходит — за 5 минут получите правовую оценку и готовые официальные документы для школы.</p>
   <a class="hero-btn" href="https://t.me/bulling_help_kz_bot">🚀 Начать бесплатно</a>
-  <p class="hero-note">Работает в Telegram · Документ 1 бесплатно · Закон РК Приказ № 506</p>
-</div>
+  <p class="hero-note">Работает в Telegram · Документ 1 бесплатно · Голосовой ввод 🎤</p>
+</section>
 
-<svg class="wave" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg"><path fill="#f8f9ff" d="M0,40 C360,80 1080,0 1440,40 L1440,60 L0,60 Z"/></svg>
+<svg class="wave" viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="background:#F8F9FA"><path fill="#fff" d="M0,30 C360,60 1080,0 1440,30 L1440,0 L0,0 Z"/></svg>
 
-<section class="section">
-  <h2>Как это работает</h2>
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <h3>Опишите ситуацию</h3>
-      <p>Текстом или голосом — что происходит, как давно, кто участвует. Без формальностей.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <h3>Получите оценку</h3>
-      <p>Бот анализирует ситуацию по реальным текстам законов РК и даёт пошаговый план действий.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <h3>Скачайте документы</h3>
-      <p>Готовые .docx файлы — остаётся распечатать и подать. Заявление директору, требование ответа, памятка по кибербуллингу.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <h3>Нужен юрист?</h3>
-      <p>Если ситуация сложная — один клик, и юрист ADDASTRA свяжется с вами в течение рабочего дня.</p>
+<!-- STEPS -->
+<section class="section bg-light">
+  <div class="container">
+    <h2 class="section-title">Как это работает — <span>4 шага</span></h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Опишите ситуацию</h3>
+        <p>Текстом или голосом — что происходит, как давно, кто участвует.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Получите оценку</h3>
+        <p>Бот анализирует по реальным текстам законов РК и даёт пошаговый план.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Заполните анкету</h3>
+        <p>4 простых вопроса — имя ребёнка, школа, класс, город.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Скачайте документы</h3>
+        <p>Готовые .docx файлы — распечатайте и подайте в школу.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="docs-bg">
-  <div class="section">
-    <h2>Документы которые получите</h2>
+<!-- DOCS -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Документы которые <span>получите</span></h2>
     <div class="docs">
       <div class="doc-card">
         <h3>📄 Заявление директору школы</h3>
-        <p>О регистрации факта травли (буллинга) — со ссылками на Правила № 506 МП РК и АППК.</p>
+        <p>О регистрации факта травли (буллинга) — со ссылками на Правила № 506 МП РК и АППК РК.</p>
         <span class="badge free">✅ Бесплатно</span>
       </div>
       <div class="doc-card paid">
@@ -124,36 +337,65 @@
       </div>
       <div class="doc-card paid">
         <h3>📄 Памятка по кибербуллингу</h3>
-        <p>Как правильно фиксировать доказательства, куда жаловаться на платформы, правовая основа.</p>
+        <p>Как фиксировать доказательства, куда жаловаться, правовая основа по № 506.</p>
         <span class="badge paid">📦 Пакет 2 990 тг</span>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section">
-  <h2>На каком законе основан бот</h2>
-  <div class="law-box">
-    <p>
-      Бот работает на основе <strong>Приказа Министра просвещения РК № 506 от 21.12.2022</strong> —
-      официальных Правил профилактики травли (буллинга). Также используются нормы
-      <strong>АППК РК, УК РК (ст. 15), КоАП РК</strong>.
-      Тексты законов загружаются напрямую с <strong>adilet.zan.kz</strong> —
-      официальной базы законодательства Казахстана.
-    </p>
+<!-- LAW BLOCK -->
+<section class="section bg-light">
+  <div class="container">
+    <div class="teal-block">
+      <h2>Документы основаны на реальном законе</h2>
+      <p>
+        Бот работает на основе <strong>Приказа МП РК № 506 от 21.12.2022</strong> — официальных Правил профилактики травли (буллинга).
+        Тексты законов загружаются напрямую с <strong>adilet.zan.kz</strong> — официальной базы законодательства РК.
+        Также используются нормы <strong>АППК РК, УК РК (ст.15), КоАП РК</strong>.
+      </p>
+    </div>
   </div>
 </section>
 
-<div class="cta">
+<!-- ADDASTRA -->
+<section class="section">
+  <div class="container">
+    <div class="addastra-block">
+      <div class="addastra-text">
+        <h2>Нужен юрист?<br>Мы рядом.</h2>
+        <p>
+          Если ситуация сложная и вы хотите личного сопровождения — юристы
+          <strong>ADDASTRA</strong> специализируются на защите прав в сфере образования.
+          Один клик в боте — и мы свяжемся с вами в течение рабочего дня.
+        </p>
+        <a class="addastra-link" href="https://addastra-laws.kz" target="_blank">addastra-laws.kz →</a>
+      </div>
+      <div class="addastra-badge">
+        <div class="big">👨‍⚖️</div>
+        <h3>ADDASTRA</h3>
+        <p>Юридическая защита образовательных учреждений Казахстана</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
   <h2>Защитите своего ребёнка сегодня</h2>
   <p>Первый документ — бесплатно. Без регистрации. Прямо в Telegram.</p>
   <a class="cta-btn" href="https://t.me/bulling_help_kz_bot">🛡️ Открыть бот</a>
-</div>
+</section>
 
+<!-- FOOTER -->
 <footer>
-  <p>© 2026 Буллинг Стоп КЗ · ТОО «ADDASTRA» · Алматы, Казахстан</p>
-  <p><a href="https://t.me/bulling_help_kz_bot">/privacy</a> — Политика конфиденциальности &nbsp;|&nbsp; <a href="https://t.me/bulling_help_kz_bot">/terms</a> — Условия использования</p>
-  <p style="margin-top:8px">Бот не оказывает юридических услуг. Документы являются шаблонами по законодательству РК.</p>
+  <div class="footer-logo">Буллинг <span>Стоп</span> КЗ × ADDASTRA</div>
+  <p>© 2026 ТОО «ADDASTRA» · Алматы, Казахстан · <a href="https://addastra-laws.kz">addastra-laws.kz</a></p>
+  <p>
+    <a href="https://t.me/bulling_help_kz_bot">/privacy</a> — Политика конфиденциальности &nbsp;|&nbsp;
+    <a href="https://t.me/bulling_help_kz_bot">/terms</a> — Условия использования
+  </p>
+  <p style="margin-top:8px;font-size:12px">Бот предоставляет шаблоны документов. Не является юридической услугой.</p>
 </footer>
 
 </body>
