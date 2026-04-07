@@ -1,1028 +1,689 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Буллинг Стоп КЗ — официальный документ для школы за 5 минут | ADDASTRA</title>
-  <meta name="description" content="Школа игнорирует буллинг? Получите официальное заявление директору со ссылками на Приказ МП РК № 506 — за 5 минут, бесплатно, прямо в Telegram. Продукт юридической фирмы ADDASTRA." />
-  <meta property="og:title" content="Буллинг Стоп КЗ — школа обязана ответить письменно" />
-  <meta property="og:description" content="Официальный документ за 5 минут. Без регистрации. Прямо в Telegram. Продукт ADDASTRA." />
-  <meta property="og:type" content="website" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <style>
-    /* ── RESET & BASE ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Буллинг Стоп КЗ — Защита прав ребёнка при травле в школе</title>
+  <meta name="description" content="Telegram-бот помогает родителям остановить травлю в школе. Правовая оценка ситуации + пакет документов по закону РК (Приказ МП № 506). Бесплатно, за 5 минут.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://stop-bullying.kz/">
 
-    :root {
-      --red:      #E31E24;
-      --red-dk:   #B91218;
-      --teal:     #2C5F5F;
-      --teal-dk:  #1E4242;
-      --dark:     #2D2D2D;
-      --light:    #F8F9FA;
-      --white:    #FFFFFF;
-      --muted:    #6B7280;
-      --border:   #E5E7EB;
-    }
+  <!-- Open Graph -->
+  <meta property="og:title" content="Буллинг Стоп КЗ — Защита прав ребёнка при травле в школе">
+  <meta property="og:description" content="Telegram-бот: правовая оценка + документы за 5 минут по закону РК. Бесплатно.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://stop-bullying.kz/">
+  <meta property="og:locale" content="ru_KZ">
 
-    html { scroll-behavior: smooth; }
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="addastra-logo.png">
 
-    body {
-      font-family: 'Open Sans', sans-serif;
-      font-size: 16px;
-      color: var(--dark);
-      background: var(--white);
-      line-height: 1.65;
-      overflow-x: hidden;
-    }
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    h1, h2, h3, h4 {
-      font-family: 'Montserrat', sans-serif;
-      line-height: 1.2;
-    }
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles.css">
 
-    .container {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    /* ── NAV ── */
-    header {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 40;
-      background: rgba(255,255,255,.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 1px 0 rgba(0,0,0,.06);
-      transition: all .3s;
-    }
-    .nav-inner {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 20px;
-      max-width: 1120px; margin: 0 auto;
-    }
-    .logo {
-      display: flex; align-items: center; gap: 10px;
-      text-decoration: none;
-    }
-    .logo-icon {
-      height: 44px; width: auto;
-      display: flex; align-items: center;
-      flex-shrink: 0;
-    }
-    .logo-icon img { height: 44px; width: auto; }
-    .logo-name {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 18px;
-      color: var(--dark);
-      letter-spacing: -.02em;
-      line-height: 1;
-    }
-    .logo-name span { color: var(--red); }
-    .logo-sub {
-      display: block;
-      font-family: 'Open Sans', sans-serif;
-      font-size: 10px; font-weight: 600;
-      color: var(--muted);
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      margin-top: 2px;
-    }
-    .nav-cta {
-      background: var(--teal); color: #fff;
-      padding: 10px 24px; border-radius: 50px;
-      text-decoration: none;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700; font-size: 14px;
-      transition: background .2s, transform .15s;
-      white-space: nowrap;
-    }
-    .nav-cta:hover { background: var(--teal-dk); transform: scale(1.02); }
-
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 60%, #f0f4f4 100%);
-      display: flex; align-items: center;
-      padding: 120px 20px 80px;
-      position: relative; overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -200px; right: -200px;
-      width: 600px; height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(44,95,95,.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -100px; left: -100px;
-      width: 400px; height: 400px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(227,30,36,.04) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-inner {
-      display: flex; gap: 60px; align-items: center; flex-wrap: wrap;
-      max-width: 1120px; margin: 0 auto; width: 100%;
-    }
-    .hero-text { flex: 1; min-width: 300px; }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(44,95,95,.08);
-      color: var(--teal);
-      border: 1px solid rgba(44,95,95,.2);
-      border-radius: 50px;
-      padding: 7px 16px;
-      font-size: 13px; font-weight: 600;
-      margin-bottom: 28px;
-    }
-    .hero h1 {
-      font-size: clamp(30px, 4.5vw, 52px);
-      font-weight: 900;
-      color: var(--dark);
-      margin-bottom: 20px;
-      letter-spacing: -.02em;
-    }
-    .hero h1 em {
-      font-style: normal;
-      color: var(--red);
-    }
-    .hero-sub {
-      font-size: clamp(16px, 2vw, 19px);
-      color: var(--muted);
-      margin-bottom: 14px;
-      max-width: 520px;
-      line-height: 1.7;
-    }
-    .hero-proof {
-      font-size: 14px;
-      color: var(--muted);
-      margin-bottom: 36px;
-      max-width: 500px;
-      line-height: 1.65;
-      padding-left: 14px;
-      border-left: 3px solid var(--red);
-    }
-    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 32px; }
-    .btn-primary {
-      display: inline-block;
-      background: var(--red); color: #fff;
-      padding: 15px 36px; border-radius: 50px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800; font-size: 16px;
-      text-decoration: none;
-      transition: background .2s, transform .15s, box-shadow .2s;
-      box-shadow: 0 4px 20px rgba(227,30,36,.3);
-      animation: pulse-red 2.5s infinite;
-    }
-    .btn-primary:hover { background: var(--red-dk); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(227,30,36,.45); }
-    @keyframes pulse-red {
-      0%   { box-shadow: 0 0 0 0 rgba(227,30,36,.5), 0 4px 20px rgba(227,30,36,.3); }
-      70%  { box-shadow: 0 0 0 10px rgba(227,30,36,.0), 0 4px 20px rgba(227,30,36,.3); }
-      100% { box-shadow: 0 0 0 0 rgba(227,30,36,.0), 0 4px 20px rgba(227,30,36,.3); }
-    }
-    .btn-secondary {
-      display: inline-block;
-      background: transparent; color: var(--dark);
-      padding: 14px 28px; border-radius: 50px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700; font-size: 15px;
-      text-decoration: none;
-      border: 2px solid var(--border);
-      transition: border-color .2s, color .2s;
-    }
-    .btn-secondary:hover { border-color: var(--teal); color: var(--teal); }
-    .hero-microcopy {
-      font-size: 13px; color: var(--muted);
-      display: flex; gap: 16px; flex-wrap: wrap;
-    }
-    .hero-microcopy span { display: flex; align-items: center; gap: 6px; }
-    .hero-microcopy i { color: var(--teal); font-size: 12px; }
-
-    /* hero card */
-    .hero-card {
-      flex: 0 0 340px;
-      background: var(--white);
-      border-radius: 20px;
-      padding: 36px 32px;
-      box-shadow: 0 8px 40px rgba(0,0,0,.08);
-      border: 1px solid var(--border);
-    }
-    .hero-card-title {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800; font-size: 16px;
-      color: var(--dark); margin-bottom: 20px;
-    }
-    .hero-steps { display: flex; flex-direction: column; gap: 14px; }
-    .hero-step { display: flex; gap: 12px; align-items: flex-start; }
-    .hero-step-num {
-      width: 30px; height: 30px; border-radius: 50%;
-      background: var(--red); color: #fff;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800; font-size: 13px;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .hero-step-text { font-size: 14px; color: var(--dark); padding-top: 5px; line-height: 1.45; }
-    .hero-step-time { font-size: 11px; color: var(--muted); }
-    .hero-card-cta {
-      margin-top: 24px;
-      display: block; text-align: center;
-      background: var(--teal); color: #fff;
-      padding: 13px; border-radius: 12px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700; font-size: 15px;
-      text-decoration: none;
-      transition: background .2s;
-    }
-    .hero-card-cta:hover { background: var(--teal-dk); }
-    .hero-card-free { text-align: center; margin-top: 10px; font-size: 12px; color: var(--muted); }
-
-    /* ── STATS ── */
-    .stats { background: var(--dark); padding: 28px 20px; }
-    .stats-inner {
-      max-width: 900px; margin: 0 auto;
-      display: flex; justify-content: center; gap: 56px; flex-wrap: wrap;
-    }
-    .stat { text-align: center; }
-    .stat-num {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900; font-size: 28px;
-      color: var(--white); line-height: 1;
-    }
-    .stat-num span { color: var(--red); }
-    .stat-label { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 5px; }
-
-    /* ── SECTIONS ── */
-    .section { padding: 80px 20px; }
-    .section-label {
-      display: inline-block;
-      font-size: 12px; font-weight: 700;
-      color: var(--teal);
-      letter-spacing: .1em; text-transform: uppercase;
-      margin-bottom: 12px;
-    }
-    .section-title {
-      font-size: clamp(24px, 3vw, 36px);
-      font-weight: 800;
-      color: var(--dark);
-      margin-bottom: 14px;
-    }
-    .section-title em { font-style: normal; color: var(--red); }
-    .section-sub {
-      font-size: 16px; color: var(--muted);
-      max-width: 580px; line-height: 1.7;
-      margin-bottom: 52px;
-    }
-    .text-center { text-align: center; }
-    .mx-auto { margin-left: auto; margin-right: auto; }
-    .bg-light { background: var(--light); }
-    .bg-dark { background: var(--dark); color: #fff; }
-    .bg-teal { background: var(--teal); color: #fff; }
-
-    /* ── WHY BLOCK ── */
-    .why-cols { display: flex; gap: 48px; align-items: flex-start; flex-wrap: wrap; }
-    .why-left { flex: 1; min-width: 280px; }
-    .why-left p { color: var(--muted); font-size: 16px; line-height: 1.75; margin-bottom: 18px; }
-    .why-quote {
-      background: var(--dark); color: rgba(255,255,255,.85);
-      border-radius: 16px; padding: 24px 28px;
-      font-style: italic; font-size: 15px; line-height: 1.7;
-      margin-top: 28px;
-      border-left: 4px solid var(--red);
-    }
-    .why-right { flex: 0 0 300px; display: flex; flex-direction: column; gap: 12px; }
-    .why-card {
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: 14px; padding: 20px;
-      display: flex; gap: 14px; align-items: flex-start;
-      box-shadow: 0 2px 8px rgba(0,0,0,.04);
-    }
-    .why-card-icon { font-size: 22px; flex-shrink: 0; }
-    .why-card h4 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700; font-size: 13px;
-      color: var(--dark); margin-bottom: 4px;
-    }
-    .why-card p { font-size: 13px; color: var(--muted); line-height: 1.5; margin: 0; }
-
-    /* ── PAIN GRID ── */
-    .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
-    .pain-card {
-      background: var(--white); border-radius: 16px;
-      padding: 26px 22px;
-      border: 1px solid var(--border);
-      border-top: 3px solid var(--red);
-      box-shadow: 0 2px 12px rgba(0,0,0,.04);
-      transition: box-shadow .2s, transform .2s;
-    }
-    .pain-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,.08); transform: translateY(-2px); }
-    .pain-icon { font-size: 28px; margin-bottom: 12px; }
-    .pain-card h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700; font-size: 15px;
-      color: var(--dark); margin-bottom: 8px;
-    }
-    .pain-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
-
-    /* ── STEPS ── */
-    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-    .step-card {
-      text-align: center; padding: 36px 20px;
-      background: var(--white); border-radius: 16px;
-      border: 1px solid var(--border);
-      transition: box-shadow .2s;
-    }
-    .step-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,.08); }
-    .step-num {
-      width: 56px; height: 56px; border-radius: 50%;
-      background: var(--red); color: #fff;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900; font-size: 22px;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 20px;
-    }
-    .step-card h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700; font-size: 16px;
-      color: var(--dark); margin-bottom: 10px;
-    }
-    .step-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
-    .step-time {
-      display: inline-block; margin-top: 14px;
-      font-size: 11px; font-weight: 700;
-      color: var(--teal); letter-spacing: .06em;
-      text-transform: uppercase;
-    }
-
-    /* ── DOCS ── */
-    .docs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-    .doc-card {
-      background: var(--white); border-radius: 16px;
-      padding: 30px 26px;
-      border: 1px solid var(--border);
-      box-shadow: 0 2px 12px rgba(0,0,0,.04);
-      position: relative; overflow: hidden;
-      transition: box-shadow .2s;
-    }
-    .doc-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.1); }
-    .doc-card::after {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 4px;
-    }
-    .doc-card.free-card::after { background: var(--teal); }
-    .doc-card.paid-card::after { background: var(--red); }
-    .doc-card h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700; font-size: 16px;
-      color: var(--dark); margin-bottom: 10px;
-    }
-    .doc-card p { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 18px; }
-    .badge {
-      display: inline-block;
-      font-size: 12px; font-weight: 700;
-      padding: 5px 16px; border-radius: 50px;
-    }
-    .badge-free { background: #D1FAE5; color: #065F46; }
-    .badge-paid { background: #FEE2E2; color: var(--red); }
-    .docs-note {
-      margin-top: 28px;
-      background: rgba(44,95,95,.06);
-      border: 1px solid rgba(44,95,95,.15);
-      border-radius: 12px;
-      padding: 16px 22px;
-      font-size: 14px; color: var(--teal);
-      text-align: center;
-    }
-
-    /* ── GLASS CARD ── */
-    .glass-card {
-      background: rgba(255,255,255,.95);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,.4);
-      box-shadow: 0 8px 32px rgba(31,38,135,.07);
-      border-radius: 20px;
-    }
-
-    /* ── LAW BLOCK ── */
-    .law-block {
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: 20px; padding: 44px 40px;
-      display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap;
-      box-shadow: 0 4px 20px rgba(0,0,0,.05);
-    }
-    .law-icon { font-size: 52px; flex-shrink: 0; }
-    .law-content h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800; font-size: 20px;
-      color: var(--dark); margin-bottom: 14px;
-    }
-    .law-content p { color: var(--muted); font-size: 15px; line-height: 1.75; }
-    .law-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
-    .law-tag {
-      background: #EFF6FF; color: #1D4ED8;
-      font-size: 12px; font-weight: 600;
-      padding: 5px 14px; border-radius: 50px;
-    }
-
-    /* ── ADDASTRA ── */
-    .addastra-cols { display: flex; gap: 56px; align-items: center; flex-wrap: wrap; }
-    .addastra-text { flex: 1; min-width: 280px; }
-    .addastra-text h2 {
-      font-size: clamp(24px, 3vw, 34px);
-      font-weight: 900; color: var(--dark);
-      margin-bottom: 18px;
-    }
-    .addastra-text p { color: var(--muted); font-size: 16px; line-height: 1.75; margin-bottom: 28px; }
-    .btn-teal {
-      display: inline-block;
-      background: var(--teal); color: #fff;
-      padding: 13px 32px; border-radius: 50px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700; font-size: 15px;
-      text-decoration: none;
-      transition: background .2s, transform .15s;
-    }
-    .btn-teal:hover { background: var(--teal-dk); transform: scale(1.02); }
-    .addastra-card {
-      flex: 0 0 280px;
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: 20px; padding: 36px 28px;
-      text-align: center;
-      box-shadow: 0 4px 24px rgba(0,0,0,.07);
-    }
-    .addastra-card-logo {
-      background: var(--dark);
-      border-radius: 14px;
-      width: 80px; height: 80px;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 16px;
-    }
-    .addastra-card-logo img { width: 52px; height: auto; }
-    .addastra-card h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900; font-size: 20px;
-      color: var(--dark); margin-bottom: 6px;
-      letter-spacing: -.01em;
-    }
-    .addastra-card h3 span { color: var(--red); }
-    .addastra-card p { font-size: 13px; color: var(--muted); line-height: 1.55; }
-
-    /* ── LAWYER BLOCK ── */
-    .lawyer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; margin-bottom: 36px; }
-    .lawyer-item {
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 14px; padding: 22px;
-      border-left: 3px solid var(--red);
-    }
-    .lawyer-item strong {
-      display: block;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700; font-size: 14px;
-      color: #fff; margin-bottom: 6px;
-    }
-    .lawyer-item p { font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.6; }
-    .lawyer-cta { text-align: center; }
-    .btn-white {
-      display: inline-block;
-      background: #fff; color: var(--dark);
-      padding: 14px 36px; border-radius: 50px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700; font-size: 15px;
-      text-decoration: none;
-      transition: background .2s, transform .15s;
-    }
-    .btn-white:hover { background: #f0f0f0; transform: scale(1.02); }
-    .lawyer-note { margin-top: 12px; font-size: 12px; color: rgba(255,255,255,.4); }
-
-    /* ── FAQ ── */
-    .faq { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
-    details {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-      transition: box-shadow .2s;
-    }
-    details[open] { box-shadow: 0 4px 20px rgba(0,0,0,.07); }
-    summary {
-      padding: 20px 24px;
-      cursor: pointer;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700; font-size: 15px;
-      color: var(--dark);
-      list-style: none;
-      display: flex; justify-content: space-between; align-items: center; gap: 16px;
-      user-select: none;
-    }
-    summary::-webkit-details-marker { display: none; }
-    .faq-icon {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: var(--light);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      font-size: 18px; color: var(--red); font-weight: 400;
-      transition: background .2s;
-    }
-    details[open] .faq-icon { background: var(--red); color: #fff; }
-    .faq-icon::after { content: '+'; }
-    details[open] .faq-icon::after { content: '−'; }
-    .faq-body {
-      padding: 0 24px 22px;
-      font-size: 15px; color: var(--muted);
-      line-height: 1.75;
-      border-top: 1px solid var(--border);
-      margin-top: -4px;
-      padding-top: 18px;
-    }
-
-    /* ── CTA CLOSING ── */
-    .cta-section {
-      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dk) 100%);
-      color: #fff; text-align: center;
-      padding: 100px 20px;
-      position: relative; overflow: hidden;
-    }
-    .cta-section::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
-      pointer-events: none;
-    }
-    .cta-section h2 {
-      font-size: clamp(28px, 4.5vw, 46px);
-      font-weight: 900; margin-bottom: 16px;
-      line-height: 1.15; position: relative;
-    }
-    .cta-section h2 em { font-style: normal; color: #FFD0D0; }
-    .cta-section .cta-sub {
-      font-size: 18px; opacity: .8;
-      margin-bottom: 44px; position: relative;
-    }
-    .btn-cta {
-      display: inline-block;
-      background: var(--red); color: #fff;
-      padding: 18px 56px; border-radius: 50px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800; font-size: 18px;
-      text-decoration: none;
-      transition: background .2s, transform .15s, box-shadow .2s;
-      box-shadow: 0 6px 28px rgba(227,30,36,.5);
-      position: relative;
-      animation: pulse-red 2.5s infinite;
-    }
-    .btn-cta:hover { background: var(--red-dk); transform: translateY(-3px); }
-    .cta-note { margin-top: 20px; font-size: 13px; opacity: .45; position: relative; }
-
-    /* ── FOOTER ── */
-    footer {
-      background: #1a1a1a; color: #9CA3AF;
-      text-align: center; padding: 48px 20px;
-      font-size: 14px; line-height: 2;
-    }
-    .footer-logo {
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      margin-bottom: 16px;
-    }
-    .footer-logo-icon {
-      height: 32px; width: auto;
-      display: flex; align-items: center;
-    }
-    .footer-logo-icon img { height: 32px; width: auto; filter: brightness(10); }
-    .footer-logo-name {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900; font-size: 16px;
-      color: #fff; letter-spacing: -.01em;
-    }
-    .footer-logo-name span { color: var(--red); }
-    footer a { color: #9CA3AF; text-decoration: none; transition: color .2s; }
-    footer a:hover { color: #fff; }
-    .footer-links { margin: 8px 0; }
-    .disclaimer {
-      margin-top: 24px; padding-top: 24px;
-      border-top: 1px solid #2a2a2a;
-      font-size: 12px; color: #4B5563;
-      max-width: 600px; margin-left: auto; margin-right: auto;
-      line-height: 1.7;
-    }
-
-    /* ── STICKY MOBILE CTA ── */
-    .sticky-mobile {
-      display: none;
-      position: fixed; bottom: 0; left: 0; right: 0; z-index: 99;
-      padding: 12px 16px;
-      background: rgba(255,255,255,.97);
-      border-top: 1px solid var(--border);
-      box-shadow: 0 -4px 20px rgba(0,0,0,.1);
-    }
-    .sticky-mobile a {
-      display: block; text-align: center;
-      background: var(--red); color: #fff;
-      padding: 14px; border-radius: 50px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800; font-size: 15px;
-      text-decoration: none;
-    }
-    @media (max-width: 640px) {
-      .sticky-mobile { display: block; }
-      body { padding-bottom: 76px; }
-      .hero-card { display: none; }
-      .why-right, .addastra-card { display: none; }
-    }
-  </style>
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "ADDASTRA",
+        "url": "https://stop-bullying.kz/",
+        "logo": "https://stop-bullying.kz/addastra-logo.png",
+        "description": "Юридическая компания в Алматы. Защита прав детей при травле в школе по законодательству РК.",
+        "address": { "@type": "PostalAddress", "addressLocality": "Алматы", "addressCountry": "KZ" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Для кого этот бот?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Для родителей детей, которых травят в казахстанской школе. Бот задаёт уточняющие вопросы, оценивает серьёзность ситуации и помогает составить нужные документы по закону РК." }
+          },
+          {
+            "@type": "Question",
+            "name": "Сколько стоит?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Первый документ — заявление директору школы — выдаётся бесплатно. Полный пакет документов доступен в платной версии." }
+          },
+          {
+            "@type": "Question",
+            "name": "Какой закон действует?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Приказ Министра просвещения РК № 506 — основной нормативный акт, регулирующий порядок реагирования на травлю в школах. Бот формирует документы строго в рамках этого закона." }
+          },
+          {
+            "@type": "Question",
+            "name": "Бот заменяет юриста?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Нет. Бот формирует процедурный маршрут и шаблоны документов, но не даёт юридических гарантий. Для сложных случаев предусмотрена консультация с юристом ADDASTRA." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
-<!-- HEADER -->
-<header>
-  <div class="nav-inner">
-    <a class="logo" href="#">
-      <div class="logo-icon">
-        <img src="addastra-logo.png" alt="ADDASTRA" />
-      </div>
-      <div>
-        <div class="logo-name">Буллинг<span>Стоп</span>КЗ</div>
-        <span class="logo-sub">by ADDASTRA</span>
-      </div>
+<!-- ==================== NAVIGATION ==================== -->
+<nav class="nav" role="navigation" aria-label="Основная навигация">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo" aria-label="На главную">
+      <img src="addastra-logo.png" alt="ADDASTRA" loading="eager">
     </a>
-    <a class="nav-cta" href="https://t.me/bulling_help_kz_bot">Открыть бот →</a>
-  </div>
-</header>
-
-<!-- STICKY MOBILE CTA -->
-<div class="sticky-mobile">
-  <a href="https://t.me/bulling_help_kz_bot">🛡️ Получить документ бесплатно →</a>
-</div>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-text">
-      <div class="hero-badge">
-        <i class="fas fa-scale-balanced"></i> Приказ МП РК № 506 · Официально
-      </div>
-      <h1>Школа обещает<br>разобраться.<br><em>Уже несколько недель.</em></h1>
-      <p class="hero-sub">Переведите ситуацию в официальный режим — за 5 минут, прямо в Telegram.</p>
-      <p class="hero-proof">Telegram-бот формирует официальное заявление директору со ссылками на Приказ МП РК № 506. Школа обязана принять, зарегистрировать и рассмотреть его в установленном законом порядке.</p>
-      <div class="hero-btns">
-        <a class="btn-primary" href="https://t.me/bulling_help_kz_bot">🛡️ Получить документ бесплатно</a>
-        <a class="btn-secondary" href="#how">Как это работает</a>
-      </div>
-      <div class="hero-microcopy">
-        <span><i class="fas fa-check"></i> Без регистрации</span>
-        <span><i class="fas fa-check"></i> Первый документ бесплатно</span>
-        <span><i class="fas fa-microphone"></i> Голосовой ввод</span>
-      </div>
+    <div class="nav__links" role="list">
+      <a href="#how" class="nav__link" role="listitem">Как работает</a>
+      <a href="#docs" class="nav__link" role="listitem">Документы</a>
+      <a href="#emergency" class="nav__link" role="listitem">Экстренно</a>
+      <a href="#faq" class="nav__link" role="listitem">FAQ</a>
     </div>
-    <div class="hero-card">
-      <div class="hero-card-title">От ситуации до документа</div>
-      <div class="hero-steps">
-        <div class="hero-step">
-          <div class="hero-step-num">1</div>
-          <div class="hero-step-text">Опишите ситуацию текстом или голосом <span class="hero-step-time">· 1 мин</span></div>
-        </div>
-        <div class="hero-step">
-          <div class="hero-step-num">2</div>
-          <div class="hero-step-text">Получите правовую оценку по нормам РК <span class="hero-step-time">· 30 сек</span></div>
-        </div>
-        <div class="hero-step">
-          <div class="hero-step-num">3</div>
-          <div class="hero-step-text">Заполните анкету — имя, школа, класс <span class="hero-step-time">· 2 мин</span></div>
-        </div>
-        <div class="hero-step">
-          <div class="hero-step-num">4</div>
-          <div class="hero-step-text">Скачайте готовый .docx и подайте в школу <span class="hero-step-time">· 1 мин</span></div>
-        </div>
+    <a
+      href="https://t.me/bulling_help_kz_bot"
+      class="nav__cta"
+      target="_blank"
+      rel="noopener noreferrer"
+      data-analytics="nav-cta"
+    >
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.68 7.92c-.12.56-.46.7-.94.44l-2.6-1.92-1.26 1.22c-.14.14-.26.26-.52.26l.18-2.64 4.74-4.28c.2-.18-.04-.28-.32-.1l-5.86 3.7-2.52-.8c-.55-.17-.56-.55.12-.81l9.82-3.79c.46-.16.86.11.84.8z"/>
+      </svg>
+      Открыть бот
+    </a>
+  </div>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero__inner">
+    <div class="hero__badge" aria-label="Статус: бот работает">
+      <span class="hero__badge-dot" aria-hidden="true"></span>
+      Бот работает · Telegram
+    </div>
+
+    <h1 id="hero-heading">
+      Ваш ребёнок страдает<br>
+      от травли в школе?<br>
+      <span>Защитите его по закону</span>
+    </h1>
+
+    <p class="hero__sub">
+      Telegram-бот оценит ситуацию и составит пакет юридических документов
+      по&nbsp;Приказу МП&nbsp;РК&nbsp;№&nbsp;506 — за&nbsp;5&nbsp;минут, бесплатно.
+    </p>
+
+    <div class="hero__actions">
+      <a
+        href="https://t.me/bulling_help_kz_bot"
+        class="btn-primary"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-analytics="hero-cta"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.68 7.92c-.12.56-.46.7-.94.44l-2.6-1.92-1.26 1.22c-.14.14-.26.26-.52.26l.18-2.64 4.74-4.28c.2-.18-.04-.28-.32-.1l-5.86 3.7-2.52-.8c-.55-.17-.56-.55.12-.81l9.82-3.79c.46-.16.86.11.84.8z"/>
+        </svg>
+        Открыть Telegram-бот
+      </a>
+      <a href="#how" class="btn-secondary" data-analytics="hero-learn-more">
+        Как это работает
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d="M19 9l-7 7-7-7"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="hero__trust" role="list">
+      <div class="hero__trust-item" role="listitem">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        Приказ МП № 506 РК
       </div>
-      <a class="hero-card-cta" href="https://t.me/bulling_help_kz_bot">Начать бесплатно →</a>
-      <p class="hero-card-free">✅ Первый документ бесплатно · Без регистрации</p>
+      <div class="hero__trust-item" role="listitem">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+        5 минут
+      </div>
+      <div class="hero__trust-item" role="listitem">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        Первый документ бесплатно
+      </div>
+      <div class="hero__trust-item" role="listitem">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        Данные не передаются третьим лицам
+      </div>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
-<div class="stats">
-  <div class="stats-inner">
-    <div class="stat">
-      <div class="stat-num">5 <span>мин</span></div>
-      <div class="stat-label">до готового документа</div>
+<!-- ==================== WHEN ==================== -->
+<section class="when" id="when" aria-labelledby="when-heading">
+  <div class="section-inner">
+    <div class="when__header">
+      <span class="section-label">Когда поможет бот</span>
+      <h2 class="section-title" id="when-heading">Узнаёте свою ситуацию?</h2>
+      <p class="section-sub">Бот разработан для реальных случаев травли в казахстанских школах</p>
     </div>
-    <div class="stat">
-      <div class="stat-num">№ <span>506</span></div>
-      <div class="stat-label">реальный Приказ МП РК в основе</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">0 <span>₸</span></div>
-      <div class="stat-label">первый документ бесплатно</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">4 <span>шага</span></div>
-      <div class="stat-label">от ситуации до документа</div>
+
+    <div class="when__grid" role="list">
+      <div class="when-card" role="listitem">
+        <div class="when-card__icon" aria-hidden="true">😰</div>
+        <div class="when-card__title">Учитель или администрация отмахивается</div>
+        <p class="when-card__desc">Вы уже поговорили с классным руководителем, но ничего не изменилось. Бот покажет, куда обращаться дальше и что требовать письменно.</p>
+      </div>
+
+      <div class="when-card" role="listitem">
+        <div class="when-card__icon" aria-hidden="true">📱</div>
+        <div class="when-card__title">Кибербуллинг и угрозы в мессенджерах</div>
+        <p class="when-card__desc">Одноклассники травят в чатах, распространяют фото или видео. Бот поможет зафиксировать доказательства и составить заявление.</p>
+      </div>
+
+      <div class="when-card" role="listitem">
+        <div class="when-card__icon" aria-hidden="true">🤜</div>
+        <div class="when-card__title">Физические столкновения в школе</div>
+        <p class="when-card__desc">Ребёнка толкают, бьют или отбирают вещи. Это уже зона ответственности школы и возможно — полиции. Бот определит нужный трек.</p>
+      </div>
+
+      <div class="when-card" role="listitem">
+        <div class="when-card__icon" aria-hidden="true">🚫</div>
+        <div class="when-card__title">Изоляция и психологическое давление</div>
+        <p class="when-card__desc">Ребёнка игнорируют, бойкотируют, унижают систематически. По Приказу № 506 это тоже является травлей и требует реагирования школы.</p>
+      </div>
+
+      <div class="when-card" role="listitem">
+        <div class="when-card__icon" aria-hidden="true">💸</div>
+        <div class="when-card__title">Вымогательство денег или вещей</div>
+        <p class="when-card__desc">Старшеклассники или одноклассники требуют деньги или вещи. Бот подготовит документы как для школы, так и для полиции.</p>
+      </div>
+
+      <div class="when-card" role="listitem">
+        <div class="when-card__icon" aria-hidden="true">📋</div>
+        <div class="when-card__title">Нужны официальные документы</div>
+        <p class="when-card__desc">Вы хотите зафиксировать ситуацию официально: заявление директору, требование письменного ответа, жалоба в акимат — бот составит всё это.</p>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- WHY -->
-<section class="section">
-  <div class="container">
-    <div class="why-cols">
-      <div class="why-left">
-        <div class="section-label">Почему разговоры не работают</div>
-        <h2 class="section-title">Устный разговор со школой —<br><em>не инструмент.</em></h2>
-        <p>Не потому что школа плохая. А потому что у неё нет обязанности реагировать на слова. Разговор с учителем можно забыть, переформулировать, не зафиксировать.</p>
-        <p>Письменное заявление — это официальный документ. Его нужно зарегистрировать, рассмотреть и ответить в установленном порядке. Приказ МП РК № 506 прямо устанавливает обязанности школы при факте буллинга. Большинство родителей об этом просто не знают.</p>
-        <div class="why-quote">«Когда у вас на руках официальный документ — разговор со школой становится совсем другим.»</div>
+<!-- ==================== HOW IT WORKS ==================== -->
+<section class="how" id="how" aria-labelledby="how-heading">
+  <div class="section-inner">
+    <div class="how__header">
+      <span class="section-label">Как работает</span>
+      <h2 class="section-title" id="how-heading">Три шага — и документы готовы</h2>
+      <p class="section-sub">Весь процесс занимает около 5 минут в Telegram</p>
+    </div>
+
+    <div class="how__steps" role="list">
+      <div class="step" role="listitem">
+        <div class="step__num" aria-hidden="true">1</div>
+        <div class="step__title">Оцениваем ситуацию</div>
+        <p class="step__desc">Бот задаёт 3–5 вопросов: есть ли угрозы, физическое насилие или только словесное. Определяем уровень серьёзности — школьный, серьёзный или экстренный.</p>
+        <span class="step__time">~1 минута</span>
       </div>
-      <div class="why-right">
-        <div class="why-card">
-          <div class="why-card-icon">🗣</div>
-          <div>
-            <h4>Устный разговор</h4>
-            <p>Можно забыть, переформулировать, не зафиксировать. Никаких обязательств.</p>
+
+      <div class="step" role="listitem">
+        <div class="step__num" aria-hidden="true">2</div>
+        <div class="step__title">Собираем данные</div>
+        <p class="step__desc">Бот спрашивает ФИО, школу, описание ситуации. Можно отвечать голосом — бот распознает речь. Анкета занимает 4–5 шагов.</p>
+        <span class="step__time">~3 минуты</span>
+      </div>
+
+      <div class="step" role="listitem">
+        <div class="step__num" aria-hidden="true">3</div>
+        <div class="step__title">Получаете документы</div>
+        <p class="step__desc">Бот формирует готовый DOCX: заявление директору, требование письменного ответа, при необходимости — жалоба в акимат или заявление в полицию.</p>
+        <span class="step__time">~1 минута</span>
+      </div>
+
+      <div class="step" role="listitem">
+        <div class="step__num" aria-hidden="true">4</div>
+        <div class="step__title">Подаёте и контролируете</div>
+        <p class="step__desc">Бот объясняет куда нести документы, в какой срок школа обязана ответить по закону, и что делать, если не реагируют.</p>
+        <span class="step__time">Инструкция внутри</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== DOCUMENTS ==================== -->
+<section class="docs-section" id="docs" aria-labelledby="docs-heading">
+  <div class="section-inner">
+    <div class="docs-section__header">
+      <span class="section-label">Что получите</span>
+      <h2 class="section-title" id="docs-heading">Готовые юридические документы</h2>
+      <p class="section-sub">Бот подбирает нужные документы под вашу ситуацию. Не все сразу — только то, что реально поможет.</p>
+    </div>
+
+    <div class="docs-layout">
+      <div class="docs-list" role="list">
+
+        <div class="doc-item" role="listitem">
+          <div class="doc-item__icon" aria-hidden="true">📝</div>
+          <div class="doc-item__body">
+            <div class="doc-item__title">Заявление директору школы о регистрации факта травли</div>
+            <div class="doc-item__law">Правила № 506, п. 7</div>
+          </div>
+          <span class="doc-item__free">Бесплатно</span>
+        </div>
+
+        <div class="doc-item" role="listitem">
+          <div class="doc-item__icon" aria-hidden="true">📬</div>
+          <div class="doc-item__body">
+            <div class="doc-item__title">Требование письменного ответа о принятых мерах</div>
+            <div class="doc-item__law">АППК РК, ст. 64</div>
           </div>
         </div>
-        <div class="why-card">
-          <div class="why-card-icon">📄</div>
-          <div>
-            <h4>Письменное заявление</h4>
-            <p>Обязаны принять, зарегистрировать и рассмотреть в установленные сроки.</p>
+
+        <div class="doc-item" role="listitem">
+          <div class="doc-item__icon" aria-hidden="true">🏛️</div>
+          <div class="doc-item__body">
+            <div class="doc-item__title">Обращение в акимат / отдел образования</div>
+            <div class="doc-item__law">Правила № 506, п. 8–10</div>
           </div>
         </div>
-        <div class="why-card">
-          <div class="why-card-icon">⚖️</div>
-          <div>
-            <h4>Приказ МП РК № 506</h4>
-            <p>Устанавливает прямые обязанности школы. Большинство родителей об этом не знают.</p>
+
+        <div class="doc-item" role="listitem">
+          <div class="doc-item__icon" aria-hidden="true">⚖️</div>
+          <div class="doc-item__body">
+            <div class="doc-item__title">Жалоба по АППК (если орган не реагирует)</div>
+            <div class="doc-item__law">АППК РК</div>
+          </div>
+        </div>
+
+        <div class="doc-item" role="listitem">
+          <div class="doc-item__icon" aria-hidden="true">🚔</div>
+          <div class="doc-item__body">
+            <div class="doc-item__title">Заявление в полицию (для серьёзных и экстренных случаев)</div>
+            <div class="doc-item__law">УК РК ст. 15, КоАП ст. 28</div>
+          </div>
+        </div>
+
+        <div class="doc-item" role="listitem">
+          <div class="doc-item__icon" aria-hidden="true">📸</div>
+          <div class="doc-item__body">
+            <div class="doc-item__title">Памятка по фиксации кибербуллинга</div>
+            <div class="doc-item__law">Правила № 506</div>
+          </div>
+        </div>
+
+        <div class="doc-item" role="listitem">
+          <div class="doc-item__icon" aria-hidden="true">✅</div>
+          <div class="doc-item__body">
+            <div class="doc-item__title">Чек-лист доказательств и сроков ответа</div>
+            <div class="doc-item__law">№ 506 + АППК</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="docs-side">
+        <div class="docs-side__card">
+          <div class="docs-side__title">Начните прямо сейчас</div>
+          <p class="docs-side__sub">Первый документ — заявление директору — бот сформирует бесплатно. Полный пакет — за 2&nbsp;990 тг.</p>
+
+          <div class="docs-side__features" role="list">
+            <div class="docs-side__feat" role="listitem">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              Документы в формате DOCX
+            </div>
+            <div class="docs-side__feat" role="listitem">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              Соответствуют Приказу № 506
+            </div>
+            <div class="docs-side__feat" role="listitem">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              Распознавание голоса
+            </div>
+            <div class="docs-side__feat" role="listitem">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              Инструкция по подаче
+            </div>
+          </div>
+
+          <a
+            href="https://t.me/bulling_help_kz_bot"
+            class="btn-primary"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-analytics="mid-cta"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.68 7.92c-.12.56-.46.7-.94.44l-2.6-1.92-1.26 1.22c-.14.14-.26.26-.52.26l.18-2.64 4.74-4.28c.2-.18-.04-.28-.32-.1l-5.86 3.7-2.52-.8c-.55-.17-.56-.55.12-.81l9.82-3.79c.46-.16.86.11.84.8z"/>
+            </svg>
+            Открыть Telegram-бот
+          </a>
+          <p class="docs-side__note">Первый документ — бесплатно</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TRUST ==================== -->
+<section class="trust" aria-labelledby="trust-heading">
+  <div class="section-inner">
+    <div class="trust__header">
+      <span class="section-label">Почему можно доверять</span>
+      <h2 class="section-title" id="trust-heading">Профессиональный подход</h2>
+      <p class="section-sub">Бот разработан командой юридической компании ADDASTRA совместно с практикующими юристами</p>
+    </div>
+
+    <div class="trust__grid" role="list">
+      <div class="trust-card" role="listitem">
+        <div class="trust-card__icon" aria-hidden="true">⚖️</div>
+        <div class="trust-card__title">Актуальное законодательство</div>
+        <p class="trust-card__desc">Шаблоны документов разработаны на основе действующей редакции Приказа МП РК № 506 и АППК РК. Обновляются при изменении закона.</p>
+      </div>
+
+      <div class="trust-card" role="listitem">
+        <div class="trust-card__icon" aria-hidden="true">🔒</div>
+        <div class="trust-card__title">Конфиденциальность данных</div>
+        <p class="trust-card__desc">Данные, которые вы вводите, используются только для формирования документов. Мы не передаём их третьим лицам и не храним без вашего согласия.</p>
+      </div>
+
+      <div class="trust-card" role="listitem">
+        <div class="trust-card__icon" aria-hidden="true">📍</div>
+        <div class="trust-card__title">Сделано для Казахстана</div>
+        <p class="trust-card__desc">Бот учитывает специфику казахстанского законодательства: Правила № 506, АППК РК, УК и КоАП — не «общие советы», а конкретные нормы РК.</p>
+      </div>
+
+      <div class="trust-card" role="listitem">
+        <div class="trust-card__icon" aria-hidden="true">🤝</div>
+        <div class="trust-card__title">Поддержка юриста</div>
+        <p class="trust-card__desc">Если ситуация сложная, бот предложит записаться на консультацию к юристу компании ADDASTRA. Реальный специалист, не чат-бот.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== EMERGENCY ==================== -->
+<section class="emergency" id="emergency" aria-labelledby="emergency-heading">
+  <div class="emergency__inner">
+    <div class="emergency__header">
+      <span class="section-label emergency__label">Экстренные ситуации</span>
+      <h2 class="section-title" id="emergency-heading">Есть угроза жизни или здоровью?</h2>
+      <p class="section-sub">Если ребёнку угрожают, он получил травмы или говорит о суициде — немедленно звоните. Не ждите документов.</p>
+    </div>
+
+    <div class="emergency__cards" role="list">
+      <div class="emergency-card" role="listitem">
+        <div class="emergency-card__num">111</div>
+        <div class="emergency-card__title">Служба психологической помощи</div>
+        <p class="emergency-card__desc">Дети, подростки, экстренная психологическая поддержка. Бесплатно, круглосуточно.</p>
+        <a href="tel:111" class="emergency-card__btn" data-analytics="urgent-call-111">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 10.1a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 0h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 7.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 14.92z"/>
+          </svg>
+          Позвонить 111
+        </a>
+      </div>
+
+      <div class="emergency-card" role="listitem">
+        <div class="emergency-card__num">102</div>
+        <div class="emergency-card__title">Полиция</div>
+        <p class="emergency-card__desc">Физическое насилие, угрозы, вымогательство. Вызов при реальной опасности.</p>
+        <a href="tel:102" class="emergency-card__btn" data-analytics="urgent-call-102">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 10.1a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 0h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 7.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 14.92z"/>
+          </svg>
+          Позвонить 102
+        </a>
+      </div>
+
+      <div class="emergency-card" role="listitem">
+        <div class="emergency-card__num">103</div>
+        <div class="emergency-card__title">Скорая медицинская помощь</div>
+        <p class="emergency-card__desc">Травмы, ранения, острый стресс, суицидальное поведение. Немедленная помощь.</p>
+        <a href="tel:103" class="emergency-card__btn" data-analytics="urgent-call-103">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 10.1a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 0h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 7.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 14.92z"/>
+          </svg>
+          Позвонить 103
+        </a>
+      </div>
+    </div>
+
+    <div class="emergency__note" role="note">
+      <strong>Важно:</strong> Telegram-бот предназначен для документирования и юридического сопровождения.
+      При угрозе жизни или здоровью — сначала звоните по экстренным номерам, потом к боту.
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FAQ ==================== -->
+<section class="faq" id="faq" aria-labelledby="faq-heading">
+  <div class="section-inner">
+    <div class="faq__header">
+      <span class="section-label">Вопросы и ответы</span>
+      <h2 class="section-title" id="faq-heading">Часто спрашивают</h2>
+      <p class="section-sub">Если не нашли ответ — напишите нам в боте</p>
+    </div>
+
+    <div class="faq__list" role="list">
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-item__q" aria-expanded="false">
+          Для кого этот бот?
+          <span class="faq-item__icon" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+          </span>
+        </button>
+        <div class="faq-item__a">
+          <div class="faq-item__a-inner">
+            Для родителей и законных представителей детей, которых травят в казахстанской школе. Бот задаёт уточняющие вопросы, оценивает серьёзность ситуации — и помогает составить нужные документы строго по Приказу МП РК № 506.
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- PAIN -->
-<section class="section bg-light">
-  <div class="container">
-    <div class="text-center">
-      <div class="section-label">Узнаёте себя?</div>
-      <h2 class="section-title">Если хотя бы одно знакомо —<br>этот инструмент для вас.</h2>
-      <p class="section-sub mx-auto">Каждая из этих ситуаций решается через официальный письменный процесс. Бот поможет его начать за 5 минут.</p>
-    </div>
-    <div class="pain-grid">
-      <div class="pain-card">
-        <div class="pain-icon">🗣</div>
-        <h3>«Дети сами разберутся»</h3>
-        <p>Учитель или директор говорит это уже не первый раз. Ситуация не меняется.</p>
-      </div>
-      <div class="pain-card">
-        <div class="pain-icon">📵</div>
-        <h3>Вы звонили. Приходили. Обещали.</h3>
-        <p>Прошло несколько недель. Ничего не изменилось. Жаловаться кажется некому.</p>
-      </div>
-      <div class="pain-card">
-        <div class="pain-icon">😶</div>
-        <h3>Ребёнок боится идти в школу</h3>
-        <p>Симулирует болезни, замкнулся, не рассказывает детали. Вы чувствуете — что-то не так.</p>
-      </div>
-      <div class="pain-card">
-        <div class="pain-icon">⚖️</div>
-        <h3>Знаете что закон на вашей стороне</h3>
-        <p>Но не знаете как им воспользоваться. Гуглили — всё расплывчато, без конкретных шагов.</p>
-      </div>
-      <div class="pain-card">
-        <div class="pain-icon">📱</div>
-        <h3>Буллинг вышел в интернет</h3>
-        <p>Оскорбления в мессенджерах и соцсетях. Непонятно куда жаловаться и как фиксировать.</p>
-      </div>
-      <div class="pain-card">
-        <div class="pain-icon">😰</div>
-        <h3>Не хотите скандала — хотите закон</h3>
-        <p>Скандал не решит проблему. Вы хотите действовать официально — но не знаете как именно.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- STEPS -->
-<section class="section" id="how">
-  <div class="container">
-    <div class="text-center">
-      <div class="section-label">Как это работает</div>
-      <h2 class="section-title">От ситуации до документа — <em>4 шага</em></h2>
-      <p class="section-sub mx-auto">Никаких юридических знаний не нужно. Просто своими словами. Около 5 минут.</p>
-    </div>
-    <div class="steps-grid">
-      <div class="step-card">
-        <div class="step-num">1</div>
-        <h3>Опишите ситуацию</h3>
-        <p>Напишите текстом или надиктуйте голосом — что происходит, как давно, что уже пробовали.</p>
-        <span class="step-time">~ 1 минута</span>
-      </div>
-      <div class="step-card">
-        <div class="step-num">2</div>
-        <h3>Получите правовую оценку</h3>
-        <p>Бот анализирует по Приказу № 506 и АППК РК — выдаёт оценку и пошаговый план действий.</p>
-        <span class="step-time">~ 30 секунд</span>
-      </div>
-      <div class="step-card">
-        <div class="step-num">3</div>
-        <h3>Заполните анкету</h3>
-        <p>4 вопроса: имя ребёнка, класс, школа, город. Можно надиктовать голосом.</p>
-        <span class="step-time">~ 2 минуты</span>
-      </div>
-      <div class="step-card">
-        <div class="step-num">4</div>
-        <h3>Скачайте и подайте</h3>
-        <p>Готовый .docx с нужными формулировками и ссылками на закон. Распечатайте — и в школу.</p>
-        <span class="step-time">~ 1 минута</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DOCS -->
-<section class="section bg-light">
-  <div class="container">
-    <div class="text-center">
-      <div class="section-label">Что именно получите</div>
-      <h2 class="section-title">Готовые документы —<br><em>не советы как написать.</em></h2>
-      <p class="section-sub mx-auto">Уже написанное заявление с вашими данными и нужными статьями закона. Школа не сможет отмахнуться.</p>
-    </div>
-    <div class="docs-grid">
-      <div class="doc-card free-card">
-        <h3>📄 Заявление директору школы</h3>
-        <p>О регистрации факта травли со ссылками на Приказ № 506 и АППК РК. Школа обязана принять, зарегистрировать и рассмотреть официальное письменное обращение.</p>
-        <span class="badge badge-free">✅ Бесплатно</span>
-      </div>
-      <div class="doc-card paid-card">
-        <h3>📄 Требование письменного ответа</h3>
-        <p>Если школа не реагирует — официальное требование в установленном порядке. С уведомлением о праве обратиться в управление образования.</p>
-        <span class="badge badge-paid">📦 Пакет · 2 990 ₸</span>
-      </div>
-      <div class="doc-card paid-card">
-        <h3>📄 Памятка по кибербуллингу</h3>
-        <p>Как фиксировать доказательства, куда обращаться при онлайн-угрозах. Правовая основа по Приказу № 506.</p>
-        <span class="badge badge-paid">📦 Пакет · 2 990 ₸</span>
-      </div>
-    </div>
-    <div class="docs-note">📦 Пакет включает оба платных документа + приоритетный запрос на консультацию с юристом ADDASTRA</div>
-  </div>
-</section>
-
-<!-- LAW -->
-<section class="section">
-  <div class="container">
-    <div class="law-block">
-      <div class="law-icon">🏛️</div>
-      <div class="law-content">
-        <h3>Документы основаны на реальном законодательстве РК — не на шаблонах из интернета</h3>
-        <p>Бот работает на актуальных текстах нормативных правовых актов Казахстана. Тексты законов загружаются с <strong>adilet.zan.kz</strong> — официального государственного ресурса НПА РК. Это не пересказ и не общие слова — это конкретные нормы, на которые школа обязана реагировать официально.</p>
-        <div class="law-tags">
-          <span class="law-tag">Приказ МП РК № 506</span>
-          <span class="law-tag">АППК РК</span>
-          <span class="law-tag">УК РК ст. 15</span>
-          <span class="law-tag">КоАП РК</span>
-          <span class="law-tag">adilet.zan.kz</span>
+      <div class="faq-item" role="listitem">
+        <button class="faq-item__q" aria-expanded="false">
+          Сколько стоит пользоваться ботом?
+          <span class="faq-item__icon" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+          </span>
+        </button>
+        <div class="faq-item__a">
+          <div class="faq-item__a-inner">
+            Правовая оценка ситуации и первый документ — заявление директору школы — бесплатно. Полный пакет документов (3 документа) доступен за 2 990 тг.
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- ADDASTRA -->
-<section class="section bg-light">
-  <div class="container">
-    <div class="addastra-cols">
-      <div class="addastra-text">
-        <div class="section-label">Кто стоит за продуктом</div>
-        <h2 class="section-title">За ботом стоят<br><em>живые юристы.</em></h2>
-        <p>Буллинг Стоп КЗ — продукт юридической фирмы <strong>ADDASTRA</strong> (Алматы). Мы специализируемся на защите прав в сфере образования Казахстана. Бот — это быстрый первый шаг, доступный каждому родителю прямо сейчас. Сложные случаи, когда нужно представительство или обращение в надзорные органы, мы ведём лично.</p>
-        <a class="btn-teal" href="https://addastra-laws.kz" target="_blank">addastra-laws.kz →</a>
-      </div>
-      <div class="addastra-card">
-        <div class="addastra-card-logo">
-          <img src="addastra-logo.png" alt="ADDASTRA" />
+      <div class="faq-item" role="listitem">
+        <button class="faq-item__q" aria-expanded="false">
+          На основании какого закона составляются документы?
+          <span class="faq-item__icon" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+          </span>
+        </button>
+        <div class="faq-item__a">
+          <div class="faq-item__a-inner">
+            Основа — Приказ Министра просвещения РК № 506 «Об утверждении Правил профилактики и реагирования на проявления буллинга». Также используются нормы АППК РК (административные обращения), УК РК и КоАП РК (для серьёзных случаев).
+          </div>
         </div>
-        <h3>ADD<span>ASTRA</span></h3>
-        <p>Юридическая защита в сфере образования Казахстана</p>
       </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-item__q" aria-expanded="false">
+          Бот заменяет консультацию с юристом?
+          <span class="faq-item__icon" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+          </span>
+        </button>
+        <div class="faq-item__a">
+          <div class="faq-item__a-inner">
+            Нет. Бот формирует процедурный маршрут и шаблоны документов, но не даёт юридических гарантий результата. Для сложных ситуаций — вымогательство, систематическое насилие, бездействие органов — бот предложит записаться на консультацию к юристу ADDASTRA.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-item__q" aria-expanded="false">
+          Школа должна ответить на заявление?
+          <span class="faq-item__icon" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+          </span>
+        </button>
+        <div class="faq-item__a">
+          <div class="faq-item__a-inner">
+            Да. По АППК РК школа обязана зарегистрировать обращение в день подачи и дать письменный ответ. Если этого не происходит — у вас есть основание для жалобы в вышестоящий орган. Бот объясняет сроки и следующие шаги.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-item__q" aria-expanded="false">
+          Мои данные в безопасности?
+          <span class="faq-item__icon" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+          </span>
+        </button>
+        <div class="faq-item__a">
+          <div class="faq-item__a-inner">
+            Данные используются исключительно для генерации документов. Мы не продаём и не передаём их третьим лицам. Подробности — в <a href="privacy.html" style="color:var(--primary);text-decoration:underline;">Политике конфиденциальности</a>.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-item__q" aria-expanded="false">
+          Что если травля уже прекратилась, но я хочу зафиксировать факт?
+          <span class="faq-item__icon" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+          </span>
+        </button>
+        <div class="faq-item__a">
+          <div class="faq-item__a-inner">
+            Бот поможет. Официальная фиксация важна: если ситуация повторится, у вас будут документы о предыдущих инцидентах. Заявление в школу можно подать даже после завершения эпизода — закон не устанавливает короткий срок давности для подобных обращений.
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- LAWYER -->
-<section class="section bg-dark">
-  <div class="container">
-    <div class="text-center" style="margin-bottom: 48px;">
-      <div class="section-label" style="color: rgba(255,255,255,.5);">Когда нужен живой юрист</div>
-      <h2 class="section-title" style="color: #fff;">Некоторые ситуации<br>требуют большего.</h2>
-      <p class="section-sub mx-auto" style="color: rgba(255,255,255,.6); margin-bottom: 0;">Бот справляется с большинством ситуаций. Если случай выходит за рамки — юристы ADDASTRA готовы подключиться.</p>
-    </div>
-    <div class="lawyer-grid">
-      <div class="lawyer-item">
-        <strong>Школа официально отказала</strong>
-        <p>Письменное обращение подано, но в ответе — отказ или молчание.</p>
-      </div>
-      <div class="lawyer-item">
-        <strong>Физическое насилие или угрозы</strong>
-        <p>Ситуация требует обращения в полицию или прокуратуру.</p>
-      </div>
-      <div class="lawyer-item">
-        <strong>Нужно представительство</strong>
-        <p>Переговоры с администрацией, управлением образования или в суде.</p>
-      </div>
-      <div class="lawyer-item">
-        <strong>Случай нестандартный</strong>
-        <p>Вы чувствуете, что ситуация сложнее и требует индивидуального подхода.</p>
-      </div>
-    </div>
-    <div class="lawyer-cta">
-      <a class="btn-white" href="https://t.me/bulling_help_kz_bot">Связаться с юристом ADDASTRA →</a>
-      <p class="lawyer-note">Через бот · В рабочее время · Алматы</p>
-    </div>
+<!-- ==================== FINAL CTA ==================== -->
+<section class="final-cta" aria-labelledby="final-cta-heading">
+  <div class="final-cta__inner">
+    <h2 id="final-cta-heading">Защитите своего ребёнка сегодня</h2>
+    <p>Правовая оценка и первый документ — бесплатно.<br>Займёт 5 минут прямо в Telegram.</p>
+    <a
+      href="https://t.me/bulling_help_kz_bot"
+      class="btn-white"
+      target="_blank"
+      rel="noopener noreferrer"
+      data-analytics="final-cta"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.68 7.92c-.12.56-.46.7-.94.44l-2.6-1.92-1.26 1.22c-.14.14-.26.26-.52.26l.18-2.64 4.74-4.28c.2-.18-.04-.28-.32-.1l-5.86 3.7-2.52-.8c-.55-.17-.56-.55.12-.81l9.82-3.79c.46-.16.86.11.84.8z"/>
+      </svg>
+      Открыть Telegram-бот
+    </a>
+    <p class="final-cta__note">Первый документ бесплатно · Данные не передаются третьим лицам</p>
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="section bg-light">
-  <div class="container">
-    <div class="text-center">
-      <div class="section-label">Вопросы и ответы</div>
-      <h2 class="section-title">Частые <em>вопросы</em></h2>
-      <p class="section-sub mx-auto">Отвечаем честно и по существу.</p>
-    </div>
-    <div class="faq">
-      <details>
-        <summary>Это законно — использовать такие документы? <div class="faq-icon"></div></summary>
-        <div class="faq-body">Да. Бот формирует шаблон официального письменного обращения — это законное право любого гражданина. Подать заявление в любую организацию вправе каждый. Закон обязывает организацию рассмотреть обращение в установленном порядке.</div>
-      </details>
-      <details>
-        <summary>Нужны ли мне юридические знания? <div class="faq-icon"></div></summary>
-        <div class="faq-body">Нет. Просто опишите ситуацию своими словами — бот сам переведёт это в нужные формулировки со ссылками на закон. Никакой специальной подготовки не требуется.</div>
-      </details>
-      <details>
-        <summary>Нужно регистрироваться или создавать аккаунт? <div class="faq-icon"></div></summary>
-        <div class="faq-body">Нет регистрации, нет аккаунтов. Вы просто открываете бот в Telegram и начинаете. Персональные данные — имя ребёнка, школа, класс, город — нужны только для заполнения документа.</div>
-      </details>
-      <details>
-        <summary>Можно ли описать ситуацию голосом? <div class="faq-icon"></div></summary>
-        <div class="faq-body">Да. Бот принимает голосовые сообщения — расшифровывает и анализирует их так же, как текст. Это удобно, если сложно подобрать слова или нет времени печатать.</div>
-      </details>
-      <details>
-        <summary>Что если буллинг происходит в интернете или мессенджерах? <div class="faq-icon"></div></summary>
-        <div class="faq-body">Для этого есть отдельный документ в пакете — памятка по кибербуллингу. В ней: как правильно фиксировать доказательства, куда обращаться при онлайн-угрозах, правовая основа по нормам РК.</div>
-      </details>
-      <details>
-        <summary>Что если школа уже молчит или устно отказала? <div class="faq-icon"></div></summary>
-        <div class="faq-body">Именно для этого нужен письменный документ. Устное обращение школа может не фиксировать. Письменное — обязана зарегистрировать и рассмотреть в установленном порядке. Если и после этого нет реакции — в пакете есть «требование письменного ответа».</div>
-      </details>
-      <details>
-        <summary>Гарантирует ли это результат? <div class="faq-icon"></div></summary>
-        <div class="faq-body">Бот помогает правильно начать официальный процесс. Реакция школы зависит от конкретной ситуации. Если школа продолжает игнорировать — следующие шаги: управление образования, прокуратура. В этих случаях подключаются юристы ADDASTRA.</div>
-      </details>
-      <details>
-        <summary>Это безопасно для меня и ребёнка? <div class="faq-icon"></div></summary>
-        <div class="faq-body">Документ подаётся от имени родителя как официальное письменное обращение — это стандартный законный инструмент. Никаких публичных обвинений, никакого скандала. Только официальный процесс в рамках закона.</div>
-      </details>
-    </div>
-  </div>
-</section>
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer" role="contentinfo">
+  <div class="footer__inner">
+    <div class="footer__top">
 
-<!-- CTA CLOSING -->
-<section class="cta-section">
-  <h2>Ваш ребёнок заслуживает<br><em>официальной защиты.</em></h2>
-  <p class="cta-sub">Не устных обещаний. Первый шаг — 5 минут и бесплатно.</p>
-  <a class="btn-cta" href="https://t.me/bulling_help_kz_bot">🛡️ Получить первый документ бесплатно</a>
-  <p class="cta-note">Telegram-бот · Без регистрации · Голосовой ввод · Первый документ бесплатно</p>
-</section>
+      <div class="footer__brand">
+        <div class="footer__logo">
+          <img src="addastra-logo.png" alt="ADDASTRA" loading="lazy">
+        </div>
+        <p class="footer__brand-desc">
+          Юридическая компания ADDASTRA. Помогаем родителям защищать права детей в казахстанских школах по действующему законодательству РК.
+        </p>
+      </div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">
-    <div class="footer-logo-icon">
-      <img src="addastra-logo.png" alt="ADDASTRA" />
+      <div>
+        <div class="footer__col-title">Навигация</div>
+        <nav class="footer__links" aria-label="Нижняя навигация">
+          <a href="#when" class="footer__link">Когда поможет</a>
+          <a href="#how" class="footer__link">Как работает</a>
+          <a href="#docs" class="footer__link">Документы</a>
+          <a href="#emergency" class="footer__link">Экстренно</a>
+          <a href="#faq" class="footer__link">FAQ</a>
+        </nav>
+      </div>
+
+      <div>
+        <div class="footer__col-title">Правовая информация</div>
+        <nav class="footer__links" aria-label="Юридические документы">
+          <a href="privacy.html" class="footer__link">Политика конфиденциальности</a>
+          <a href="terms.html" class="footer__link">Условия использования</a>
+          <a href="https://t.me/bulling_help_kz_bot" class="footer__link" target="_blank" rel="noopener noreferrer">Telegram-бот</a>
+        </nav>
+      </div>
+
     </div>
-    <div class="footer-logo-name">Буллинг<span>Стоп</span>КЗ × ADD<span>ASTRA</span></div>
-  </div>
-  <p>© 2026 ТОО «ADDASTRA» · Алматы, Казахстан · <a href="https://addastra-laws.kz" target="_blank">addastra-laws.kz</a></p>
-  <div class="footer-links">
-    <a href="https://t.me/bulling_help_kz_bot">/privacy</a> — Политика конфиденциальности &nbsp;|&nbsp;
-    <a href="https://t.me/bulling_help_kz_bot">/terms</a> — Условия использования
-  </div>
-  <div class="disclaimer">
-    Буллинг Стоп КЗ формирует шаблоны официальных документов на основе норм права РК и не является юридической консультацией. Бот не заменяет индивидуальную правовую помощь. В сложных случаях обратитесь к юристу ADDASTRA или иному квалифицированному специалисту.
+
+    <div class="footer__bottom">
+      <p class="footer__copy">© 2025 ADDASTRA. Все права защищены. Документы носят информационный характер и не являются юридической консультацией.</p>
+      <div class="footer__legal">
+        <a href="privacy.html" class="footer__legal-link">Конфиденциальность</a>
+        <a href="terms.html" class="footer__legal-link">Условия</a>
+      </div>
+    </div>
   </div>
 </footer>
 
+<!-- ==================== STICKY MOBILE CTA ==================== -->
+<div class="sticky-cta" role="complementary" aria-label="Открыть бот">
+  <a
+    href="https://t.me/bulling_help_kz_bot"
+    class="sticky-cta__btn"
+    target="_blank"
+    rel="noopener noreferrer"
+    data-analytics="sticky-cta"
+  >
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.68 7.92c-.12.56-.46.7-.94.44l-2.6-1.92-1.26 1.22c-.14.14-.26.26-.52.26l.18-2.64 4.74-4.28c.2-.18-.04-.28-.32-.1l-5.86 3.7-2.52-.8c-.55-.17-.56-.55.12-.81l9.82-3.79c.46-.16.86.11.84.8z"/>
+    </svg>
+    Открыть Telegram-бот
+  </a>
+</div>
+
+<script src="script.js" defer></script>
 </body>
 </html>
