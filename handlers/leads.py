@@ -47,7 +47,7 @@ async def handle_consult_request(call: CallbackQuery):
 
     await call.message.answer(
         "✅ <b>Заявка принята!</b>\n\n"
-        "Юрист ADDASTRA свяжется с вами в течение рабочего дня.\n\n"
-        f"Если срочно — напишите напрямую: {SUPPORT_CONTACT}",
+        "Юрист <b>ADDASTRA</b> свяжется с вами в течение рабочего дня.\n\n"
+        "Если срочно — позвоните напрямую: <b>+7 776 138 00 00</b>",
         parse_mode="HTML",
     )

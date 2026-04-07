@@ -360,7 +360,7 @@ async def generate_and_send(message: Message, state: FSMContext):
             "📄 Документ 2: Требование письменного ответа\n"
             "📄 Документ 3: Памятка по фиксации кибербуллинга\n\n"
             "⚡ Оплата через Kaspi Pay скоро будет доступна напрямую.\n"
-            f"Сейчас — напишите нам: {SUPPORT_CONTACT}",
+            "Сейчас — позвоните: <b>+7 776 138 00 00</b> (ADDASTRA)",
             reply_markup=kb.as_markup(),
             parse_mode="HTML",
         )
