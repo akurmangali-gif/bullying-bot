@@ -23,7 +23,7 @@
   --radius-lg: 22px;
   --radius-xl: 32px;
   --max-w: 1120px;
-  --nav-h: 72px;
+  --nav-h: 84px;
 }
 
 /* --- Reset --- */
@@ -73,7 +73,7 @@ ul, ol { list-style: none; }
   gap: 16px;
 }
 .nav__logo { display: flex; align-items: center; flex-shrink: 0; }
-.nav__logo img { height: 52px; width: auto; }
+.nav__logo img { height: 68px; width: auto; }
 .nav__links { display: flex; align-items: center; gap: 4px; }
 .nav__link {
   font-size: 14px;
