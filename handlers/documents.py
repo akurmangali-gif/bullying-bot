@@ -17,12 +17,20 @@ TODAY = lambda: date.today().strftime("%d.%m.%Y")
 
 
 def _set_doc_margins(doc: Document):
-    """Поля: все стороны 2 см."""
+    """Поля по стандарту делопроизводства РК: лево 3см, право 1.5см, верх/низ 2см."""
     for section in doc.sections:
-        section.left_margin   = Cm(2.0)
-        section.right_margin  = Cm(2.0)
+        section.left_margin   = Cm(3.0)
+        section.right_margin  = Cm(1.5)
         section.top_margin    = Cm(2.0)
         section.bottom_margin = Cm(2.0)
+
+    # Убираем дефолтный отступ после абзаца во всём документе
+    style = doc.styles["Normal"]
+    style.paragraph_format.space_before = Pt(0)
+    style.paragraph_format.space_after  = Pt(0)
+    style.paragraph_format.line_spacing = Pt(14)  # 1.15 для 12pt
+    style.font.name = "Times New Roman"
+    style.font.size = Pt(12)
 
 
 async def _clean_description(raw_text: str) -> str:
@@ -74,16 +82,21 @@ def _set_font(run, bold=False, italic=False, size=12):
     run.italic = italic
 
 
-def _set_spacing(paragraph):
-    """Одинарный межстрочный интервал, выравнивание по ширине."""
-    from docx.shared import Pt as _Pt
+def _set_spacing(paragraph, space_after_pt=0):
+    """Одинарный межстрочный интервал, нулевые отступы, выравнивание по ширине."""
     pf = paragraph.paragraph_format
-    pf.line_spacing = _Pt(12)  # 12pt = одинарный для 12pt шрифта
-    pf.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    pf.line_spacing = Pt(14)        # ~1.15 для 12pt — читаемо, не разреженно
+    pf.space_before = Pt(0)
+    pf.space_after  = Pt(space_after_pt)
+    pf.alignment    = WD_ALIGN_PARAGRAPH.JUSTIFY
 
 
 def _heading(doc: Document, text: str):
     p = doc.add_paragraph()
+    pf = p.paragraph_format
+    pf.space_before = Pt(6)
+    pf.space_after  = Pt(6)
+    pf.line_spacing = Pt(14)
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run = p.add_run(text.upper())
     _set_font(run, bold=True, size=13)
