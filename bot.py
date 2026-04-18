@@ -10,7 +10,8 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 import aiosqlite
 from config import BOT_TOKEN, DB_PATH, ADMIN_CHAT_ID
-from db import init_db
+from db import init_db, get_user_cases
+from scheduler import reminder_loop
 from handlers import triage, survey
 from handlers import assessment as assessment_handler
 from handlers import voice as voice_handler
@@ -59,11 +60,12 @@ async def cmd_help(message: Message):
         "/start — главное меню\n"
         "/assess — правовая оценка ситуации\n"
         "/docs — сгенерировать документы\n"
+        "/history — мои прошлые обращения\n"
         "/feedback — оставить отзыв\n"
         "/privacy — политика конфиденциальности\n"
         "/terms — условия использования\n"
         "/help — эта справка\n\n"
-        "По вопросам: @addastra",
+        "По вопросам: +7 776 138 00 00 (ADDASTRA)",
         parse_mode="HTML",
     )
 
@@ -108,7 +110,8 @@ async def cmd_terms(message: Message):
         "по законодательству РК в сфере защиты детей от буллинга.\n\n"
         "<b>2. Что входит в услугу</b>\n"
         "— Документ 1 (Заявление директору) — бесплатно\n"
-        "— Документы 2–3 (Требование ответа + Памятка) — 2 990 тг за пакет\n"
+        "— Базовый пакет (Документы 1–3) — 2 990 тг\n"
+        "— Полный пакет (Документы 1–4 + напоминания о сроках) — 4 990 тг\n"
         "— Консультация юриста ADDASTRA — по отдельному договору\n\n"
         "<b>3. Что не входит</b>\n"
         "Бот не оказывает юридических услуг, не представляет интересы в госорганах, "
@@ -218,6 +221,46 @@ async def cmd_docs(message: Message, state: FSMContext):
     await ask_q1(message, state)
 
 
+@main_router.message(Command("history"))
+async def cmd_history(message: Message):
+    user_id = message.from_user.id
+    cases = await get_user_cases(user_id)
+
+    if not cases:
+        await message.answer(
+            "📂 <b>История обращений</b>\n\n"
+            "У вас пока нет обращений.\n"
+            "Нажмите /docs чтобы начать и получить документы.",
+            parse_mode="HTML",
+        )
+        return
+
+    level_map = {"GREEN": "🟢 Школьный", "AMBER": "🟡 Серьёзный", "RED": "🔴 Экстренный"}
+    lines = ["📂 <b>Ваши обращения:</b>\n"]
+    for c in cases:
+        lvl = level_map.get(c.get("triage_level", ""), c.get("triage_level", ""))
+        date = (c.get("created_at") or "")[:10]
+        school = c.get("school_name") or "—"
+        city   = c.get("city") or ""
+        child  = c.get("child_name") or "—"
+        case_id = c.get("id")
+        lines.append(
+            f"<b>#{case_id}</b> · {date} · {lvl}\n"
+            f"   {school}{', ' + city if city else ''} · {child}"
+        )
+
+    kb = InlineKeyboardBuilder()
+    kb.button(text="📄 Новое обращение", callback_data="start_docs")
+    kb.adjust(1)
+
+    await message.answer(
+        "\n\n".join(lines) + "\n\n<i>Для повторной генерации документов начните новое обращение — "
+        "данные сохранены, процесс займёт 1 минуту.</i>",
+        reply_markup=kb.as_markup(),
+        parse_mode="HTML",
+    )
+
+
 @main_router.callback_query(F.data == "start_docs")
 async def btn_start_docs(call: CallbackQuery, state: FSMContext):
     await call.answer()
@@ -249,6 +292,7 @@ async def main():
     dp.include_router(survey.router)
 
     logging.info("Бот запущен.")
+    asyncio.create_task(reminder_loop(bot))
     await dp.start_polling(bot)
 
 

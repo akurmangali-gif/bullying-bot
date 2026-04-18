@@ -335,55 +335,162 @@ def make_doc3_cyberbullying_memo(data: dict) -> str:
     return _save(doc, filename)
 
 
+# ── Document 4: Жалоба в акимат / отдел образования ─────────────────────
+
+def make_doc4_akimat_complaint(data: dict) -> str:
+    doc = Document()
+    _set_doc_margins(doc)
+
+    school = data.get('school_name') or '___________'
+    city   = data.get('city') or '___________'
+    child  = data.get('child_name') or '___________'
+    cls    = data.get('child_class') or '___'
+    appl   = data.get('applicant_name') or '___________'
+    desc   = data.get('incident_description', '').strip()
+
+    # Шапка — правый угол
+    header = doc.add_paragraph()
+    header.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    pf = header.paragraph_format
+    pf.space_before = Pt(0)
+    pf.space_after  = Pt(0)
+    pf.line_spacing = Pt(14)
+    r = header.add_run(
+        f"Руководителю районного (городского)\n"
+        f"отдела образования г. {city}\n\n"
+        f"От: {appl},\n"
+        f"законного представителя обучающегося\n"
+        f"{child}, {cls} класс,\n"
+        f"{school}"
+    )
+    _set_font(r)
+
+    doc.add_paragraph()
+    _heading(doc, "Жалоба\nна бездействие администрации общеобразовательной организации")
+    doc.add_paragraph()
+
+    _body(doc,
+        f"Я, {appl}, законный представитель обучающегося {child} ({cls} класс, {school}), "
+        f"обращаюсь в соответствии с Правилами профилактики и реагирования на проявления травли (буллинга), "
+        f"утверждёнными Приказом Министра просвещения РК от 21.12.2022 № 506 (далее — Правила № 506), "
+        f"а также на основании Административного процедурно-процессуального кодекса РК (АППК РК)."
+    )
+
+    doc.add_paragraph()
+    _body(doc, "Обстоятельства:", bold=True)
+    _body(doc,
+        f"В отношении моего ребёнка {child} имели место следующие действия: {desc}. "
+        f"«___» __________ 2026 г. мной было подано письменное заявление директору {school} "
+        f"о регистрации факта травли (буллинга) в соответствии с Правилами № 506."
+    )
+
+    doc.add_paragraph()
+    _body(doc, "Суть жалобы:", bold=True)
+    _body(doc,
+        f"По истечении установленного срока письменный ответ от администрации {school} "
+        f"мной получен не был / полученный ответ не содержит сведений о конкретных мерах "
+        f"реагирования, предусмотренных Правилами № 506. Таким образом, имеет место бездействие "
+        f"администрации школы, нарушающее права моего ребёнка на защиту от травли."
+    )
+
+    doc.add_paragraph()
+    _body(doc, "ПРОШУ:", bold=True)
+
+    reqs = [
+        f"Провести проверку соблюдения администрацией {school} требований Правил № 506 "
+        f"в части регистрации и рассмотрения моего обращения.",
+        "Обязать администрацию школы провести надлежащую процедуру реагирования на факт буллинга: "
+        "сбор первичной информации, медиацию или рассмотрение на Совете профилактики.",
+        "Предоставить мне письменный ответ о результатах проверки и принятых мерах "
+        "в сроки, предусмотренные АППК РК.",
+        "При подтверждении бездействия — принять меры административного воздействия "
+        "в отношении должностных лиц школы.",
+    ]
+    for i, req in enumerate(reqs, 1):
+        _body(doc, f"{i}. {req}")
+
+    doc.add_paragraph()
+    _body(doc,
+        "Приложения: копия заявления директору школы с отметкой о принятии (при наличии); "
+        "иные имеющиеся доказательства.",
+        italic=True
+    )
+
+    doc.add_paragraph()
+    doc.add_paragraph()
+    p = doc.add_paragraph()
+    r = p.add_run(f"«___» __________ 2026 г.            Подпись: _______________  / {appl} /")
+    _set_font(r)
+
+    filename = f"4_zhaloba_akimat_{uuid.uuid4().hex[:8]}.docx"
+    return _save(doc, filename)
+
+
 # ── Main: generate all docs and send ─────────────────────────────────────
 
 async def generate_and_send(message: Message, state: FSMContext):
+    from db import create_reminders
     data = await state.get_data()
     user_id = message.chat.id
 
     await message.answer("⏳ Обрабатываю и генерирую документы...")
 
-    # Очищаем и переписываем описание через LLM (юридический стиль)
+    # Переписываем описание через LLM (юридический стиль)
     raw_desc = data.get("incident_description", "")
     if raw_desc:
         data["incident_description"] = await _clean_description(raw_desc)
 
     # Save to DB
-    await save_case(user_id, data)
+    case_id = await save_case(user_id, data)
 
-    # Generate all paths
+    # Generate all 4 documents
     paths = [
         make_doc1_school_application(data),
         make_doc2_written_response(data),
         make_doc3_cyberbullying_memo(data),
+        make_doc4_akimat_complaint(data),
     ]
 
     # ── Документ 1 — всегда бесплатно ────────────────────────────────────
-    await message.answer("📄 <b>Документ 1: Заявление директору школы</b>", parse_mode="HTML")
+    await message.answer("📄 <b>Документ 1: Заявление директору школы</b> — бесплатно", parse_mode="HTML")
     await message.answer_document(FSInputFile(paths[0]))
 
-    # ── Документы 2 и 3 — freemium ───────────────────────────────────────
+    # ── Документы 2–4 — freemium ─────────────────────────────────────────
     if PAYMENT_ENABLED:
         kb = InlineKeyboardBuilder()
-        kb.button(text="💳 Оплатить 2 990 тг — написать в поддержку", url=f"https://t.me/{SUPPORT_CONTACT.lstrip('@')}")
+        kb.button(
+            text="📦 Базовый — 2 990 тг (Документы 1–3)",
+            url=f"https://t.me/{SUPPORT_CONTACT.lstrip('@')}"
+        )
+        kb.button(
+            text="⭐ Полный — 4 990 тг (Документы 1–4 + напоминания о сроках)",
+            url=f"https://t.me/{SUPPORT_CONTACT.lstrip('@')}"
+        )
         kb.adjust(1)
         await message.answer(
-            "📦 <b>Полный пакет документов — 2 990 тг</b>\n\n"
-            "В пакет входят:\n"
-            "📄 Документ 2: Требование письменного ответа\n"
-            "📄 Документ 3: Памятка по фиксации кибербуллинга\n\n"
-            "⚡ Оплата через Kaspi Pay скоро будет доступна напрямую.\n"
-            "Сейчас — позвоните: <b>+7 776 138 00 00</b> (ADDASTRA)",
+            "📦 <b>Выберите пакет документов:</b>\n\n"
+            "🔹 <b>Базовый — 2 990 тг</b>\n"
+            "   Документы 1–3: заявление + требование ответа + памятка по кибербуллингу\n\n"
+            "⭐ <b>Полный — 4 990 тг</b>\n"
+            "   Документы 1–4 + автонапоминания на 5-й и 10-й день\n"
+            "   (бот напомнит если школа не ответила и выдаст жалобу в акимат)\n\n"
+            "⚡ Оплата: <b>+7 776 138 00 00</b> (ADDASTRA, Kaspi Pay)",
             reply_markup=kb.as_markup(),
             parse_mode="HTML",
         )
     else:
-        for path, label in zip(paths[1:], [
+        # Режим разработки — выдаём все документы
+        doc_labels = [
             "📄 <b>Документ 2: Требование письменного ответа</b>",
             "📄 <b>Документ 3: Памятка по фиксации кибербуллинга</b>",
-        ]):
+            "📄 <b>Документ 4: Жалоба в акимат / отдел образования</b>",
+        ]
+        for path, label in zip(paths[1:], doc_labels):
             await message.answer(label, parse_mode="HTML")
             await message.answer_document(FSInputFile(path))
+
+        # В тестовом режиме — создаём напоминания автоматически
+        await create_reminders(user_id, case_id)
 
     # ── Советы по уровню ситуации ────────────────────────────────────────
     level = data.get("triage_level", "GREEN")

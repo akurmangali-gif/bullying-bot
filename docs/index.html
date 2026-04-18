@@ -167,6 +167,67 @@
   </div>
 </section>
 
+<!-- ==================== CALCULATOR ==================== -->
+<section class="calc" id="calc" aria-labelledby="calc-heading">
+  <div class="section-inner">
+    <div class="calc__header text-center">
+      <span class="section-label">Узнайте за 30 секунд</span>
+      <h2 class="section-title" id="calc-heading">Какие документы вам нужны?</h2>
+      <p class="section-sub" style="margin:0 auto;">Ответьте на 3 вопроса — получите готовый маршрут действий</p>
+    </div>
+
+    <div class="calc__widget" id="calcWidget">
+      <!-- Step 1 -->
+      <div class="calc__step" id="calcStep1">
+        <div class="calc__progress"><span class="calc__progress-bar" style="width:33%"></span></div>
+        <p class="calc__q">Что происходит с вашим ребёнком?</p>
+        <div class="calc__options">
+          <button class="calc__opt" data-step="1" data-val="physical">🤜 Физическая агрессия — бьют, толкают, отбирают вещи</button>
+          <button class="calc__opt" data-step="1" data-val="cyber">📱 Кибербуллинг — угрозы в мессенджерах, публикации</button>
+          <button class="calc__opt" data-step="1" data-val="psycho">😔 Изоляция, унижения, психологическое давление</button>
+          <button class="calc__opt" data-step="1" data-val="extortion">💸 Вымогательство денег или вещей</button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="calc__step" id="calcStep2" hidden>
+        <div class="calc__progress"><span class="calc__progress-bar" style="width:66%"></span></div>
+        <p class="calc__q">Вы уже обращались в школу?</p>
+        <div class="calc__options">
+          <button class="calc__opt" data-step="2" data-val="first">Нет, обращаюсь впервые</button>
+          <button class="calc__opt" data-step="2" data-val="verbal">Да, устно — ничего не изменилось</button>
+          <button class="calc__opt" data-step="2" data-val="written">Да, письменно — школа проигнорировала</button>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="calc__step" id="calcStep3" hidden>
+        <div class="calc__progress"><span class="calc__progress-bar" style="width:100%"></span></div>
+        <p class="calc__q">Есть ли прямая угроза жизни или здоровью?</p>
+        <div class="calc__options">
+          <button class="calc__opt" data-step="3" data-val="danger">Да — ребёнок получил травмы или есть угрозы</button>
+          <button class="calc__opt" data-step="3" data-val="safe">Нет — ситуация серьёзная, но острой угрозы нет</button>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div class="calc__result" id="calcResult" hidden>
+        <div class="calc__result-inner">
+          <div class="calc__result-icon" id="calcIcon">📋</div>
+          <h3 class="calc__result-title" id="calcTitle">Ваш маршрут</h3>
+          <p class="calc__result-sub" id="calcSub"></p>
+          <div class="calc__result-docs" id="calcDocs"></div>
+          <a href="https://t.me/bulling_help_kz_bot" class="btn-primary calc__result-btn" target="_blank" rel="noopener noreferrer" data-analytics="calc-cta">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.68 7.92c-.12.56-.46.7-.94.44l-2.6-1.92-1.26 1.22c-.14.14-.26.26-.52.26l.18-2.64 4.74-4.28c.2-.18-.04-.28-.32-.1l-5.86 3.7-2.52-.8c-.55-.17-.56-.55.12-.81l9.82-3.79c.46-.16.86.11.84.8z"/></svg>
+            Получить документы в боте
+          </a>
+          <button class="calc__restart" id="calcRestart">← Начать заново</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ==================== WHEN ==================== -->
 <section class="when" id="when" aria-labelledby="when-heading">
   <div class="section-inner">
