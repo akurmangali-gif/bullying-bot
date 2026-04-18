@@ -8,6 +8,7 @@ class Triage(StatesGroup):
 
 
 class Survey(StatesGroup):
+    consent              = State()  # согласие на обработку данных (до анкеты)
     applicant_name       = State()  # шаг 1 — ФИО заявителя
     child_and_school     = State()  # шаг 2 — ФИО ребёнка + класс + школа + город одним сообщением
     incident_description = State()  # шаг 3 — описание ситуации (даты + что случилось)

@@ -123,6 +123,29 @@ def _save(doc: Document, filename: str) -> str:
     return path
 
 
+def _attribution(doc: Document):
+    """Нижний колонтитул документа — атрибуция ADDASTRA."""
+    doc.add_paragraph()
+    sep = doc.add_paragraph()
+    sep.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    sep.paragraph_format.space_before = Pt(4)
+    sep.paragraph_format.space_after  = Pt(2)
+    sep.paragraph_format.line_spacing = Pt(12)
+    r = sep.add_run("─" * 55)
+    _set_font(r, size=9)
+
+    attr = doc.add_paragraph()
+    attr.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    attr.paragraph_format.space_before = Pt(0)
+    attr.paragraph_format.space_after  = Pt(0)
+    attr.paragraph_format.line_spacing = Pt(12)
+    r = attr.add_run(
+        "Документ подготовлен при содействии ТОО «ADDASTRA»\n"
+        "Юридическая помощь при буллинге: @bulling_help_kz_bot  |  +7 776 138 00 00"
+    )
+    _set_font(r, italic=True, size=9)
+
+
 # ── Document 1: Заявление директору школы ─────────────────────────────────
 
 def make_doc1_school_application(data: dict) -> str:
@@ -197,6 +220,7 @@ def make_doc1_school_application(data: dict) -> str:
     r = p.add_run(f"«___» __________ 2026 г.            Подпись: _______________  / {appl} /")
     _set_font(r)
 
+    _attribution(doc)
     filename = f"1_zayavlenie_shkola_{uuid.uuid4().hex[:8]}.docx"
     return _save(doc, filename)
 
@@ -266,6 +290,7 @@ def make_doc2_written_response(data: dict) -> str:
     r = p.add_run(f"«___» __________ 2026 г.            Подпись: _______________  / {appl} /")
     _set_font(r)
 
+    _attribution(doc)
     filename = f"2_trebovanie_otvet_{uuid.uuid4().hex[:8]}.docx"
     return _save(doc, filename)
 
@@ -336,6 +361,7 @@ def make_doc3_cyberbullying_memo(data: dict) -> str:
     doc.add_paragraph()
     _body(doc, f"Дата составления: {TODAY()}")
 
+    _attribution(doc)
     filename = f"3_pamyatka_kiberbulling_{uuid.uuid4().hex[:8]}.docx"
     return _save(doc, filename)
 
@@ -427,6 +453,7 @@ def make_doc4_akimat_complaint(data: dict) -> str:
     r = p.add_run(f"«___» __________ 2026 г.            Подпись: _______________  / {appl} /")
     _set_font(r)
 
+    _attribution(doc)
     filename = f"4_zhaloba_akimat_{uuid.uuid4().hex[:8]}.docx"
     return _save(doc, filename)
 

@@ -19,16 +19,8 @@ async def init_db():
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id INTEGER NOT NULL,
                 triage_level TEXT NOT NULL,
-                applicant_name TEXT,
-                child_name TEXT,
-                child_class TEXT,
-                school_name TEXT,
                 city TEXT,
                 bully_age_group TEXT,
-                incident_dates TEXT,
-                incident_description TEXT,
-                witnesses TEXT,
-                has_evidence TEXT,
                 prior_actions TEXT,
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP
             )
@@ -48,27 +40,17 @@ async def init_db():
 
 
 async def save_case(user_id: int, data: dict) -> int:
+    """Сохраняем только анонимную аналитику — без персональных данных."""
     async with aiosqlite.connect(DB_PATH) as db:
         cursor = await db.execute("""
             INSERT INTO cases (
-                user_id, triage_level, applicant_name, child_name,
-                child_class, school_name, city, bully_age_group,
-                incident_dates, incident_description, witnesses,
-                has_evidence, prior_actions
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                user_id, triage_level, city, bully_age_group, prior_actions
+            ) VALUES (?, ?, ?, ?, ?)
         """, (
             user_id,
             data.get("triage_level"),
-            data.get("applicant_name"),
-            data.get("child_name"),
-            data.get("child_class"),
-            data.get("school_name"),
             data.get("city"),
             data.get("bully_age_group"),
-            data.get("incident_dates"),
-            data.get("incident_description"),
-            data.get("witnesses"),
-            data.get("has_evidence"),
             data.get("prior_actions"),
         ))
         await db.commit()
@@ -126,11 +108,13 @@ async def mark_reminder_sent(reminder_id: int):
 # ── Получение кейса по ID ────────────────────────────────────────────────
 
 async def get_case_by_id(case_id: int) -> dict | None:
-    """Возвращает данные кейса для регенерации документов."""
+    """Возвращает анонимные данные кейса (без персональных полей)."""
     async with aiosqlite.connect(DB_PATH) as db:
         db.row_factory = aiosqlite.Row
         cursor = await db.execute(
-            """SELECT * FROM cases WHERE id = ?""",
+            """SELECT id, user_id, triage_level, city, bully_age_group,
+                      prior_actions, created_at
+               FROM cases WHERE id = ?""",
             (case_id,),
         )
         row = await cursor.fetchone()
@@ -140,13 +124,11 @@ async def get_case_by_id(case_id: int) -> dict | None:
 # ── История обращений ─────────────────────────────────────────────────────
 
 async def get_user_cases(user_id: int) -> list[dict]:
-    """Возвращает последние 5 обращений пользователя."""
+    """Возвращает последние 5 обращений — только анонимные данные."""
     async with aiosqlite.connect(DB_PATH) as db:
         db.row_factory = aiosqlite.Row
         cursor = await db.execute(
-            """SELECT id, triage_level, child_name, school_name, city,
-                      applicant_name, child_class, bully_age_group,
-                      incident_description, prior_actions, created_at
+            """SELECT id, triage_level, city, bully_age_group, prior_actions, created_at
                FROM cases WHERE user_id = ?
                ORDER BY created_at DESC LIMIT 5""",
             (user_id,),

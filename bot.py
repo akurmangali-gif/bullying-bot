@@ -255,15 +255,13 @@ async def cmd_history(message: Message):
     level_map = {"GREEN": "🟢 Школьный", "AMBER": "🟡 Серьёзный", "RED": "🔴 Экстренный"}
     lines = ["📂 <b>Ваши обращения:</b>\n"]
     for c in cases:
-        lvl = level_map.get(c.get("triage_level", ""), c.get("triage_level", ""))
-        date = (c.get("created_at") or "")[:10]
-        school = c.get("school_name") or "—"
-        city   = c.get("city") or ""
-        child  = c.get("child_name") or "—"
+        lvl     = level_map.get(c.get("triage_level", ""), c.get("triage_level", ""))
+        date    = (c.get("created_at") or "")[:10]
+        city    = c.get("city") or ""
         case_id = c.get("id")
         lines.append(
-            f"<b>#{case_id}</b> · {date} · {lvl}\n"
-            f"   {school}{', ' + city if city else ''} · {child}"
+            f"<b>#{case_id}</b> · {date} · {lvl}"
+            + (f" · {city}" if city else "")
         )
 
     kb = InlineKeyboardBuilder()

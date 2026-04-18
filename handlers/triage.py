@@ -179,9 +179,47 @@ async def show_amber_info(message: Message):
 
 
 async def start_survey(message: Message, state: FSMContext):
-    await state.set_state(Survey.applicant_name)
+    await state.set_state(Survey.consent)
+
+    kb = InlineKeyboardBuilder()
+    kb.button(text="✅ Согласен(на) — продолжить", callback_data="consent_yes")
+    kb.button(text="❌ Не согласен(на)", callback_data="consent_no")
+    kb.adjust(1)
+
     await message.answer(
+        "🔒 <b>Перед началом — одно важное условие</b>\n\n"
+        "Для подготовки документов бот попросит ФИО, название школы и описание ситуации. "
+        "Эти данные используются <b>только для формирования документа</b> — "
+        "они не хранятся на сервере после отправки.\n\n"
+        "Основание: Закон РК «О персональных данных» № 94-V.\n"
+        "Подробнее: /privacy\n\n"
+        "<b>Вы даёте согласие на временную обработку персональных данных "
+        "для подготовки юридических документов?</b>",
+        reply_markup=kb.as_markup(),
+        parse_mode="HTML",
+    )
+
+
+@router.callback_query(Survey.consent, F.data == "consent_yes")
+async def consent_accepted(call: CallbackQuery, state: FSMContext):
+    await call.answer()
+    await call.message.edit_reply_markup()
+    await state.update_data(consent_given=True)
+    await state.set_state(Survey.applicant_name)
+    await call.message.answer(
         "📝 <b>Шаг 1 из 4</b>\n\n"
         "Ваше <b>полное ФИО</b> (заявитель — родитель/законный представитель):",
         parse_mode="HTML",
+    )
+
+
+@router.callback_query(Survey.consent, F.data == "consent_no")
+async def consent_declined(call: CallbackQuery, state: FSMContext):
+    await call.answer()
+    await call.message.edit_reply_markup()
+    await state.clear()
+    await call.message.answer(
+        "Понимаем ваш выбор. Без согласия на обработку данных подготовить документы невозможно.\n\n"
+        "Если передумаете — нажмите /start.\n"
+        "По вопросам: +7 776 138 00 00 (ADDASTRA)"
     )
