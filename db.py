@@ -123,6 +123,20 @@ async def mark_reminder_sent(reminder_id: int):
         await db.commit()
 
 
+# ── Получение кейса по ID ────────────────────────────────────────────────
+
+async def get_case_by_id(case_id: int) -> dict | None:
+    """Возвращает данные кейса для регенерации документов."""
+    async with aiosqlite.connect(DB_PATH) as db:
+        db.row_factory = aiosqlite.Row
+        cursor = await db.execute(
+            """SELECT * FROM cases WHERE id = ?""",
+            (case_id,),
+        )
+        row = await cursor.fetchone()
+        return dict(row) if row else None
+
+
 # ── История обращений ─────────────────────────────────────────────────────
 
 async def get_user_cases(user_id: int) -> list[dict]:

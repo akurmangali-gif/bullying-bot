@@ -9,6 +9,7 @@ GENERATED_DIR = os.getenv("GENERATED_DIR", "generated")
 SUPPORT_CONTACT = os.getenv("SUPPORT_CONTACT", "@bullingstop_kz_bot")
 ADMIN_CHAT_ID   = os.getenv("ADMIN_CHAT_ID", "")   # Telegram chat_id для уведомлений о заявках
 PAYMENT_ENABLED = os.getenv("PAYMENT_ENABLED", "false").lower() == "true"
+KASPI_CARD      = os.getenv("KASPI_CARD", "")           # Номер карты Kaspi для приёма оплаты
 
 # ── AI / LLM настройки ────────────────────────────────────────────────────
 # Для теста (бесплатно): Groq — https://console.groq.com → API Keys

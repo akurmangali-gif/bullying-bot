@@ -16,6 +16,7 @@ from handlers import triage, survey
 from handlers import assessment as assessment_handler
 from handlers import voice as voice_handler
 from handlers import leads as leads_handler
+from handlers import payment as payment_handler
 
 logging.basicConfig(level=logging.INFO)
 
@@ -301,6 +302,7 @@ async def main():
 
     # Порядок важен: main_router первым (перехватывает /start, /cancel, etc.)
     dp.include_router(main_router)
+    dp.include_router(payment_handler.router)  # оплата — до leads (перехватывает adm_ok/adm_no)
     dp.include_router(leads_handler.router)    # глобальные callback без state
     dp.include_router(voice_handler.router)    # голосовые — до текстовых
     dp.include_router(assessment_handler.router)
