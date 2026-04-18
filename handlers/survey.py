@@ -7,6 +7,7 @@
 Шаг 4: Возраст обидчика (кнопки) → что уже делали (кнопки)
 """
 
+import asyncio
 import json
 import logging
 from aiogram import Router, F
@@ -46,32 +47,39 @@ async def _parse_child_and_school(text: str) -> dict:
     Использует LLM для извлечения полей из свободного текста.
     Например: «Иванов Денис, 7А класс, СОШ №15, Алматы»
     Возвращает: {child_name, child_class, school_name, city}
+    Таймаут: 15 секунд.
     """
     try:
         client = AsyncOpenAI(api_key=AI_API_KEY, base_url=AI_BASE_URL)
-        response = await client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
-            messages=[
-                {
-                    "role": "system",
-                    "content": (
-                        "Извлеки из текста пользователя 4 поля и верни ТОЛЬКО JSON без пояснений:\n"
-                        '{"child_name": "ФИО ребёнка", "child_class": "класс", '
-                        '"school_name": "название школы", "city": "город"}\n'
-                        "Если поле не указано — пустая строка."
-                    ),
-                },
-                {"role": "user", "content": text},
-            ],
-            temperature=0.0,
-            max_tokens=150,
-        )
+
+        async def _call():
+            return await client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=[
+                    {
+                        "role": "system",
+                        "content": (
+                            "Извлеки из текста пользователя 4 поля и верни ТОЛЬКО JSON без пояснений:\n"
+                            '{"child_name": "ФИО ребёнка", "child_class": "класс", '
+                            '"school_name": "название школы", "city": "город"}\n'
+                            "Если поле не указано — пустая строка."
+                        ),
+                    },
+                    {"role": "user", "content": text},
+                ],
+                temperature=0.0,
+                max_tokens=150,
+            )
+
+        response = await asyncio.wait_for(_call(), timeout=15.0)
         raw = response.choices[0].message.content.strip()
         # Извлекаем JSON если есть лишний текст
         start = raw.find("{")
         end = raw.rfind("}") + 1
         if start >= 0 and end > start:
             return json.loads(raw[start:end])
+    except asyncio.TimeoutError:
+        logger.warning("LLM parse timeout — using fallback")
     except Exception as e:
         logger.warning(f"LLM parse error: {e}")
 
@@ -123,8 +131,12 @@ async def survey_child_and_school(message: Message, state: FSMContext):
         return
     await state.update_data(child_and_school_raw=raw)
 
+    # Показываем что обрабатываем — LLM-вызов занимает 1-3 сек
+    loading = await message.answer("⏳ <i>Разбираю...</i>", parse_mode="HTML")
+
     # Парсим через LLM
     fields = await _parse_child_and_school(raw)
+    await loading.delete()
     await state.update_data(
         child_name=fields.get("child_name", raw),
         child_class=fields.get("child_class", ""),

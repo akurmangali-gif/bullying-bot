@@ -136,18 +136,36 @@ def level_advice(level: str, systematic: bool) -> str:
 
 
 async def show_red_alert(message: Message, state: FSMContext):
+    kb = InlineKeyboardBuilder()
+    kb.button(text="📄 Оформить документы для школы и полиции", callback_data="red_continue_docs")
+    kb.adjust(1)
+
     await message.answer(
         "🔴 <b>ЭКСТРЕННАЯ СИТУАЦИЯ</b>\n\n"
         "1. Обеспечьте <b>немедленную безопасность</b> ребёнка\n"
         "2. При травмах — вызовите <b>скорую (103)</b>\n"
         "3. При угрозах / оружии — вызовите <b>полицию (102)</b>\n"
         "4. Получите медицинские справки — это ваши ключевые доказательства\n\n"
-        "После того как ситуация под контролем — <b>вернитесь</b> и продолжите оформление "
-        "документов для школы и управление образованияа.\n\n"
-        "Введите /start чтобы начать анкету.",
+        "Когда ситуация под контролем — оформите документы для школы и полиции. "
+        "Они понадобятся в любом случае.",
+        reply_markup=kb.as_markup(),
         parse_mode="HTML",
     )
-    await state.clear()
+    # НЕ сбрасываем state — уровень RED сохранён, анкету начнём по кнопке
+
+
+@router.callback_query(F.data == "red_continue_docs")
+async def red_continue(call: CallbackQuery, state: FSMContext):
+    await call.answer()
+    await call.message.edit_reply_markup()
+    data = await state.get_data()
+    if not data.get("triage_level"):
+        await state.update_data(triage_level="RED")
+    await call.message.answer(
+        "📋 Заполним анкету — это займёт ~3 минуты. "
+        "Документы будут готовы для подачи в школу и полицию."
+    )
+    await start_survey(call.message, state)
 
 
 async def show_amber_info(message: Message):

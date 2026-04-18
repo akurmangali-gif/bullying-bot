@@ -1,3 +1,4 @@
+import asyncio
 import os
 import uuid
 from datetime import date
@@ -48,28 +49,32 @@ async def _clean_description(raw_text: str) -> str:
         from config import AI_BASE_URL, AI_MODEL
 
         client = AsyncOpenAI(api_key=AI_API_KEY, base_url=AI_BASE_URL)
-        response = await client.chat.completions.create(
-            model=AI_MODEL,
-            messages=[
-                {
-                    "role": "system",
-                    "content": (
-                        "Ты помощник юриста в Казахстане. Перепиши описание ситуации "
-                        "буллинга для официального заявления директору школы. "
-                        "Требования: официальный деловой стиль, без эмоций, "
-                        "конкретные факты, исправь опечатки и грамматику, "
-                        "убери повторы, длина не более 5-7 предложений. "
-                        "Верни ТОЛЬКО переписанный текст, без пояснений."
-                    ),
-                },
-                {"role": "user", "content": raw_text},
-            ],
-            temperature=0.2,
-            max_tokens=400,
-        )
+
+        async def _call():
+            return await client.chat.completions.create(
+                model=AI_MODEL,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": (
+                            "Ты помощник юриста в Казахстане. Перепиши описание ситуации "
+                            "буллинга для официального заявления директору школы. "
+                            "Требования: официальный деловой стиль, без эмоций, "
+                            "конкретные факты, исправь опечатки и грамматику, "
+                            "убери повторы, длина не более 5-7 предложений. "
+                            "Верни ТОЛЬКО переписанный текст, без пояснений."
+                        ),
+                    },
+                    {"role": "user", "content": raw_text},
+                ],
+                temperature=0.2,
+                max_tokens=400,
+            )
+
+        response = await asyncio.wait_for(_call(), timeout=15.0)
         cleaned = response.choices[0].message.content.strip()
         return cleaned if cleaned else raw_text
-    except Exception:
+    except (asyncio.TimeoutError, Exception):
         return raw_text  # если что-то пошло не так — используем оригинал
 
 

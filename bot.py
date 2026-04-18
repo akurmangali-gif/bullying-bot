@@ -61,6 +61,7 @@ async def cmd_help(message: Message):
         "/assess — правовая оценка ситуации\n"
         "/docs — сгенерировать документы\n"
         "/history — мои прошлые обращения\n"
+        "/cancel — отменить текущее действие\n"
         "/feedback — оставить отзыв\n"
         "/privacy — политика конфиденциальности\n"
         "/terms — условия использования\n"
@@ -68,6 +69,21 @@ async def cmd_help(message: Message):
         "По вопросам: +7 776 138 00 00 (ADDASTRA)",
         parse_mode="HTML",
     )
+
+
+@main_router.message(Command("cancel"))
+async def cmd_cancel(message: Message, state: FSMContext):
+    current = await state.get_state()
+    await state.clear()
+    if current:
+        await message.answer(
+            "✅ Действие отменено.\n\n"
+            "Нажмите /start чтобы вернуться в главное меню.",
+        )
+    else:
+        await message.answer("Нет активного действия. Нажмите /start для начала.")
+
+
 
 
 @main_router.message(Command("privacy"))
@@ -283,13 +299,29 @@ async def main():
     bot = Bot(token=BOT_TOKEN)
     dp = Dispatcher(storage=MemoryStorage())
 
-    # Порядок важен: main_router первым (перехватывает /start)
+    # Порядок важен: main_router первым (перехватывает /start, /cancel, etc.)
     dp.include_router(main_router)
     dp.include_router(leads_handler.router)    # глобальные callback без state
     dp.include_router(voice_handler.router)    # голосовые — до текстовых
     dp.include_router(assessment_handler.router)
     dp.include_router(triage.router)
     dp.include_router(survey.router)
+
+    # Fallback — ПОСЛЕДНИМ, ловит всё что не обработано выше
+    from aiogram import Router as _R
+    _fallback = _R()
+
+    @_fallback.message()
+    async def _fallback_handler(msg: Message, state: FSMContext):
+        current = await state.get_state()
+        if current:
+            return  # в FSM — не мешаем, это баг если дошли сюда
+        await msg.answer(
+            "👋 Привет! Нажмите /start чтобы начать.\n\n"
+            "Если нужна помощь — /help",
+        )
+
+    dp.include_router(_fallback)
 
     logging.info("Бот запущен.")
     asyncio.create_task(reminder_loop(bot))

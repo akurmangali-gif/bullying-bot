@@ -84,7 +84,7 @@ async def process_situation(message: Message, state: FSMContext):
     await thinking.delete()
 
     # Отправляем оценку
-    await message.answer(assessment, parse_mode="Markdown")
+    await message.answer(assessment, parse_mode="HTML")
 
     # Предлагаем следующий шаг
     await state.set_state(AssessmentState.after_assessment)
