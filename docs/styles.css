@@ -231,6 +231,47 @@ ul, ol { list-style: none; }
 }
 .hero__trust-item svg { color: var(--primary); flex-shrink: 0; }
 
+/* ── Hero route algorithm ── */
+.hero__route {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 28px 0 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.hero__route-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: 10px 14px;
+  min-width: 80px;
+  transition: background 0.2s;
+}
+.hero__route-step--active {
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.4);
+}
+.hero__route-icon { font-size: 20px; }
+.hero__route-label { font-size: 12px; font-weight: 600; color: #fff; }
+.hero__route-days { font-size: 11px; color: rgba(255,255,255,0.55); }
+.hero__route-arrow {
+  font-size: 16px;
+  color: rgba(255,255,255,0.4);
+  flex-shrink: 0;
+}
+.hero__route-caption {
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  text-align: center;
+  margin: 0 0 20px;
+  font-style: italic;
+}
+
 /* ===================== SECTION BASICS ===================== */
 section { padding: 112px 40px; }
 .section-inner { max-width: var(--max-w); margin: 0 auto; }
@@ -810,6 +851,9 @@ section { padding: 112px 40px; }
   .nav__inner { padding: 0 20px; }
   .nav__links { display: none; }
   .hero__trust { gap: 18px; }
+  .hero__route { gap: 4px; }
+  .hero__route-step { padding: 8px 10px; min-width: 68px; }
+  .hero__route-arrow { font-size: 12px; }
   .hero__actions { flex-direction: column; align-items: stretch; }
   .hero__actions .btn-primary,
   .hero__actions .btn-secondary { width: 100%; }
