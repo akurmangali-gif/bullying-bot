@@ -25,8 +25,8 @@ logger = logging.getLogger(__name__)
 router = Router()
 
 PACKAGES = {
-    "b": {"name": "Базовый",  "price": 2990, "docs": 3, "reminders": False},
-    "f": {"name": "Полный",   "price": 4990, "docs": 4, "reminders": True},
+    "b": {"name": "Базовый",  "price": 3900, "docs": 3, "reminders": False},
+    "f": {"name": "Полный",   "price": 5900, "docs": 4, "reminders": True},
 }
 
 

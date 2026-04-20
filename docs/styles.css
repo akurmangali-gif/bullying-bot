@@ -705,6 +705,9 @@ section { padding: 112px 40px; }
 }
 .final-cta .btn-white:hover { transform: translateY(-2px); box-shadow: 0 10px 36px rgba(0,0,0,.2); }
 .final-cta__note { margin-top: 24px; font-size: 13px; color: rgba(255,255,255,.55); }
+.final-cta__qr { margin-top: 32px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.final-cta__qr img { border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,.3); }
+.final-cta__qr-label { font-size: 13px; color: rgba(255,255,255,.6); }
 
 /* ===================== FOOTER ===================== */
 .footer {
