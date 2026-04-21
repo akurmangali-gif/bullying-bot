@@ -275,6 +275,63 @@ ul, ol { list-style: none; }
   font-style: italic;
 }
 
+/* ── Stats strip ── */
+.stats-strip {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 28px 40px;
+}
+.stats-strip__inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+.stats-strip__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  flex: 1;
+  padding: 0 24px;
+}
+.stats-strip__num {
+  font-size: clamp(26px, 4vw, 40px);
+  font-weight: 900;
+  color: var(--primary);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.stats-strip__label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+.stats-strip__label cite {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-size: 11px;
+  display: block;
+  margin-top: 2px;
+}
+.stats-strip__divider {
+  width: 1px;
+  height: 48px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+@media (max-width: 640px) {
+  .stats-strip { padding: 24px 20px; }
+  .stats-strip__inner { flex-direction: column; gap: 20px; }
+  .stats-strip__divider { width: 40px; height: 1px; }
+  .stats-strip__item { padding: 0; }
+}
+
 /* ===================== SECTION BASICS ===================== */
 section { padding: 112px 40px; }
 .section-inner { max-width: var(--max-w); margin: 0 auto; }

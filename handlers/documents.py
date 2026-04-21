@@ -458,6 +458,99 @@ def make_doc4_akimat_complaint(data: dict) -> str:
     return _save(doc, filename)
 
 
+# ── Document 5: Заявление в полицию (ст. 127-2 КОАП РК) ─────────────────
+
+def make_doc5_police_complaint(data: dict) -> str:
+    doc = Document()
+    _set_doc_margins(doc)
+
+    school = data.get('school_name') or '___________'
+    city   = data.get('city') or '___________'
+    child  = data.get('child_name') or '___________'
+    cls    = data.get('child_class') or '___'
+    appl   = data.get('applicant_name') or '___________'
+    desc   = data.get('incident_description', '').strip()
+
+    # Шапка — правый угол
+    header = doc.add_paragraph()
+    header.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    pf = header.paragraph_format
+    pf.space_before = Pt(0)
+    pf.space_after  = Pt(0)
+    pf.line_spacing = Pt(14)
+    r = header.add_run(
+        f"Начальнику управления (отдела) полиции\n"
+        f"г. {city}\n\n"
+        f"От: {appl},\n"
+        f"законного представителя несовершеннолетнего\n"
+        f"{child}, {cls} класс,\n"
+        f"{school}"
+    )
+    _set_font(r)
+
+    doc.add_paragraph()
+    _heading(doc, "Заявление\nо привлечении к административной ответственности\nпо статье 127-2 КОАП РК")
+    doc.add_paragraph()
+
+    _body(doc,
+        f"Я, {appl}, законный представитель несовершеннолетнего обучающегося "
+        f"{child} ({cls} класс, {school}), обращаюсь с настоящим заявлением "
+        f"в соответствии со статьёй 127-2 Кодекса Республики Казахстан "
+        f"об административных правонарушениях (далее — КОАП РК), "
+        f"а также на основании Закона РК «О правах ребёнка» от 08.08.2002 № 345 "
+        f"и Закона РК «О правах женщин и безопасности детей» от 15.04.2024."
+    )
+
+    doc.add_paragraph()
+    _body(doc, "Обстоятельства правонарушения:", bold=True)
+    _body(doc,
+        f"В отношении моего ребёнка {child}, обучающегося в {school} (г. {city}), "
+        f"имели место следующие систематические действия: {desc}. "
+        f"Указанные действия содержат признаки травли (буллинга) несовершеннолетнего — "
+        f"систематических действий унижающего характера, преследования или запугивания, "
+        f"ответственность за которые предусмотрена ст. 127-2 КОАП РК."
+    )
+
+    doc.add_paragraph()
+    _body(doc, "ПРОШУ:", bold=True)
+
+    reqs = [
+        "Зарегистрировать настоящее заявление и возбудить производство по делу "
+        "об административном правонарушении по ст. 127-2 КОАП РК.",
+        f"Провести проверку изложенных обстоятельств, в том числе в {school}.",
+        "Опросить свидетелей, изучить имеющиеся доказательства "
+        "(скриншоты, медицинские документы, показания ребёнка).",
+        "При подтверждении фактов буллинга — привлечь виновных лиц "
+        "к административной ответственности в установленном законом порядке.",
+        "Уведомить меня о результатах рассмотрения настоящего заявления "
+        "в сроки, предусмотренные законодательством РК.",
+    ]
+    for i, req in enumerate(reqs, 1):
+        _body(doc, f"{i}. {req}")
+
+    doc.add_paragraph()
+    _body(doc,
+        "Приложения: копия заявления директору школы; имеющиеся доказательства "
+        "(скриншоты, фотографии, медицинские документы, иные материалы).",
+        italic=True
+    )
+
+    doc.add_paragraph()
+    _body(doc,
+        "Об уголовной ответственности за заведомо ложный донос по ст. 419 УК РК предупреждён(а).",
+    )
+
+    doc.add_paragraph()
+    doc.add_paragraph()
+    p = doc.add_paragraph()
+    r = p.add_run(f"«___» __________ 2026 г.            Подпись: _______________  / {appl} /")
+    _set_font(r)
+
+    _attribution(doc)
+    filename = f"5_zayavlenie_policia_{uuid.uuid4().hex[:8]}.docx"
+    return _save(doc, filename)
+
+
 # ── Main: generate all docs and send ─────────────────────────────────────
 
 async def generate_and_send(message: Message, state: FSMContext):
@@ -475,13 +568,16 @@ async def generate_and_send(message: Message, state: FSMContext):
     # Save to DB
     case_id = await save_case(user_id, data)
 
-    # Generate all 4 documents
+    # Generate documents (5 for AMBER/RED, 4 for GREEN)
+    level = data.get("triage_level", "GREEN")
     paths = [
         make_doc1_school_application(data),
         make_doc2_written_response(data),
         make_doc3_cyberbullying_memo(data),
         make_doc4_akimat_complaint(data),
     ]
+    if level in ("AMBER", "RED"):
+        paths.append(make_doc5_police_complaint(data))
 
     # ── Документ 1 — всегда бесплатно ────────────────────────────────────
     await message.answer("📄 <b>Документ 1: Заявление директору школы</b> — бесплатно", parse_mode="HTML")
@@ -495,17 +591,20 @@ async def generate_and_send(message: Message, state: FSMContext):
             callback_data=f"pay_b_{case_id}",
         )
         kb.button(
-            text="⭐ Полный — 5 900 тг (Документы 1–4 + напоминания)",
+            text="⭐ Полный — 5 900 тг (Документы 1–5 + напоминания)",
             callback_data=f"pay_f_{case_id}",
         )
         kb.adjust(1)
+        full_extra = ""
+        if level in ("AMBER", "RED"):
+            full_extra = "\n   + Документ 5: Заявление в полицию (ст. 127-2 КОАП РК)"
         await message.answer(
             "📦 <b>Выберите пакет документов:</b>\n\n"
             "🔹 <b>Базовый — 3 900 тг</b>\n"
             "   Документы 1–3: заявление + требование ответа + памятка\n\n"
             "⭐ <b>Полный — 5 900 тг</b>\n"
-            "   Документы 1–4 + автонапоминания на 5-й и 10-й день\n"
-            "   (бот напомнит если школа не ответила и выдаст жалобу в акимат)",
+            "   Документы 1–4 + жалоба в акимат + автонапоминания"
+            + full_extra,
             reply_markup=kb.as_markup(),
             parse_mode="HTML",
         )
@@ -516,6 +615,8 @@ async def generate_and_send(message: Message, state: FSMContext):
             "📄 <b>Документ 3: Памятка по фиксации кибербуллинга</b>",
             "📄 <b>Документ 4: Жалоба в акимат / отдел образования</b>",
         ]
+        if level in ("AMBER", "RED"):
+            doc_labels.append("📄 <b>Документ 5: Заявление в полицию (ст. 127-2 КОАП РК)</b>")
         for path, label in zip(paths[1:], doc_labels):
             await message.answer(label, parse_mode="HTML")
             await message.answer_document(FSInputFile(path))

@@ -26,7 +26,7 @@ router = Router()
 
 PACKAGES = {
     "b": {"name": "Базовый",  "price": 3900, "docs": 3, "reminders": False},
-    "f": {"name": "Полный",   "price": 5900, "docs": 4, "reminders": True},
+    "f": {"name": "Полный",   "price": 5900, "docs": 5, "reminders": True},
 }
 
 
@@ -190,16 +190,18 @@ async def admin_confirm_payment(call: CallbackQuery, bot: Bot):
         make_doc2_written_response,
         make_doc3_cyberbullying_memo,
         make_doc4_akimat_complaint,
+        make_doc5_police_complaint,
     )
     import os
 
     docs_to_send = []
-    labels = []
 
     docs_to_send.append((make_doc2_written_response(case_data), "📄 Документ 2: Требование письменного ответа"))
     docs_to_send.append((make_doc3_cyberbullying_memo(case_data), "📄 Документ 3: Памятка по фиксации кибербуллинга"))
     if pkg.get("docs", 3) >= 4:
         docs_to_send.append((make_doc4_akimat_complaint(case_data), "📄 Документ 4: Жалоба в акимат"))
+    if pkg.get("docs", 3) >= 5:
+        docs_to_send.append((make_doc5_police_complaint(case_data), "📄 Документ 5: Заявление в полицию (ст. 127-2 КОАП РК)"))
 
     # Отправляем документы пользователю
     await bot.send_message(
